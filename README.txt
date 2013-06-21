@@ -3,7 +3,7 @@ Contributors: kadamwhite
 Tags: art, media, portfolio, archive
 Requires at least: 3.5.1
 Tested up to: 3.6
-Stable tag: 0.0.1
+Stable tag: 0.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,7 +66,7 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
-= 0.0.1 =
+= 0.0.2 =
 * Plugin scaffolded using Tom McFarlin's [WordPress Plugin Boilerplate](https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate)
 * J. W. Lewin's [ArtGallery illustration](http://commons.wikimedia.org/wiki/File:ArtGallery_by_Lewin.jpg) from WikiMedia commons adopted as temporary plugin banner
 

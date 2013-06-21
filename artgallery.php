@@ -14,7 +14,7 @@
  * Plugin Name: ArtGallery
  * Plugin URI:  TODO
  * Description: Custom post types and taxonomies for the working artist
- * Version:     0.0.1
+ * Version:     0.0.2
  * Author:      K.Adam White <adam@kadamwhite.com>
  * Author URI:  http://kadamwhite.com
  * License:     GPL-2.0+
@@ -26,7 +26,12 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+// Useful global constants
+define( 'ARTGALLERY_URL',     plugin_dir_url( __FILE__ ) );
+define( 'ARTGALLERY_PATH',    dirname( __FILE__ ) . '/' );
+
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-artgallery.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/lib/acf/acf.php' );
 
 // Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
 register_activation_hook( __FILE__, array( 'ArtGallery', 'activate' ) );

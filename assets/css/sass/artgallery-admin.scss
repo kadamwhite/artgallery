@@ -1,0 +1,29 @@
+/**
+ * ArtGallery
+ * http://www.emilygarfield.com
+ *
+ * Copyright (c) 2013 K.Adam White
+ * Licensed under the GPLv2+ license.
+ */
+
+// Suppress "Parent Category" selection menus for custom taxonomies
+#newag_artwork_media_parent,
+#newag_artwork_dimensions_parent {
+  display: none;
+}
+
+// Hide unnecessary WYSIWYG controls on artwork_video input box
+#acf-artwork_video .mceToolbar {
+  display: none;
+}
+
+// Enlarge the key field headings (key fields are generally those set to "No Metabox")
+.acf_postbox.no_box p.label label {
+  font-size: 1.75em;
+  line-height: 2.5em;
+}
+
+// Downsize the weirdly large tab labels
+.acf-tab-group li a {
+  font-size: 16px;
+}

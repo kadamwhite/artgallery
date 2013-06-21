@@ -25,7 +25,7 @@ class ArtGallery {
    *
    * @var     string
    */
-  protected $version = '0.0.1';
+  protected $version = '0.0.2';
 
   /**
    * Unique identifier for your plugin.
@@ -66,6 +66,9 @@ class ArtGallery {
 
     add_action( 'init', array( $this, 'artgallery_register_post_types' ) );
     add_action( 'init', array( $this, 'artgallery_register_taxonomies' ) );
+
+    add_action( 'admin_init', array( $this, 'artgallery_admin_init' ) );
+    add_action( 'admin_enqueue_scripts', array( $this, 'artgallery_admin_enqueue_scripts' ) );
 
   }
 
@@ -133,12 +136,10 @@ class ArtGallery {
       'has_archive' => true,
       'supports' => array(
         'title',
-        'editor',
         'custom-fields',
         'comments',
         'thumbnail',
-        'author',
-        'page-attributes'
+        'author'
       ),
       'labels' => array (
         'name' => 'Artworks',
@@ -170,12 +171,15 @@ class ArtGallery {
     register_taxonomy( 'ag_artwork_media', array ( 0 => 'ag_artwork_item', ), array(
       'hierarchical' => true,
       'label' => 'Media',
+      'singular_label' => 'Medium',
       'show_ui' => true,
       'query_var' => true,
       'rewrite' => array(
         'slug' => 'media'
       ),
-      'singular_label' => 'Medium'
+      'labels' => array (
+        'add_new_item' => 'Add New Medium'
+      )
     ));
 
     register_taxonomy( 'ag_artwork_dimensions', array ( 0 => 'ag_artwork_item', ), array(
@@ -185,19 +189,50 @@ class ArtGallery {
       'query_var' => true,
       'rewrite' => array(
         'slug' => 'dimensions'
+      ),
+      'labels' => array (
+        'name' => 'Artwork Dimensions (e.g. 8x10)',
+        'menu_name' => 'Dimensions',
+        'add_new_item' => 'Add New Dimensions'
       )
     ));
 
-    register_taxonomy( 'ag_artwork_status', array ( 0 => 'ag_artwork_item', ), array(
-      'hierarchical' => true,
-      'label' => 'Sale Status',
-      'show_ui' => true,
-      'query_var' => true,
-      'rewrite' => array(
-        'slug' => 'status'
-      )
-    ));
+  }
 
+  /**
+   * Register a hook to synchronize the Featured Image with an Advanced Custom Fields image field
+   *
+   * Function adapted from a snippet in an Advanced Custom Fields support thread:
+   * http://support.advancedcustomfields.com/discussion/1856/set-featured-image-thumbnail-with-an-image-field/p1#Comment_18599
+   *
+   * @since    0.0.2
+   */
+  public function acf_save_featured() {
+    global $post;
+
+    $the_field = 'art_image';
+    $has_the_field = get_field( $the_field );
+
+    if ( $has_the_field ) {
+        $art_image = get_post_meta( $post->ID, $the_field, true );
+        set_post_thumbnail( $post->ID, $art_image );
+    } else {
+       delete_post_thumbnail();
+    }
+  }
+
+  /**
+   *
+   *
+   * @since 0.0.2
+   */
+  public function artgallery_admin_init() {
+    add_action( 'acf/save_post', array( $this, 'acf_save_featured' ), 20 );
+
+    wp_register_style( 'artgallery-admin', ARTGALLERY_URL . 'assets/css/artgallery-admin.css' );
+  }
+  public function artgallery_admin_enqueue_scripts() {
+    wp_enqueue_style( 'artgallery-admin' );
   }
 
 }

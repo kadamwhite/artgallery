@@ -1,0 +1,34 @@
+/**
+ * ArtGallery
+ * http://www.emilygarfield.com
+ *
+ * Copyright (c) 2013 K.Adam White
+ * Licensed under the GPLv2+ license.
+ */
+#newag_artwork_media_parent,
+#newag_artwork_dimensions_parent {
+  display: none; }
+
+@media screen and (min-width: 1200px) {
+  #acf-artwork_type {
+    box-sizing: border-box;
+    display: inline-block;
+    padding-right: 2em;
+    width: 25%; }
+
+  #acf-artwork_image,
+  #acf-artwork_video {
+    border-left: 1px solid #ccc;
+    box-sizing: border-box;
+    padding-left: 2em;
+    vertical-align: top;
+    width: 75%; } }
+#acf-artwork_video .mceToolbar {
+  display: none; }
+
+.acf_postbox.no_box p.label label {
+  font-size: 1.75em;
+  line-height: 2.5em; }
+
+.acf-tab-group li a {
+  font-size: 16px; }

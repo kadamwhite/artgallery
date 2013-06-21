@@ -66,7 +66,8 @@ module.exports = function( grunt ) {
 		sass:   {
 			all: {
 				files: {
-					'assets/css/artgallery.css': 'assets/css/sass/artgallery.scss'
+					'assets/css/artgallery.css': 'assets/css/sass/artgallery.scss',
+					'assets/css/artgallery-admin.css': 'assets/css/sass/artgallery-admin.scss'
 				}
 			}
 		},
