@@ -16,7 +16,7 @@
 <!-- 7. WordPress will then import each of the posts, pages, comments, categories, etc. -->
 <!--    contained in this file into your site. -->
 
-<!-- generator="WordPress/3.5.1" created="2013-06-21 08:21" -->
+<!-- generator="WordPress/3.5.2" created="2013-06-22 20:36" -->
 <rss version="2.0"
 	xmlns:excerpt="http://wordpress.org/export/1.1/excerpt/"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -29,7 +29,7 @@
 	<title>Emily Garfield Art</title>
 	<link>http://future.emilygarfield.com</link>
 	<description></description>
-	<pubDate>Fri, 21 Jun 2013 08:21:47 +0000</pubDate>
+	<pubDate>Sat, 22 Jun 2013 20:36:46 +0000</pubDate>
 	<language></language>
 	<wp:wxr_version>1.1</wp:wxr_version>
 	<wp:base_site_url>http://future.emilygarfield.com</wp:base_site_url>
@@ -58,7 +58,7 @@
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_51c3e443ad21f</wp:meta_key>
-			<wp:meta_value><![CDATA[a:11:{s:3:"key";s:19:"field_51c3e443ad21f";s:5:"label";s:5:"Image";s:4:"name";s:13:"artwork_image";s:4:"type";s:5:"image";s:12:"instructions";s:32:"Upload the image of this artwork";s:8:"required";s:1:"0";s:11:"save_format";s:6:"object";s:12:"preview_size";s:6:"medium";s:7:"library";s:3:"all";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"1";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3e66a8dc44";s:8:"operator";s:2:"==";s:5:"value";s:5:"image";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:1;}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[a:11:{s:3:"key";s:19:"field_51c3e443ad21f";s:5:"label";s:5:"Image";s:4:"name";s:13:"artwork_image";s:4:"type";s:5:"image";s:12:"instructions";s:32:"Upload the image of this artwork";s:8:"required";s:1:"0";s:11:"save_format";s:6:"object";s:12:"preview_size";s:6:"medium";s:7:"library";s:3:"all";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"1";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3e66a8dc44";s:8:"operator";s:2:"==";s:5:"value";s:5:"image";}}s:8:"allorany";s:3:"any";}s:8:"order_no";i:1;}]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>position</wp:meta_key>
@@ -70,7 +70,7 @@
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>hide_on_screen</wp:meta_key>
-			<wp:meta_value><![CDATA[a:3:{i:0;s:11:"the_content";i:1;s:13:"custom_fields";i:2;s:14:"featured_image";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[a:2:{i:0;s:13:"custom_fields";i:1;s:14:"featured_image";}]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_51c3e66a8dc44</wp:meta_key>
@@ -79,10 +79,6 @@
 		<wp:postmeta>
 			<wp:meta_key>field_51c3e6f68dc45</wp:meta_key>
 			<wp:meta_value><![CDATA[a:11:{s:3:"key";s:19:"field_51c3e6f68dc45";s:5:"label";s:5:"Video";s:4:"name";s:13:"artwork_video";s:4:"type";s:7:"wysiwyg";s:12:"instructions";s:80:"Paste the URL of the YouTube or Vimeo video you wish to embed into this text box";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:7:"toolbar";s:5:"basic";s:12:"media_upload";s:2:"no";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"1";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3e66a8dc44";s:8:"operator";s:2:"==";s:5:"value";s:5:"video";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:2;}]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key>field_51c40a033d327</wp:meta_key>
-			<wp:meta_value><![CDATA[a:11:{s:3:"key";s:19:"field_51c40a033d327";s:5:"label";s:11:"Description";s:4:"name";s:19:"artwork_description";s:4:"type";s:7:"wysiwyg";s:12:"instructions";s:47:"Enter any comments or description for this work";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:7:"toolbar";s:4:"full";s:12:"media_upload";s:3:"yes";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3e66a8dc44";s:8:"operator";s:2:"==";s:5:"value";s:5:"image";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:3;}]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>rule</wp:meta_key>
@@ -148,7 +144,7 @@
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_51c3f5b939bb9</wp:meta_key>
-			<wp:meta_value><![CDATA[a:10:{s:3:"key";s:19:"field_51c3f5b939bb9";s:5:"label";s:13:"Etsy Link URL";s:4:"name";s:30:"artwork_sale_reproduction_link";s:4:"type";s:4:"text";s:12:"instructions";s:85:"Enter a URL where posters, cards or other reproductions of this work may be purchased";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:10:"formatting";s:4:"none";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3f454b36c8";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:8;}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[a:10:{s:3:"key";s:19:"field_51c3f5b939bb9";s:5:"label";s:13:"Etsy Link URL";s:4:"name";s:22:"artwork_copy_sale_link";s:4:"type";s:4:"text";s:12:"instructions";s:85:"Enter a URL where posters, cards or other reproductions of this work may be purchased";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:10:"formatting";s:4:"none";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3f454b36c8";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:8;}]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_51c3fe1beb4a4</wp:meta_key>
@@ -156,7 +152,7 @@
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_51c3fe722f5e6</wp:meta_key>
-			<wp:meta_value><![CDATA[a:10:{s:3:"key";s:19:"field_51c3fe722f5e6";s:5:"label";s:14:"Etsy Link Text";s:4:"name";s:35:"artwork_sale_reproduction_link_text";s:4:"type";s:4:"text";s:12:"instructions";s:106:"Enter the text that will display as the link to that URL (will not display on site if no URL is specified)";s:8:"required";s:1:"0";s:13:"default_value";s:33:"Buy a print of this image on Etsy";s:10:"formatting";s:4:"none";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3f454b36c8";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:9;}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[a:10:{s:3:"key";s:19:"field_51c3fe722f5e6";s:5:"label";s:14:"Etsy Link Text";s:4:"name";s:27:"artwork_copy_sale_link_text";s:4:"type";s:4:"text";s:12:"instructions";s:106:"Enter the text that will display as the link to that URL (will not display on site if no URL is specified)";s:8:"required";s:1:"0";s:13:"default_value";s:33:"Buy a print of this image on Etsy";s:10:"formatting";s:4:"none";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3f454b36c8";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:9;}]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_51c3ff22f40b5</wp:meta_key>

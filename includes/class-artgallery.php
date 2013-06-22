@@ -70,6 +70,8 @@ class ArtGallery {
     add_action( 'admin_init', array( $this, 'artgallery_admin_init' ) );
     add_action( 'admin_enqueue_scripts', array( $this, 'artgallery_admin_enqueue_scripts' ) );
 
+    add_filter( 'the_content', array( $this, 'artgallery_content' ) );
+
   }
 
   /**
@@ -122,10 +124,10 @@ class ArtGallery {
       'label' => 'Artworks',
       'description' => '',
       'public' => true,
-      'publicly_queryable' => false, // Switch to 'true' on go-live
+      'publicly_queryable' => true,
       'query_var' => 'artwork',
-      'show_in_nav_menu' => false, // Switch to 'true' on go-live
-      'exclude_from_search' => true, // Switch to 'false' on go-live
+      'show_in_nav_menu' => true,
+      'exclude_from_search' => false,
       'show_ui' => true,
       'show_in_menu' => true,
       'capability_type' => 'post',
@@ -135,11 +137,12 @@ class ArtGallery {
       ),
       'has_archive' => true,
       'supports' => array(
-        'title',
+        'author',
         'custom-fields',
         'comments',
-        'thumbnail',
-        'author'
+        'editor',
+        'title',
+        'thumbnail'
       ),
       'labels' => array (
         'name' => 'Artworks',
@@ -173,6 +176,7 @@ class ArtGallery {
       'label' => 'Media',
       'singular_label' => 'Medium',
       'show_ui' => true,
+      'show_admin_column' => true,
       'query_var' => true,
       'rewrite' => array(
         'slug' => 'media'
@@ -186,12 +190,13 @@ class ArtGallery {
       'hierarchical' => true,
       'label' => 'Dimensions',
       'show_ui' => true,
+      'show_admin_column' => true,
       'query_var' => true,
       'rewrite' => array(
         'slug' => 'dimensions'
       ),
       'labels' => array (
-        'name' => 'Artwork Dimensions (e.g. 8x10)',
+        'name' => 'Dimensions',
         'menu_name' => 'Dimensions',
         'add_new_item' => 'Add New Dimensions'
       )
@@ -210,19 +215,19 @@ class ArtGallery {
   public function acf_save_featured() {
     global $post;
 
-    $the_field = 'art_image';
+    $the_field = 'artwork_image';
     $has_the_field = get_field( $the_field );
 
     if ( $has_the_field ) {
-        $art_image = get_post_meta( $post->ID, $the_field, true );
-        set_post_thumbnail( $post->ID, $art_image );
+        $artwork_image = get_post_meta( $post->ID, $the_field, true );
+        set_post_thumbnail( $post->ID, $artwork_image );
     } else {
        delete_post_thumbnail();
     }
   }
 
   /**
-   *
+   * Enqueue styles for use in the edit artwork screen
    *
    * @since 0.0.2
    */
@@ -235,4 +240,51 @@ class ArtGallery {
     wp_enqueue_style( 'artgallery-admin' );
   }
 
+
+  /**
+   * Render Art Gallery content
+   *
+   * @since 0.0.2
+   */
+  public function artgallery_content( $content ) {
+    global $post;
+
+    // Do nothing if the content isn't an artwork item
+    if ( $post->post_type != 'ag_artwork_item' ) {
+      return $content;
+    }
+
+    $dimensions = get_the_term_list(
+      $post->id,
+      'ag_artwork_dimensions',
+      'Dimensions: ',
+      ', ',
+      ''
+    );
+
+    $media = get_the_term_list(
+      $post->id,
+      'ag_artwork_media',
+      'Media: ',
+      ', ',
+      ''
+    );
+
+    // Render the image
+    if ( is_archive() ) {
+      the_post_thumbnail( 'thumbnail' );
+    } else {
+      the_post_thumbnail( 'large' );
+    }
+
+    // Append taxonomy lists
+    if ( $dimensions ) {
+      $content = '<p>' . $dimensions . '</p>' . $content;
+    }
+    if ( $media ) {
+      $content = '<p>' . $media . '</p>' . $content;
+    }
+
+    return $content;
+  }
 }

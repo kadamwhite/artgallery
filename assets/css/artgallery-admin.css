@@ -9,6 +9,9 @@
 #newag_artwork_dimensions_parent {
   display: none; }
 
+#acf-artwork_video .mceToolbar {
+  display: none; }
+
 @media screen and (min-width: 1200px) {
   #acf-artwork_type {
     box-sizing: border-box;
@@ -20,12 +23,13 @@
   #acf-artwork_video {
     border-left: 1px solid #ccc;
     box-sizing: border-box;
+    display: inline-block;
     padding-left: 2em;
     vertical-align: top;
-    width: 75%; } }
-#acf-artwork_video .mceToolbar {
-  display: none; }
+    width: 75%; }
 
+  .acf-conditional_logic-hide#acf-artwork_image, .acf-conditional_logic-hide#acf-artwork_video {
+    display: none; } }
 .acf_postbox.no_box p.label label {
   font-size: 1.75em;
   line-height: 2.5em; }

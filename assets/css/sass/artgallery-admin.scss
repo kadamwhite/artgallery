@@ -17,6 +17,35 @@
   display: none;
 }
 
+// Large-screen layout rules for Artwork field group
+@media screen and (min-width: 1200px) {
+
+  #acf-artwork_type {
+    box-sizing: border-box;
+    display: inline-block;
+    padding-right: 2em;
+    width: 25%;
+  }
+
+  #acf-artwork_image,
+  #acf-artwork_video {
+    border-left: 1px solid #ccc;
+    box-sizing: border-box;
+    display: inline-block;
+    padding-left: 2em;
+    vertical-align: top;
+    width: 75%;
+  }
+  // Make sure the cells can still be hidden
+  .acf-conditional_logic-hide {
+    &#acf-artwork_image,
+    &#acf-artwork_video {
+      display: none;
+    }
+  }
+
+}
+
 // Enlarge the key field headings (key fields are generally those set to "No Metabox")
 .acf_postbox.no_box p.label label {
   font-size: 1.75em;
