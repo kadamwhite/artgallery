@@ -12,11 +12,12 @@
 #acf-artwork_video .mceToolbar {
   display: none; }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 900px) {
   #acf-artwork_type {
     box-sizing: border-box;
     display: inline-block;
     padding-right: 2em;
+    padding-top: 0;
     width: 25%; }
 
   #acf-artwork_image,
@@ -25,6 +26,7 @@
     box-sizing: border-box;
     display: inline-block;
     padding-left: 2em;
+    padding-top: 0;
     vertical-align: top;
     width: 75%; }
 

@@ -18,12 +18,13 @@
 }
 
 // Large-screen layout rules for Artwork field group
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 900px) {
 
   #acf-artwork_type {
     box-sizing: border-box;
     display: inline-block;
     padding-right: 2em;
+    padding-top: 0;
     width: 25%;
   }
 
@@ -33,6 +34,7 @@
     box-sizing: border-box;
     display: inline-block;
     padding-left: 2em;
+    padding-top: 0;
     vertical-align: top;
     width: 75%;
   }
