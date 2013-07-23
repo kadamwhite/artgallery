@@ -16,7 +16,7 @@
 <!-- 7. WordPress will then import each of the posts, pages, comments, categories, etc. -->
 <!--    contained in this file into your site. -->
 
-<!-- generator="WordPress/3.5.2" created="2013-06-22 20:36" -->
+<!-- generator="WordPress/3.5.2" created="2013-07-27 05:54" -->
 <rss version="2.0"
 	xmlns:excerpt="http://wordpress.org/export/1.1/excerpt/"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -29,12 +29,12 @@
 	<title>Emily Garfield Art</title>
 	<link>http://future.emilygarfield.com</link>
 	<description></description>
-	<pubDate>Sat, 22 Jun 2013 20:36:46 +0000</pubDate>
+	<pubDate>Sat, 27 Jul 2013 05:54:11 +0000</pubDate>
 	<language></language>
 	<wp:wxr_version>1.1</wp:wxr_version>
-	<wp:base_site_url>http://future.emilygarfield.com</wp:base_site_url>
+	<wp:base_site_url>http://future.emilygarfield.com/backend</wp:base_site_url>
 	<wp:base_blog_url>http://future.emilygarfield.com</wp:base_blog_url>
-	<wp:author><wp:author_id>1</wp:author_id><wp:author_login>emilyhg</wp:author_login><wp:author_email>kadamwhite@gmail.com</wp:author_email><wp:author_display_name><![CDATA[emilyhg]]></wp:author_display_name><wp:author_first_name><![CDATA[]]></wp:author_first_name><wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>
+	<wp:author><wp:author_id>1</wp:author_id><wp:author_login>emilyhg</wp:author_login><wp:author_email>kadamwhite@gmail.com</wp:author_email><wp:author_display_name><![CDATA[Emily Garfield]]></wp:author_display_name><wp:author_first_name><![CDATA[Emily]]></wp:author_first_name><wp:author_last_name><![CDATA[Garfield]]></wp:author_last_name></wp:author>
 	<item>
 		<title>Artwork</title>
 		<link>http://future.emilygarfield.com/?acf=acf_artwork</link>
@@ -99,7 +99,7 @@
 		<wp:post_name>acf_sale-provenance</wp:post_name>
 		<wp:status>publish</wp:status>
 		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>1</wp:menu_order>
+		<wp:menu_order>2</wp:menu_order>
 		<wp:post_type>acf</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:postmeta>
@@ -124,11 +124,11 @@
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_51c3f51c1d411</wp:meta_key>
-			<wp:meta_value><![CDATA[a:12:{s:3:"key";s:19:"field_51c3f51c1d411";s:5:"label";s:5:"Price";s:4:"name";s:18:"artwork_sale_price";s:4:"type";s:6:"number";s:12:"instructions";s:54:"Retail price of the artwork (will not display on site)";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:3:"min";s:0:"";s:3:"max";s:0:"";s:4:"step";s:0:"";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3f454b36c8";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:2;}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[a:15:{s:3:"key";s:19:"field_51c3f51c1d411";s:5:"label";s:5:"Price";s:4:"name";s:18:"artwork_sale_price";s:4:"type";s:6:"number";s:12:"instructions";s:54:"Retail price of the artwork (will not display on site)";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:3:"min";s:0:"";s:3:"max";s:0:"";s:4:"step";s:0:"";s:11:"placeholder";s:0:"";s:7:"prepend";s:0:"";s:6:"append";s:0:"";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3f454b36c8";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:2;}]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_51c3f4e61d410</wp:meta_key>
-			<wp:meta_value><![CDATA[a:10:{s:3:"key";s:19:"field_51c3f4e61d410";s:5:"label";s:16:"Location of Sale";s:4:"name";s:21:"artwork_sale_location";s:4:"type";s:4:"text";s:12:"instructions";s:33:"Where was the original work sold?";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:10:"formatting";s:4:"none";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"1";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3f454b36c8";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:3;}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[a:14:{s:3:"key";s:19:"field_51c3f4e61d410";s:5:"label";s:16:"Location of Sale";s:4:"name";s:21:"artwork_sale_location";s:4:"type";s:4:"text";s:12:"instructions";s:33:"Where was the original work sold?";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:10:"formatting";s:4:"none";s:9:"maxlength";s:0:"";s:11:"placeholder";s:0:"";s:7:"prepend";s:0:"";s:6:"append";s:0:"";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"1";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3f454b36c8";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:3;}]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_51c3f5591d412</wp:meta_key>
@@ -144,7 +144,7 @@
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_51c3f5b939bb9</wp:meta_key>
-			<wp:meta_value><![CDATA[a:10:{s:3:"key";s:19:"field_51c3f5b939bb9";s:5:"label";s:13:"Etsy Link URL";s:4:"name";s:22:"artwork_copy_sale_link";s:4:"type";s:4:"text";s:12:"instructions";s:85:"Enter a URL where posters, cards or other reproductions of this work may be purchased";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:10:"formatting";s:4:"none";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3f454b36c8";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:8;}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[a:14:{s:3:"key";s:19:"field_51c3f5b939bb9";s:5:"label";s:13:"Etsy Link URL";s:4:"name";s:18:"artwork_shop1_link";s:4:"type";s:4:"text";s:12:"instructions";s:85:"Enter a URL where posters, cards or other reproductions of this work may be purchased";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:10:"formatting";s:4:"none";s:9:"maxlength";s:0:"";s:11:"placeholder";s:0:"";s:7:"prepend";s:0:"";s:6:"append";s:0:"";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3f454b36c8";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:8;}]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_51c3fe1beb4a4</wp:meta_key>
@@ -152,11 +152,69 @@
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_51c3fe722f5e6</wp:meta_key>
-			<wp:meta_value><![CDATA[a:10:{s:3:"key";s:19:"field_51c3fe722f5e6";s:5:"label";s:14:"Etsy Link Text";s:4:"name";s:27:"artwork_copy_sale_link_text";s:4:"type";s:4:"text";s:12:"instructions";s:106:"Enter the text that will display as the link to that URL (will not display on site if no URL is specified)";s:8:"required";s:1:"0";s:13:"default_value";s:33:"Buy a print of this image on Etsy";s:10:"formatting";s:4:"none";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3f454b36c8";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:9;}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[a:14:{s:3:"key";s:19:"field_51c3fe722f5e6";s:5:"label";s:14:"Etsy Link Text";s:4:"name";s:23:"artwork_shop1_link_text";s:4:"type";s:4:"text";s:12:"instructions";s:106:"Enter the text that will display as the link to that URL (will not display on site if no URL is specified)";s:8:"required";s:1:"0";s:13:"default_value";s:33:"Buy a print of this image on Etsy";s:10:"formatting";s:4:"none";s:9:"maxlength";s:0:"";s:11:"placeholder";s:0:"";s:7:"prepend";s:0:"";s:6:"append";s:0:"";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3f454b36c8";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:9;}]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_51c3ff22f40b5</wp:meta_key>
 			<wp:meta_value><![CDATA[a:9:{s:3:"key";s:19:"field_51c3ff22f40b5";s:5:"label";s:7:"Message";s:4:"name";s:0:"";s:4:"type";s:7:"message";s:12:"instructions";s:0:"";s:8:"required";s:1:"0";s:7:"message";s:142:"If prints, cards or other reproductions of this work are available for sale, you can include a link to the site where users may purchase them:";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3f454b36c8";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:7;}]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>field_51ee03babd166</wp:meta_key>
+			<wp:meta_value><![CDATA[a:14:{s:3:"key";s:19:"field_51ee03babd166";s:5:"label";s:17:"Society6 Link URL";s:4:"name";s:18:"artwork_shop2_link";s:4:"type";s:4:"text";s:12:"instructions";s:85:"Enter a URL where posters, cards or other reproductions of this work may be purchased";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:10:"formatting";s:4:"none";s:9:"maxlength";s:0:"";s:11:"placeholder";s:0:"";s:7:"prepend";s:0:"";s:6:"append";s:0:"";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3f454b36c8";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:10;}]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>field_51ee0399bd165</wp:meta_key>
+			<wp:meta_value><![CDATA[a:14:{s:3:"key";s:19:"field_51ee0399bd165";s:5:"label";s:18:"Society6 Link Text";s:4:"name";s:23:"artwork_shop2_link_text";s:4:"type";s:4:"text";s:12:"instructions";s:106:"Enter the text that will display as the link to that URL (will not display on site if no URL is specified)";s:8:"required";s:1:"0";s:13:"default_value";s:37:"Buy a print of this image on Society6";s:10:"formatting";s:4:"none";s:9:"maxlength";s:0:"";s:11:"placeholder";s:0:"";s:7:"prepend";s:0:"";s:6:"append";s:0:"";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3f454b36c8";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:11;}]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>rule</wp:meta_key>
+			<wp:meta_value><![CDATA[a:5:{s:5:"param";s:9:"post_type";s:8:"operator";s:2:"==";s:5:"value";s:15:"ag_artwork_item";s:8:"order_no";i:0;s:8:"group_no";i:0;}]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title>Artwork Date</title>
+		<link>http://future.emilygarfield.com/?acf=acf_artwork-date</link>
+		<pubDate>Fri, 28 Jun 2013 16:17:05 +0000</pubDate>
+		<dc:creator>emilyhg</dc:creator>
+		<guid isPermaLink="false">http://future.emilygarfield.com/?post_type=acf&#038;p=859</guid>
+		<wp:post_id>859</wp:post_id>
+		<wp:post_date>2013-06-28 16:17:05</wp:post_date>
+		<wp:post_date_gmt>2013-06-28 16:17:05</wp:post_date_gmt>
+		<wp:comment_status>closed</wp:comment_status>
+		<wp:ping_status>closed</wp:ping_status>
+		<wp:post_name>acf_artwork-date</wp:post_name>
+		<wp:status>publish</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>1</wp:menu_order>
+		<wp:post_type>acf</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>field_51cdb68a07189</wp:meta_key>
+			<wp:meta_value><![CDATA[a:11:{s:3:"key";s:19:"field_51cdb68a07189";s:5:"label";s:12:"Date Created";s:4:"name";s:20:"artwork_date_created";s:4:"type";s:11:"date_picker";s:12:"instructions";s:43:"When did you finish / give up on this work?";s:8:"required";s:1:"0";s:11:"date_format";s:6:"yymmdd";s:14:"display_format";s:8:"dd/mm/yy";s:9:"first_day";s:1:"1";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51ede948847be";s:8:"operator";s:2:"==";s:5:"value";s:0:"";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:0;}]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>position</wp:meta_key>
+			<wp:meta_value><![CDATA[side]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>layout</wp:meta_key>
+			<wp:meta_value><![CDATA[default]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>hide_on_screen</wp:meta_key>
+			<wp:meta_value><![CDATA[]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>field_51ede948847be</wp:meta_key>
+			<wp:meta_value><![CDATA[a:12:{s:3:"key";s:19:"field_51ede948847be";s:5:"label";s:13:"Date Accuracy";s:4:"name";s:21:"artwork_date_accuracy";s:4:"type";s:6:"select";s:12:"instructions";s:177:"By default, the date for an artwork will render as a month (e.g. "March, 2013"). Change this value to have this work display with the full calendar date (e.g. "March 22, 2013").";s:8:"required";s:1:"0";s:7:"choices";a:2:{s:5:"month";s:5:"Month";s:3:"day";s:3:"Day";}s:13:"default_value";s:5:"month";s:10:"allow_null";s:1:"0";s:8:"multiple";s:1:"0";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51ede948847be";s:8:"operator";s:2:"==";s:5:"value";s:0:"";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:2;}]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>field_51f35e8145545</wp:meta_key>
+			<wp:meta_value><![CDATA[a:9:{s:3:"key";s:19:"field_51f35e8145545";s:5:"label";s:0:"";s:4:"name";s:0:"";s:4:"type";s:7:"message";s:12:"instructions";s:0:"";s:8:"required";s:1:"0";s:7:"message";s:206:"<small><strong>Note:</strong> this date determines the order in which work appears on the site. Newer works will display first: an artwork dated 3/22/13 will display before an artwork dated 3/10/13.</small>";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51ede948847be";s:8:"operator";s:2:"==";s:5:"value";s:5:"month";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:1;}]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>rule</wp:meta_key>
