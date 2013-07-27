@@ -33,6 +33,11 @@ define( 'ARTGALLERY_PATH',    dirname( __FILE__ ) . '/' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-artgallery.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/lib/acf/acf.php' );
 
+if ( defined( 'ACF_LITE' ) && ACF_LITE == true ) {
+    // If we're in "lite mode," load the exported config file to register fields
+    require_once( plugin_dir_path( __FILE__ ) . 'includes/config/acf-config.php' );
+}
+
 // Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
 register_activation_hook( __FILE__, array( 'ArtGallery', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'ArtGallery', 'deactivate' ) );
