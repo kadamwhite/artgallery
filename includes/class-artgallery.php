@@ -254,21 +254,9 @@ class ArtGallery {
       return $content;
     }
 
-    $dimensions = get_the_term_list(
-      $post->id,
-      'ag_artwork_dimensions',
-      'Dimensions: ',
-      ', ',
-      ''
-    );
+    $dimensions = self::get_taxonomy_list( $post->id, 'ag_artwork_dimensions' );
 
-    $media = get_the_term_list(
-      $post->id,
-      'ag_artwork_media',
-      'Media: ',
-      ', ',
-      ''
-    );
+    $media = self::get_taxonomy_list( $post->id, 'ag_artwork_media' );
 
     // Render the image
     if ( is_archive() ) {
@@ -286,5 +274,24 @@ class ArtGallery {
     }
 
     return $content;
+  }
+
+  /**
+   * Retrieve a list of taxonomy terms for the provided post ID
+   *
+   * @param string $taxonomy_name The name of the taxonomy.
+   * @param int $post_id The ID of the post for which to fetch those taxonomy terms.
+   * @param bool $plain_text Optional. Return as plain text or as HTML with links (default).
+   * @return string Comma-separated list of media.
+   */
+  public function get_taxonomy_list( $post_id, $taxonomy_name, $plain_text = false ) {
+    if ( $plain_text ) {
+      return implode(
+        wp_get_object_terms( $post_id, $taxonomy_name, array( 'fields' => 'names' ) ),
+        ', '
+      );
+    }
+
+    return get_the_term_list( $post_id, $taxonomy_name, 'Media: ', ', ', '' );
   }
 }

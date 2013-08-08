@@ -43,3 +43,11 @@ register_activation_hook( __FILE__, array( 'ArtGallery', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'ArtGallery', 'deactivate' ) );
 
 ArtGallery::get_instance();
+
+function ag_artwork_dimensions_list( $post_id, $plain_text = false ) {
+    return ArtGallery::get_instance()->get_taxonomy_list( $post_id, 'ag_artwork_dimensions', $plain_text );
+}
+
+function ag_artwork_media_list( $post_id, $plain_text = false ) {
+    return ArtGallery::get_instance()->get_taxonomy_list( $post_id, 'ag_artwork_media', $plain_text );
+}
