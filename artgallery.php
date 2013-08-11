@@ -27,27 +27,52 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Useful global constants
-define( 'ARTGALLERY_URL',     plugin_dir_url( __FILE__ ) );
-define( 'ARTGALLERY_PATH',    dirname( __FILE__ ) . '/' );
+define( 'ARTGALLERY_URL',  plugin_dir_url( __FILE__ ) );
+define( 'ARTGALLERY_PATH', dirname( __FILE__ ) . '/'  );
+
+// Class Instantiation
+// ===================
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-artgallery.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/lib/acf/acf.php' );
 
 if ( defined( 'ACF_LITE' ) && ACF_LITE == true ) {
-    // If we're in "lite mode," load the exported config file to register fields
-    require_once( plugin_dir_path( __FILE__ ) . 'includes/config/acf-config.php' );
+  // If we're in "lite mode," load the exported config file to register fields
+  require_once( plugin_dir_path( __FILE__ ) . 'includes/config/acf-config.php' );
 }
 
-// Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
+// Register hooks that are fired when the plugin is activated and deactivated, respectively.
 register_activation_hook( __FILE__, array( 'ArtGallery', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'ArtGallery', 'deactivate' ) );
 
 ArtGallery::get_instance();
 
+// Template Tags
+// =============
+
 function ag_artwork_dimensions_list( $post_id, $plain_text = false ) {
-    return ArtGallery::get_instance()->get_taxonomy_list( $post_id, 'ag_artwork_dimensions', $plain_text );
+  return ArtGallery::get_instance()->get_taxonomy_list( $post_id, 'ag_artwork_dimensions', $plain_text );
 }
 
 function ag_artwork_media_list( $post_id, $plain_text = false ) {
-    return ArtGallery::get_instance()->get_taxonomy_list( $post_id, 'ag_artwork_media', $plain_text );
+  return ArtGallery::get_instance()->get_taxonomy_list( $post_id, 'ag_artwork_media', $plain_text );
 }
+
+function ag_artwork_title_attribute( $post_id ) {
+  return sprintf(
+    __( '%s, %s (%s)', 'artgallery' ),
+    the_title_attribute( 'echo=0' ),
+    ag_artwork_dimensions_list( get_the_ID(), true ),
+    ag_artwork_media_list( get_the_ID(), true )
+  );
+}
+
+// Widget Stuff
+// ============
+
+require_once( plugin_dir_path( __FILE__ ) . 'includes/class-artgallery-widget.php' );
+
+function ag_register_widget() {
+  register_widget( 'ArtGallery_Widget' );
+}
+add_action( 'widgets_init', 'ag_register_widget' );
