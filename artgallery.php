@@ -70,9 +70,11 @@ function ag_artwork_title_attribute( $post_id ) {
 // Widget Stuff
 // ============
 
-require_once( plugin_dir_path( __FILE__ ) . 'includes/class-artgallery-widget.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/widget-sidebar-gallery.php' );
+// require_once( plugin_dir_path( __FILE__ ) . 'includes/widget-media.php' );
+// require_once( plugin_dir_path( __FILE__ ) . 'includes/widget-dimensions.php' );
 
-function ag_register_widget() {
-  register_widget( 'ArtGallery_Widget' );
+function ag_register_widgets() {
+  register_widget( 'ArtGallery_Sidebar_Gallery_Widget' );
 }
-add_action( 'widgets_init', 'ag_register_widget' );
+add_action( 'widgets_init', 'ag_register_widgets' );

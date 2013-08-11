@@ -16,13 +16,13 @@
  * @package artgallery
  * @author  K.Adam White <adam@kadamwhite.com>
  */
-class ArtGallery_Widget extends WP_Widget {
+class ArtGallery_Sidebar_Gallery_Widget extends WP_Widget {
 
   public function __construct() {
     // widget actual processes
     parent::__construct(
-      'ag_artgallery_widget', // Base ID
-      'Artwork Thumbnails', // Name
+      'ag_artwork_sidebar_gallery_widget', // Base ID
+      __( 'Artwork Thumbnails', 'artgallery' ), // Name
       array(
         'classname' => 'ag_gallery_widget',
         'description' => __( 'A thumbnail gallery of your most recent Artwork items', 'artgallery' ),
