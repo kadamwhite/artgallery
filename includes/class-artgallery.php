@@ -64,8 +64,8 @@ class ArtGallery {
    */
   private function __construct() {
 
-    add_action( 'init', array( $this, 'artgallery_register_post_types' ) );
     add_action( 'init', array( $this, 'artgallery_register_taxonomies' ) );
+    add_action( 'init', array( $this, 'artgallery_register_post_types' ) );
 
     add_action( 'admin_init', array( $this, 'artgallery_admin_init' ) );
     add_action( 'admin_enqueue_scripts', array( $this, 'artgallery_admin_enqueue_scripts' ) );
@@ -130,6 +130,7 @@ class ArtGallery {
       'exclude_from_search' => false,
       'show_ui' => true,
       'show_in_menu' => true,
+      'menu_position' => 5,
       'capability_type' => 'post',
       'hierarchical' => false,
       'rewrite' => array(
@@ -144,10 +145,15 @@ class ArtGallery {
         'title',
         'thumbnail'
       ),
+      'taxonomies' => array (
+        'ag_artwork_categories',
+        'ag_artwork_dimensions',
+        'ag_artwork_media'
+      ),
       'labels' => array (
-        'name' => 'Artworks',
+        'name' => 'Artwork',
         'singular_name' => 'Artwork',
-        'menu_name' => 'Artworks',
+        'all_items' => 'All Artworks',
         'add_new' => 'Add Artwork',
         'add_new_item' => 'Add New Artwork',
         'edit' => 'Edit',
@@ -171,38 +177,36 @@ class ArtGallery {
    */
   public function artgallery_register_taxonomies() {
 
-    register_taxonomy( 'ag_artwork_media', array ( 0 => 'ag_artwork_item', ), array(
+    register_taxonomy( 'ag_artwork_media', null, array(
       'hierarchical' => true,
       'label' => 'Media',
-      'singular_label' => 'Medium',
       'show_ui' => true,
       'show_admin_column' => true,
       'query_var' => true,
       'rewrite' => array(
-        'slug' => 'media'
+        'slug' => 'art/media'
       ),
       'labels' => array (
-        'add_new_item' => 'Add New Medium'
+        'add_new_item' => 'Add New Medium',
+        'singular_name' => 'Medium'
       )
     ));
 
-    register_taxonomy( 'ag_artwork_dimensions', array ( 0 => 'ag_artwork_item', ), array(
+    register_taxonomy( 'ag_artwork_dimensions', null, array(
       'hierarchical' => true,
       'label' => 'Dimensions',
       'show_ui' => true,
       'show_admin_column' => true,
       'query_var' => true,
       'rewrite' => array(
-        'slug' => 'dimensions'
+        'slug' => 'art/dimensions'
       ),
       'labels' => array (
-        'name' => 'Dimensions',
-        'menu_name' => 'Dimensions',
         'add_new_item' => 'Add New Dimensions'
       )
     ));
 
-    register_taxonomy( 'ag_artwork_categories', array ( 0 => 'ag_artwork_item', ), array(
+    register_taxonomy( 'ag_artwork_categories', null, array(
       'hierarchical' => true,
       'label' => 'Categories',
       'singular_label' => 'Category',
@@ -210,10 +214,11 @@ class ArtGallery {
       'show_admin_column' => true,
       'query_var' => true,
       'rewrite' => array(
-        'slug' => 'series'
+        'slug' => 'art/category'
       ),
       'labels' => array (
-        'add_new_item' => 'Add New Category'
+        'add_new_item' => 'Add New Category',
+        'singular_name' => 'Category'
       )
     ));
 

@@ -32,7 +32,7 @@ class ArtGallery_Widget_Dimensions extends WP_Widget {
    * Intercept the output of the widget and re-order terms based on area
    */
   public function reorder_dimensions_term_list( $output, $args ) {
-    if ( $args['taxonomy'] != 'ag_artwork_dimensions' ) {
+    if ( array_key_exists('taxonomy', $args) && $args['taxonomy'] != 'ag_artwork_dimensions' ) {
       return $output;
     }
     // Break string apart into individual list items
