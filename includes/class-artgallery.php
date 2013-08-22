@@ -202,6 +202,21 @@ class ArtGallery {
       )
     ));
 
+    register_taxonomy( 'ag_artwork_categories', array ( 0 => 'ag_artwork_item', ), array(
+      'hierarchical' => true,
+      'label' => 'Categories',
+      'singular_label' => 'Category',
+      'show_ui' => true,
+      'show_admin_column' => true,
+      'query_var' => true,
+      'rewrite' => array(
+        'slug' => 'series'
+      ),
+      'labels' => array (
+        'add_new_item' => 'Add New Category'
+      )
+    ));
+
   }
 
   /**
@@ -219,10 +234,10 @@ class ArtGallery {
     $has_the_field = get_field( $the_field );
 
     if ( $has_the_field ) {
-        $artwork_image = get_post_meta( $post->ID, $the_field, true );
-        set_post_thumbnail( $post->ID, $artwork_image );
+      $artwork_image = get_post_meta( $post->ID, $the_field, true );
+      set_post_thumbnail( $post->ID, $artwork_image );
     } else {
-       delete_post_thumbnail();
+      delete_post_thumbnail();
     }
   }
 
@@ -258,6 +273,8 @@ class ArtGallery {
 
     $media = self::get_taxonomy_list( $post->id, 'ag_artwork_media' );
 
+    $categories = self::get_taxonomy_list( $post->id, 'ag_artwork_categories' );
+
     // Render the image
     if ( is_archive() ) {
       the_post_thumbnail( 'thumbnail' );
@@ -267,10 +284,13 @@ class ArtGallery {
 
     // Append taxonomy lists
     if ( $dimensions ) {
-      $content = '<p>' . $dimensions . '</p>' . $content;
+      $content = '<p>Dimensions: ' . $dimensions . '</p>' . $content;
     }
     if ( $media ) {
-      $content = '<p>' . $media . '</p>' . $content;
+      $content = '<p>Media: ' . $media . '</p>' . $content;
+    }
+    if ( $categories ) {
+      $content = '<p>Category: ' . $categories . '</p>' . $content;
     }
 
     return $content;
@@ -292,6 +312,6 @@ class ArtGallery {
       );
     }
 
-    return get_the_term_list( $post_id, $taxonomy_name, 'Media: ', ', ', '' );
+    return get_the_term_list( $post_id, $taxonomy_name, '', ', ', '' );
   }
 }

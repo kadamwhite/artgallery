@@ -6,7 +6,8 @@
  * Licensed under the GPLv2+ license.
  */
 #newag_artwork_media_parent,
-#newag_artwork_dimensions_parent {
+#newag_artwork_dimensions_parent,
+#newag_artwork_categories_parent {
   display: none; }
 
 #acf-artwork_video .mceToolbar {

@@ -8,7 +8,8 @@
 
 // Suppress "Parent Category" selection menus for custom taxonomies
 #newag_artwork_media_parent,
-#newag_artwork_dimensions_parent {
+#newag_artwork_dimensions_parent,
+#newag_artwork_categories_parent {
   display: none;
 }
 
