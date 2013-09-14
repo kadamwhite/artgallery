@@ -1,4 +1,5 @@
 module.exports = function( grunt ) {
+	'use strict';
 
 	// Project configuration
 	grunt.initConfig( {
@@ -26,20 +27,7 @@ module.exports = function( grunt ) {
 				'assets/js/test/**/*.js'
 			],
 			options: {
-				curly:   true,
-				eqeqeq:  true,
-				immed:   true,
-				latedef: true,
-				newcap:  true,
-				noarg:   true,
-				sub:     true,
-				undef:   true,
-				boss:    true,
-				eqnull:  true,
-				globals: {
-					exports: true,
-					module:  false
-				}
+				jshintrc: '.jshintrc'
 			}
 		},
 		uglify: {
