@@ -70,8 +70,6 @@ class ArtGallery {
     add_action( 'admin_init', array( $this, 'artgallery_admin_init' ) );
     add_action( 'admin_enqueue_scripts', array( $this, 'artgallery_admin_enqueue_scripts' ) );
 
-    add_filter( 'the_content', array( $this, 'artgallery_content' ) );
-
   }
 
   /**
@@ -256,67 +254,9 @@ class ArtGallery {
 
     wp_register_style( 'artgallery-admin', ARTGALLERY_URL . 'assets/css/artgallery-admin.css' );
   }
+
   public function artgallery_admin_enqueue_scripts() {
     wp_enqueue_style( 'artgallery-admin' );
   }
 
-
-  /**
-   * Render Art Gallery content
-   *
-   * @since 0.0.2
-   */
-  public function artgallery_content( $content ) {
-    global $post;
-
-    // Do nothing if the content isn't an artwork item
-    if ( $post->post_type != 'ag_artwork_item' ) {
-      return $content;
-    }
-
-    $dimensions = self::get_taxonomy_list( $post->id, 'ag_artwork_dimensions' );
-
-    $media = self::get_taxonomy_list( $post->id, 'ag_artwork_media' );
-
-    $categories = self::get_taxonomy_list( $post->id, 'ag_artwork_categories' );
-
-    // Render the image
-    if ( is_archive() ) {
-      the_post_thumbnail( 'thumbnail' );
-    } else {
-      the_post_thumbnail( 'large' );
-    }
-
-    // Append taxonomy lists
-    if ( $dimensions ) {
-      $content = '<p>Dimensions: ' . $dimensions . '</p>' . $content;
-    }
-    if ( $media ) {
-      $content = '<p>Media: ' . $media . '</p>' . $content;
-    }
-    if ( $categories ) {
-      $content = '<p>Category: ' . $categories . '</p>' . $content;
-    }
-
-    return $content;
-  }
-
-  /**
-   * Retrieve a list of taxonomy terms for the provided post ID
-   *
-   * @param string $taxonomy_name The name of the taxonomy.
-   * @param int $post_id The ID of the post for which to fetch those taxonomy terms.
-   * @param bool $plain_text Optional. Return as plain text or as HTML with links (default).
-   * @return string Comma-separated list of media.
-   */
-  public function get_taxonomy_list( $post_id, $taxonomy_name, $plain_text = false ) {
-    if ( $plain_text ) {
-      return implode(
-        wp_get_object_terms( $post_id, $taxonomy_name, array( 'fields' => 'names' ) ),
-        ', '
-      );
-    }
-
-    return get_the_term_list( $post_id, $taxonomy_name, '', ', ', '' );
-  }
 }

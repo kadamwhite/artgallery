@@ -50,20 +50,29 @@ ArtGallery::get_instance();
 // Template Tags
 // =============
 
-function ag_artwork_dimensions_list( $post_id, $plain_text = false ) {
-  return ArtGallery::get_instance()->get_taxonomy_list( $post_id, 'ag_artwork_dimensions', $plain_text );
+/**
+ * Retrieve a list of taxonomy terms for the provided post ID
+ *
+ * @param int $post_id The ID of the post for which to fetch those taxonomy terms.
+ * @param string $taxonomy_name The name of the taxonomy.
+ * @return string Comma-separated, plain-text list of term names.
+ */
+function ag_plain_term_list( $post_id, $taxonomy_name, $before = '', $sep = '', $after = '' ) {
+  $terms = wp_get_object_terms( $post_id, $taxonomy_name, array( 'fields' => 'names' ) );
+  return $before . join( $sep, $terms ) . $after;
 }
-
-function ag_artwork_media_list( $post_id, $plain_text = false ) {
-  return ArtGallery::get_instance()->get_taxonomy_list( $post_id, 'ag_artwork_media', $plain_text );
-}
-
+/**
+ * Print out in plain text the title attribute used in artwork permalinks
+ *
+ * @param int $post_id The ID of the post for which to fetch the link title text.
+ * @return string Plain-text string containing the title of an artork item, its size, and the media used.
+ */
 function ag_artwork_title_attribute( $post_id ) {
   return sprintf(
     __( '%s, %s (%s)', 'artgallery' ),
     the_title_attribute( 'echo=0' ),
-    ag_artwork_dimensions_list( get_the_ID(), true ),
-    ag_artwork_media_list( get_the_ID(), true )
+    ag_plain_term_list( $post_id, 'ag_artwork_dimensions' ),
+    ag_plain_term_list( $post_id, 'ag_artwork_media' )
   );
 }
 
