@@ -1,33 +1,24 @@
 <?php
 /**
  *  Install Add-ons
- *
+ *  
  *  The following code will include all 4 premium Add-Ons in your theme.
  *  Please do not attempt to include a file which does not exist. This will produce an error.
- *
- *  All fields must be included during the 'acf/register_fields' action.
- *  Other types of Add-ons (like the options page) can be included outside of this action.
- *
+ *  
  *  The following code assumes you have a folder 'add-ons' inside your theme.
  *
  *  IMPORTANT
- *  Add-ons may be included in a premium theme as outlined in the terms and conditions.
- *  However, they are NOT to be included in a premium / free plugin.
- *  For more information, please read http://www.advancedcustomfields.com/terms-conditions/
- */
+ *  Add-ons may be included in a premium theme/plugin as outlined in the terms and conditions.
+ *  For more information, please read:
+ *  - http://www.advancedcustomfields.com/terms-conditions/
+ *  - http://www.advancedcustomfields.com/resources/getting-started/including-lite-mode-in-a-plugin-theme/
+ */ 
 
-// Fields
-add_action('acf/register_fields', 'my_register_fields');
-
-function my_register_fields()
-{
-	//include_once('add-ons/acf-repeater/repeater.php');
-	//include_once('add-ons/acf-gallery/gallery.php');
-	//include_once('add-ons/acf-flexible-content/flexible-content.php');
-}
-
-// Options Page
-//include_once( 'add-ons/acf-options-page/acf-options-page.php' );
+// Add-ons 
+// include_once('add-ons/acf-repeater/acf-repeater.php');
+// include_once('add-ons/acf-gallery/acf-gallery.php');
+// include_once('add-ons/acf-flexible-content/acf-flexible-content.php');
+// include_once( 'add-ons/acf-options-page/acf-options-page.php' );
 
 
 /**
@@ -178,12 +169,16 @@ if(function_exists("register_field_group"))
 			array (
 				'key' => 'field_51c3f454b36c8',
 				'label' => 'Availability',
-				'name' => 'artwork_sold',
-				'type' => 'checkbox',
+				'name' => 'artwork_availability',
+				'type' => 'radio',
 				'choices' => array (
-					'sold' => 'Artwork has been sold',
+					'available' => 'Available',
+					'sold' => 'Sold',
+					'nfs' => 'Not For Sale',
 				),
-				'default_value' => '',
+				'other_choice' => 0,
+				'save_other_choice' => 0,
+				'default_value' => 'available',
 				'layout' => 'horizontal',
 			),
 			array (
@@ -192,13 +187,24 @@ if(function_exists("register_field_group"))
 				'name' => 'artwork_sale_price',
 				'type' => 'number',
 				'instructions' => 'Retail price of the artwork (will not display on site)',
+				'conditional_logic' => array (
+					'status' => 1,
+					'rules' => array (
+						array (
+							'field' => 'field_51c3f454b36c8',
+							'operator' => '!=',
+							'value' => 'nfs',
+						),
+					),
+					'allorany' => 'all',
+				),
 				'default_value' => '',
-				'min' => '',
-				'max' => '',
-				'step' => '',
 				'placeholder' => '',
 				'prepend' => '',
 				'append' => '',
+				'min' => '',
+				'max' => '',
+				'step' => '',
 			),
 			array (
 				'key' => 'field_51c3f4e61d410',
@@ -218,11 +224,11 @@ if(function_exists("register_field_group"))
 					'allorany' => 'all',
 				),
 				'default_value' => '',
-				'formatting' => 'none',
-				'maxlength' => '',
 				'placeholder' => '',
 				'prepend' => '',
 				'append' => '',
+				'formatting' => 'none',
+				'maxlength' => '',
 			),
 			array (
 				'key' => 'field_51c3fe1beb4a4',
@@ -286,11 +292,11 @@ if(function_exists("register_field_group"))
 				'type' => 'text',
 				'instructions' => 'Enter a URL where posters, cards or other reproductions of this work may be purchased',
 				'default_value' => '',
-				'formatting' => 'none',
-				'maxlength' => '',
 				'placeholder' => '',
 				'prepend' => '',
 				'append' => '',
+				'formatting' => 'none',
+				'maxlength' => '',
 			),
 			array (
 				'key' => 'field_51c3fe722f5e6',
@@ -299,11 +305,11 @@ if(function_exists("register_field_group"))
 				'type' => 'text',
 				'instructions' => 'Enter the text that will display as the link to that URL (will not display on site if no URL is specified)',
 				'default_value' => 'Buy a print of this image on Etsy',
-				'formatting' => 'none',
-				'maxlength' => '',
 				'placeholder' => '',
 				'prepend' => '',
 				'append' => '',
+				'formatting' => 'none',
+				'maxlength' => '',
 			),
 			array (
 				'key' => 'field_51ee03babd166',
@@ -312,11 +318,11 @@ if(function_exists("register_field_group"))
 				'type' => 'text',
 				'instructions' => 'Enter a URL where posters, cards or other reproductions of this work may be purchased',
 				'default_value' => '',
-				'formatting' => 'none',
-				'maxlength' => '',
 				'placeholder' => '',
 				'prepend' => '',
 				'append' => '',
+				'formatting' => 'none',
+				'maxlength' => '',
 			),
 			array (
 				'key' => 'field_51ee0399bd165',
@@ -325,11 +331,11 @@ if(function_exists("register_field_group"))
 				'type' => 'text',
 				'instructions' => 'Enter the text that will display as the link to that URL (will not display on site if no URL is specified)',
 				'default_value' => 'Buy a print of this image on Society6',
-				'formatting' => 'none',
-				'maxlength' => '',
 				'placeholder' => '',
 				'prepend' => '',
 				'append' => '',
+				'formatting' => 'none',
+				'maxlength' => '',
 			),
 		),
 		'location' => array (

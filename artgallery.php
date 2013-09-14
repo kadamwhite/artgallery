@@ -38,7 +38,7 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/lib/acf/acf.php' );
 
 if ( defined( 'ACF_LITE' ) && ACF_LITE == true ) {
   // If we're in "lite mode," load the exported config file to register fields
-  require_once( plugin_dir_path( __FILE__ ) . 'includes/config/acf-config.php' );
+  require_once( plugin_dir_path( __FILE__ ) . 'config/acf-config.php' );
 }
 
 // Register hooks that are fired when the plugin is activated and deactivated, respectively.
