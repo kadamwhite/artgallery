@@ -59,3 +59,13 @@
 .acf-tab-group li a {
   font-size: 16px;
 }
+
+// Display the artwork availability options horizontally
+#acf-artwork_availability .categorychecklist li {
+  display: inline-block;
+  padding-right: 2em;
+}
+// Hide the availability proxy
+#acf-artwork_availability_proxy {
+  display: none;
+}

@@ -150,23 +150,36 @@ if(function_exists("register_field_group"))
 				'label' => '',
 				'name' => '',
 				'type' => 'message',
-				'message' => 'While selecting "Available" will add the text "Contact artist for pricing" to the artwork\'s page, sold/NFS, pricing, and purchaser information are for record-keeping purposes only and are hidden from the site itself.',
+				'message' => 'While marking an artwork as "Available" will add the text "Contact artist for pricing" to the artwork\'s page, all other information (sold/NFS, pricing, purchaser information, etc) are for record-keeping purposes only and will not be displayed to site visitors.',
 			),
 			array (
-				'key' => 'field_523475fc1806f',
+				'key' => 'field_5234d8e5e6f80',
 				'label' => 'Availability',
-				'name' => 'artwork_available',
+				'name' => 'artwork_availability',
+				'type' => 'taxonomy',
+				'instructions' => 'Defaults to "Available" when saved if no value is selected',
+				'taxonomy' => 'ag_artwork_availability',
+				'field_type' => 'radio',
+				'allow_null' => 0,
+				'load_save_terms' => 1,
+				'return_format' => 'id',
+				'multiple' => 0,
+			),
+			array (
+				'key' => 'field_5234e4a80fa5b',
+				'label' => 'Availability Proxy',
+				'name' => 'artwork_availability_proxy',
 				'type' => 'radio',
-				'required' => 1,
+				'instructions' => 'This radio button field is used solely to control the conditional rendering of the other fields in this section. Custom JavaScript is used to synchronize changes from the main "Availability" field into this (hidden) field, triggering the conditional logic.',
 				'choices' => array (
-					'available' => 'Available',
-					'sold' => 'Sold',
-					'nfs' => 'Not For Sale',
+					'available' => 'available',
+					'sold' => 'sold',
+					'notforsale' => 'notforsale',
 				),
 				'other_choice' => 0,
 				'save_other_choice' => 0,
-				'default_value' => 'available',
-				'layout' => 'horizontal',
+				'default_value' => '',
+				'layout' => 'vertical',
 			),
 			array (
 				'key' => 'field_51c3f51c1d411',
@@ -178,9 +191,9 @@ if(function_exists("register_field_group"))
 					'status' => 1,
 					'rules' => array (
 						array (
-							'field' => 'field_523475fc1806f',
+							'field' => 'field_5234e4a80fa5b',
 							'operator' => '!=',
-							'value' => 'nfs',
+							'value' => 'notforsale',
 						),
 					),
 					'allorany' => 'all',
@@ -203,7 +216,7 @@ if(function_exists("register_field_group"))
 					'status' => 1,
 					'rules' => array (
 						array (
-							'field' => 'field_523475fc1806f',
+							'field' => 'field_5234e4a80fa5b',
 							'operator' => '==',
 							'value' => 'sold',
 						),
@@ -227,7 +240,7 @@ if(function_exists("register_field_group"))
 					'status' => 1,
 					'rules' => array (
 						array (
-							'field' => 'field_523475fc1806f',
+							'field' => 'field_5234e4a80fa5b',
 							'operator' => '==',
 							'value' => 'sold',
 						),
@@ -248,7 +261,7 @@ if(function_exists("register_field_group"))
 					'status' => 1,
 					'rules' => array (
 						array (
-							'field' => 'field_523475fc1806f',
+							'field' => 'field_5234e4a80fa5b',
 							'operator' => '==',
 							'value' => 'sold',
 						),

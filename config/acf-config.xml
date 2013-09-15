@@ -16,7 +16,7 @@
 <!-- 7. WordPress will then import each of the posts, pages, comments, categories, etc. -->
 <!--    contained in this file into your site. -->
 
-<!-- generator="WordPress/3.6.1" created="2013-09-14 15:45" -->
+<!-- generator="WordPress/3.6.1" created="2013-09-15 14:02" -->
 <rss version="2.0"
 	xmlns:excerpt="http://wordpress.org/export/1.1/excerpt/"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -29,7 +29,7 @@
 	<title>Emily Garfield Art</title>
 	<link>http://emilygarfield-dev.wpengine.com</link>
 	<description></description>
-	<pubDate>Sat, 14 Sep 2013 15:45:35 +0000</pubDate>
+	<pubDate>Sun, 15 Sep 2013 14:02:04 +0000</pubDate>
 	<language></language>
 	<wp:wxr_version>1.1</wp:wxr_version>
 	<wp:base_site_url>http://emilygarfield-dev.wpengine.com</wp:base_site_url>
@@ -120,15 +120,15 @@
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_51c3f51c1d411</wp:meta_key>
-			<wp:meta_value><![CDATA[a:15:{s:3:"key";s:19:"field_51c3f51c1d411";s:5:"label";s:5:"Price";s:4:"name";s:18:"artwork_sale_price";s:4:"type";s:6:"number";s:12:"instructions";s:54:"Retail price of the artwork (will not display on site)";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:11:"placeholder";s:0:"";s:7:"prepend";s:0:"";s:6:"append";s:0:"";s:3:"min";s:0:"";s:3:"max";s:0:"";s:4:"step";s:0:"";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"1";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_523475fc1806f";s:8:"operator";s:2:"!=";s:5:"value";s:3:"nfs";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:3;}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[a:15:{s:3:"key";s:19:"field_51c3f51c1d411";s:5:"label";s:5:"Price";s:4:"name";s:18:"artwork_sale_price";s:4:"type";s:6:"number";s:12:"instructions";s:54:"Retail price of the artwork (will not display on site)";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:11:"placeholder";s:0:"";s:7:"prepend";s:0:"";s:6:"append";s:0:"";s:3:"min";s:0:"";s:3:"max";s:0:"";s:4:"step";s:0:"";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"1";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_5234e4a80fa5b";s:8:"operator";s:2:"!=";s:5:"value";s:10:"notforsale";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:4;}]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_51c3f4e61d410</wp:meta_key>
-			<wp:meta_value><![CDATA[a:14:{s:3:"key";s:19:"field_51c3f4e61d410";s:5:"label";s:16:"Location of Sale";s:4:"name";s:21:"artwork_sale_location";s:4:"type";s:4:"text";s:12:"instructions";s:33:"Where was the original work sold?";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:11:"placeholder";s:0:"";s:7:"prepend";s:0:"";s:6:"append";s:0:"";s:10:"formatting";s:4:"none";s:9:"maxlength";s:0:"";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"1";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_523475fc1806f";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:4;}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[a:14:{s:3:"key";s:19:"field_51c3f4e61d410";s:5:"label";s:16:"Location of Sale";s:4:"name";s:21:"artwork_sale_location";s:4:"type";s:4:"text";s:12:"instructions";s:33:"Where was the original work sold?";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:11:"placeholder";s:0:"";s:7:"prepend";s:0:"";s:6:"append";s:0:"";s:10:"formatting";s:4:"none";s:9:"maxlength";s:0:"";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"1";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_5234e4a80fa5b";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:5;}]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_51c3f5591d412</wp:meta_key>
-			<wp:meta_value><![CDATA[a:11:{s:3:"key";s:19:"field_51c3f5591d412";s:5:"label";s:9:"Purchaser";s:4:"name";s:22:"artwork_sale_purchaser";s:4:"type";s:7:"wysiwyg";s:12:"instructions";s:43:"Information about the purchaser of the work";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:7:"toolbar";s:5:"basic";s:12:"media_upload";s:2:"no";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"1";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_523475fc1806f";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:6;}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[a:11:{s:3:"key";s:19:"field_51c3f5591d412";s:5:"label";s:9:"Purchaser";s:4:"name";s:22:"artwork_sale_purchaser";s:4:"type";s:7:"wysiwyg";s:12:"instructions";s:43:"Information about the purchaser of the work";s:8:"required";s:1:"0";s:13:"default_value";s:0:"";s:7:"toolbar";s:5:"basic";s:12:"media_upload";s:2:"no";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"1";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_5234e4a80fa5b";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:7;}]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_51c3f59639bb7</wp:meta_key>
@@ -136,23 +136,27 @@
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_51c3f5aa39bb8</wp:meta_key>
-			<wp:meta_value><![CDATA[a:8:{s:3:"key";s:19:"field_51c3f5aa39bb8";s:5:"label";s:13:"Reproductions";s:4:"name";s:0:"";s:4:"type";s:3:"tab";s:12:"instructions";s:0:"";s:8:"required";s:1:"0";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3f454b36c8";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:7;}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[a:8:{s:3:"key";s:19:"field_51c3f5aa39bb8";s:5:"label";s:13:"Reproductions";s:4:"name";s:0:"";s:4:"type";s:3:"tab";s:12:"instructions";s:0:"";s:8:"required";s:1:"0";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_51c3f454b36c8";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:8;}]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_51c3fe1beb4a4</wp:meta_key>
-			<wp:meta_value><![CDATA[a:11:{s:3:"key";s:19:"field_51c3fe1beb4a4";s:5:"label";s:12:"Date of Sale";s:4:"name";s:17:"artwork_sale_date";s:4:"type";s:11:"date_picker";s:12:"instructions";s:32:"When was the original work sold?";s:8:"required";s:1:"0";s:11:"date_format";s:6:"yymmdd";s:14:"display_format";s:8:"mm/dd/yy";s:9:"first_day";s:1:"1";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"1";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_523475fc1806f";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:5;}]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key>field_523475fc1806f</wp:meta_key>
-			<wp:meta_value><![CDATA[a:13:{s:3:"key";s:19:"field_523475fc1806f";s:5:"label";s:12:"Availability";s:4:"name";s:17:"artwork_available";s:4:"type";s:5:"radio";s:12:"instructions";s:0:"";s:8:"required";s:1:"1";s:7:"choices";a:3:{s:9:"available";s:9:"Available";s:4:"sold";s:4:"Sold";s:3:"nfs";s:12:"Not For Sale";}s:12:"other_choice";s:1:"0";s:17:"save_other_choice";s:1:"0";s:13:"default_value";s:9:"available";s:6:"layout";s:10:"horizontal";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_523475fc1806f";s:8:"operator";s:2:"==";s:5:"value";s:9:"available";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:2;}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[a:11:{s:3:"key";s:19:"field_51c3fe1beb4a4";s:5:"label";s:12:"Date of Sale";s:4:"name";s:17:"artwork_sale_date";s:4:"type";s:11:"date_picker";s:12:"instructions";s:32:"When was the original work sold?";s:8:"required";s:1:"0";s:11:"date_format";s:6:"yymmdd";s:14:"display_format";s:8:"mm/dd/yy";s:9:"first_day";s:1:"1";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"1";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_5234e4a80fa5b";s:8:"operator";s:2:"==";s:5:"value";s:4:"sold";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:6;}]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_523476c022ae2</wp:meta_key>
-			<wp:meta_value><![CDATA[a:9:{s:3:"key";s:19:"field_523476c022ae2";s:5:"label";s:0:"";s:4:"name";s:0:"";s:4:"type";s:7:"message";s:12:"instructions";s:0:"";s:8:"required";s:1:"0";s:7:"message";s:216:"While selecting "Available" will add the text "Contact artist for pricing" to the artwork's page, sold/NFS, pricing, and purchaser information are for record-keeping purposes only and are hidden from the site itself.";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_523475fc1806f";s:8:"operator";s:2:"==";s:5:"value";s:9:"available";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:1;}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[a:9:{s:3:"key";s:19:"field_523476c022ae2";s:5:"label";s:0:"";s:4:"name";s:0:"";s:4:"type";s:7:"message";s:12:"instructions";s:0:"";s:8:"required";s:1:"0";s:7:"message";s:260:"While marking an artwork as "Available" will add the text "Contact artist for pricing" to the artwork's page, all other information (sold/NFS, pricing, purchaser information, etc) are for record-keeping purposes only and will not be displayed to site visitors.";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:4:"null";s:8:"operator";s:2:"==";s:5:"value";s:0:"";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:1;}]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>field_52347937aa527</wp:meta_key>
-			<wp:meta_value><![CDATA[a:13:{s:3:"key";s:19:"field_52347937aa527";s:5:"label";s:16:"Online Retailers";s:4:"name";s:17:"artwork_retailers";s:4:"type";s:8:"repeater";s:12:"instructions";s:143:"If prints, cards or other reproductions of this work are available for sale, you can include a link to the sites where users may purchase them.";s:8:"required";s:1:"0";s:10:"sub_fields";a:2:{i:0;a:13:{s:3:"key";s:19:"field_523481ad31536";s:5:"label";s:9:"Link Text";s:4:"name";s:26:"artwork_retailer_link_text";s:4:"type";s:4:"text";s:12:"instructions";s:0:"";s:12:"column_width";s:0:"";s:13:"default_value";s:0:"";s:11:"placeholder";s:51:"e.g. Buy a print of this image on [Retailer's Site]";s:7:"prepend";s:0:"";s:6:"append";s:0:"";s:10:"formatting";s:4:"html";s:9:"maxlength";s:0:"";s:8:"order_no";i:0;}i:1;a:13:{s:3:"key";s:19:"field_5234815831535";s:5:"label";s:8:"Link URL";s:4:"name";s:20:"artwork_retailer_url";s:4:"type";s:4:"text";s:12:"instructions";s:0:"";s:12:"column_width";s:0:"";s:13:"default_value";s:0:"";s:11:"placeholder";s:0:"";s:7:"prepend";s:0:"";s:6:"append";s:0:"";s:10:"formatting";s:4:"html";s:9:"maxlength";s:0:"";s:8:"order_no";i:1;}}s:7:"row_min";s:1:"0";s:9:"row_limit";s:0:"";s:6:"layout";s:5:"table";s:12:"button_label";s:12:"Add Retailer";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_523475fc1806f";s:8:"operator";s:2:"==";s:5:"value";s:9:"available";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:8;}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[a:13:{s:3:"key";s:19:"field_52347937aa527";s:5:"label";s:16:"Online Retailers";s:4:"name";s:17:"artwork_retailers";s:4:"type";s:8:"repeater";s:12:"instructions";s:143:"If prints, cards or other reproductions of this work are available for sale, you can include a link to the sites where users may purchase them.";s:8:"required";s:1:"0";s:10:"sub_fields";a:2:{i:0;a:13:{s:3:"key";s:19:"field_523481ad31536";s:5:"label";s:9:"Link Text";s:4:"name";s:26:"artwork_retailer_link_text";s:4:"type";s:4:"text";s:12:"instructions";s:0:"";s:12:"column_width";s:0:"";s:13:"default_value";s:0:"";s:11:"placeholder";s:51:"e.g. Buy a print of this image on [Retailer's Site]";s:7:"prepend";s:0:"";s:6:"append";s:0:"";s:10:"formatting";s:4:"html";s:9:"maxlength";s:0:"";s:8:"order_no";i:0;}i:1;a:13:{s:3:"key";s:19:"field_5234815831535";s:5:"label";s:8:"Link URL";s:4:"name";s:20:"artwork_retailer_url";s:4:"type";s:4:"text";s:12:"instructions";s:0:"";s:12:"column_width";s:0:"";s:13:"default_value";s:0:"";s:11:"placeholder";s:0:"";s:7:"prepend";s:0:"";s:6:"append";s:0:"";s:10:"formatting";s:4:"html";s:9:"maxlength";s:0:"";s:8:"order_no";i:1;}}s:7:"row_min";s:1:"0";s:9:"row_limit";s:0:"";s:6:"layout";s:5:"table";s:12:"button_label";s:12:"Add Retailer";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:19:"field_5234e4a80fa5b";s:8:"operator";s:2:"==";s:5:"value";s:9:"available";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:9;}]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>field_5234d8e5e6f80</wp:meta_key>
+			<wp:meta_value><![CDATA[a:13:{s:3:"key";s:19:"field_5234d8e5e6f80";s:5:"label";s:12:"Availability";s:4:"name";s:20:"artwork_availability";s:4:"type";s:8:"taxonomy";s:12:"instructions";s:58:"Defaults to "Available" when saved if no value is selected";s:8:"required";s:1:"0";s:8:"taxonomy";s:23:"ag_artwork_availability";s:10:"field_type";s:5:"radio";s:10:"allow_null";s:1:"0";s:15:"load_save_terms";s:1:"1";s:13:"return_format";s:2:"id";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:4:"null";s:8:"operator";s:2:"==";s:5:"value";s:0:"";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:2;}]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>field_5234e4a80fa5b</wp:meta_key>
+			<wp:meta_value><![CDATA[a:13:{s:3:"key";s:19:"field_5234e4a80fa5b";s:5:"label";s:18:"Availability Proxy";s:4:"name";s:26:"artwork_availability_proxy";s:4:"type";s:5:"radio";s:12:"instructions";s:256:"This radio button field is used solely to control the conditional rendering of the other fields in this section. Custom JavaScript is used to synchronize changes from the main "Availability" field into this (hidden) field, triggering the conditional logic.";s:8:"required";s:1:"0";s:7:"choices";a:3:{s:9:"available";s:9:"available";s:4:"sold";s:4:"sold";s:10:"notforsale";s:10:"notforsale";}s:12:"other_choice";s:1:"0";s:17:"save_other_choice";s:1:"0";s:13:"default_value";s:0:"";s:6:"layout";s:8:"vertical";s:17:"conditional_logic";a:3:{s:6:"status";s:1:"0";s:5:"rules";a:1:{i:0;a:3:{s:5:"field";s:4:"null";s:8:"operator";s:2:"==";s:5:"value";s:0:"";}}s:8:"allorany";s:3:"all";}s:8:"order_no";i:3;}]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>rule</wp:meta_key>
