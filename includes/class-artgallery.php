@@ -196,18 +196,19 @@ class ArtGallery {
       'label' => 'Availability'
     ));
 
-    register_taxonomy( 'ag_artwork_media', null, array(
+    register_taxonomy( 'ag_artwork_categories', null, array(
       'hierarchical' => true,
-      'label' => 'Media',
+      'label' => 'Categories',
+      'singular_label' => 'Category',
       'show_ui' => true,
       'show_admin_column' => true,
       'query_var' => true,
       'rewrite' => array(
-        'slug' => 'art/media'
+        'slug' => 'art/category'
       ),
       'labels' => array (
-        'add_new_item' => 'Add New Medium',
-        'singular_name' => 'Medium'
+        'add_new_item' => 'Add New Category',
+        'singular_name' => 'Category'
       )
     ));
 
@@ -225,19 +226,18 @@ class ArtGallery {
       )
     ));
 
-    register_taxonomy( 'ag_artwork_categories', null, array(
+    register_taxonomy( 'ag_artwork_media', null, array(
       'hierarchical' => true,
-      'label' => 'Categories',
-      'singular_label' => 'Category',
+      'label' => 'Media',
       'show_ui' => true,
       'show_admin_column' => true,
       'query_var' => true,
       'rewrite' => array(
-        'slug' => 'art/category'
+        'slug' => 'art/media'
       ),
       'labels' => array (
-        'add_new_item' => 'Add New Category',
-        'singular_name' => 'Category'
+        'add_new_item' => 'Add New Medium',
+        'singular_name' => 'Medium'
       )
     ));
 
