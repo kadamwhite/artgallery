@@ -64,9 +64,14 @@ class ArtGallery {
    */
   private function __construct() {
 
+    // Set up taxonomies and post types
     add_action( 'init', array( $this, 'artgallery_register_taxonomies' ) );
     add_action( 'init', array( $this, 'artgallery_register_post_types' ) );
 
+    // Make sure taxonomy terms have been created for Available, NFS and Sold
+    add_action( 'init', array( $this, 'artgallery_set_ag_artwork_availability_options' ) );
+
+    // Anything that has to happen inside Admin
     add_action( 'admin_init', array( $this, 'artgallery_admin_init' ) );
 
   }
@@ -255,8 +260,7 @@ class ArtGallery {
     // Persist artwork image field as the featured image
     add_action( 'acf/save_post', array( $this, 'acf_save_featured' ), 20 );
 
-    // Set the availability options and default to "available"
-    add_action( 'init', array( $this, 'artgallery_set_ag_artwork_availability_options' ) );
+    // Default posts to "available" if saved without an availability state
     add_action( 'save_post', array( $this, 'artgallery_set_default_availability_state' ), 100, 2 );
 
     // Add stylesheet to make our custom ACF stuff display correctly
