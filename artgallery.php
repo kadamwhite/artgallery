@@ -33,8 +33,12 @@ define( 'ARTGALLERY_PATH', dirname( __FILE__ ) . '/'  );
 // Class Instantiation
 // ===================
 
+define( 'ACF_LITE' , true );
+
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-artgallery.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/lib/acf/acf.php' );
+if ( ! class_exists( 'acf' ) ) {
+  require_once( plugin_dir_path( __FILE__ ) . 'includes/lib/acf/acf.php' );
+}
 
 if ( defined( 'ACF_LITE' ) && ACF_LITE == true ) {
   // If we're in "lite mode," load the exported config file to register fields
