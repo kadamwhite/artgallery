@@ -39,33 +39,37 @@ class ArtGallery_Sidebar_Gallery_Widget extends WP_Widget {
    * @param array $instance Saved values from database.
    */
   public function widget( $args, $instance ) {
-    // outputs the content of the widget
     $artwork_query = new WP_Query( array(
       'post_type' => 'ag_artwork_item',
-      'posts_per_page' => intval( $instance['limit'] )
+      'posts_per_page' => intval( $instance['limit'] ),
+      'fields' => 'ids'
     ) );
+    $artwork_ids = $artwork_query->posts;
+    wp_reset_postdata();
+
+    $output = '';
+
+    $output .= $args['before_widget'];
 
     $title = apply_filters( 'widget_title', $instance['title'] );
-
-    echo $args['before_widget'];
     if ( ! empty( $title ) ) {
-      echo $args['before_title'] . $title . $args['after_title'];
+      $output .= $args['before_title'] . $title . $args['after_title'];
     }
 
-    if ( $artwork_query->have_posts() ) {
-      while ( $artwork_query->have_posts() ) : $artwork_query->the_post();
-      ?>
-      <a href="<?php the_permalink(); ?>"
-         title="<?php echo esc_attr( ag_artwork_title_attribute( get_the_ID() ) ); ?>"
-         rel="bookmark">
-          <?php the_post_thumbnail( array( 60, 60 ) ); ?>
-      </a>
-      <?php
-      endwhile;
+    if ( count( $artwork_ids ) ) {
+      foreach ( $artwork_ids as $id ) {
+        $permalink = get_the_permalink( $id );
+        $title = esc_attr( ag_artwork_title_attribute( $id ) );
+        $img = get_the_post_thumbnail( $id, 'ag_square_sm' );
+        $output .= "<a href=\"$permalink\" title=\"$title\" rel=\"bookmark\">$img</a>";
+      }
     } else {
-      echo __( 'No artwork found', 'emilygarfield' );
+      $output .= __( 'No artwork found', 'emilygarfield' );
     }
-    echo $args['after_widget'];
+
+    $output .= $args['after_widget'];
+
+    echo $output;
   }
 
   /**
@@ -107,7 +111,7 @@ class ArtGallery_Sidebar_Gallery_Widget extends WP_Widget {
              type="text"
              value="<?php echo $limit == -1 ? '' : intval( $limit ); ?>" />
     </p>
-    <?php 
+    <?php
   }
 
   /**
