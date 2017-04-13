@@ -74,7 +74,10 @@ function ag_plain_term_list( $post_id, $taxonomy_name, $before = '', $sep = '', 
 function ag_artwork_title_attribute( $post_id ) {
   return sprintf(
     __( '%s, %s (%s)', 'artgallery' ),
-    the_title_attribute( 'echo=0' ),
+    the_title_attribute( array(
+      'echo' => 0,
+      'post' => $post_id,
+    ) ),
     ag_plain_term_list( $post_id, 'ag_artwork_dimensions' ),
     ag_plain_term_list( $post_id, 'ag_artwork_media' )
   );

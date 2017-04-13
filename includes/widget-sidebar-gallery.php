@@ -47,13 +47,11 @@ class ArtGallery_Sidebar_Gallery_Widget extends WP_Widget {
     $artwork_ids = $artwork_query->posts;
     wp_reset_postdata();
 
-    $output = '';
-
-    $output .= $args['before_widget'];
+    echo $args['before_widget'];
 
     $title = apply_filters( 'widget_title', $instance['title'] );
     if ( ! empty( $title ) ) {
-      $output .= $args['before_title'] . $title . $args['after_title'];
+      echo $args['before_title'] . $title . $args['after_title'];
     }
 
     if ( count( $artwork_ids ) ) {
@@ -61,15 +59,16 @@ class ArtGallery_Sidebar_Gallery_Widget extends WP_Widget {
         $permalink = get_the_permalink( $id );
         $title = esc_attr( ag_artwork_title_attribute( $id ) );
         $img = get_the_post_thumbnail( $id, 'ag_square_sm' );
-        $output .= "<a href=\"$permalink\" title=\"$title\" rel=\"bookmark\">$img</a>";
+        echo "<a class=\"artwork-thumbnail\" href=\"$permalink\" rel=\"bookmark\">";
+        echo get_the_post_thumbnail( $id, 'ag_square_sm' );
+        echo "<div class=\"artwork-thumbnail-meta\"><span class=\"entry-title\">$title</span></div>";
+        echo "</a>";
       }
     } else {
-      $output .= __( 'No artwork found', 'emilygarfield' );
+      echo __( 'No artwork found', 'emilygarfield' );
     }
 
-    $output .= $args['after_widget'];
-
-    echo $output;
+    echo $args['after_widget'];
   }
 
   /**
