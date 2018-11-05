@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ruleset>
+	<!-- Use HM Coding Standards -->
+	<rule ref="vendor/humanmade/coding-standards">
+		<!-- Disable specific dumb rules -->
+		<exclude name="HM.Files.FunctionFileName.WrongFile" />
+	</rule>
+
+	<!-- Blocks must be in a directory that matches the block slug, which sometimes includes dashes -->
+	<rule ref="HM.Files.NamespaceDirectoryName.NameMismatch">
+		<exclude-pattern>inc/blocks/*</exclude-pattern>
+	</rule>
+</ruleset>

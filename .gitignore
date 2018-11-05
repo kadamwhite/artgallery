@@ -1,16 +1,8 @@
-# Project-related files
-node_modules
-*.orig
+node_modules/
+vendor/
+*.log
 
-### OSX ###
-.DS_Store
-.AppleDouble
-.LSOverride
-Icon
+build/
 
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
+package-lock.json
+composer.lock
