@@ -21,7 +21,7 @@ along with this program; if not, write to the
     Boston, MA  02110-1301  USA
 
 ## GNU GENERAL PUBLIC LICENSE
-[GNU General Public License]: #GNU_GENERAL_PUBLIC_LICENSE
+[GNU General Public License]: #gnu-general-public-license
 
 Version 2, June 1991
 
@@ -384,7 +384,7 @@ License](http://www.gnu.org/licenses/lgpl.html) instead of this
 License.
 
 ## ARTISTIC LICENSE 2.0
-[Artistic License 2.0]: #ARTISTIC_LICENSE_2.0
+[Artistic License 2.0]: #artistic-license-20
 
 Copyright (c) 2000-2006, The Perl Foundation.
 
