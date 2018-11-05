@@ -40,7 +40,7 @@ class ArtGallery_Widget_Dimensions extends WP_Widget {
     // Sort the array by computing the area indicated by each term
     usort( $terms, array( $this, 'compare_dimensions' ) );
     // If we're sorting descending, reverse the array
-    if ( $args['order'] == 'DESC' ) {
+    if ( isset( $args[ 'order' ] ) && $args['order'] == 'DESC' ) {
       $terms = array_reverse( $terms );
     }
     // Re-assemble the HTML
