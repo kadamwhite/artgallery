@@ -30,6 +30,11 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'ARTGALLERY_URL',  plugin_dir_url( __FILE__ ) );
 define( 'ARTGALLERY_PATH', dirname( __FILE__ ) . '/'  );
 
+require_once( ARTGALLERY_PATH . 'inc/namespace.php' );
+require_once( ARTGALLERY_PATH . 'inc/post-types.php' );
+require_once( ARTGALLERY_PATH . 'inc/taxonomies.php' );
+ArtGallery\setup();
+
 // Class Instantiation
 // ===================
 
