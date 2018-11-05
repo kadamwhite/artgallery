@@ -13,10 +13,6 @@ It is also a work-in-progress.
 * **License:** GPLv2 or later or Artistic License 2.0
 * **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
-## Technical Notes
-
-* Plugin scaffolded using Eric Mann's [grunt-wp-plugin](https://github.com/10up/grunt-wp-plugin) and Tom McFarlin's [WordPress Plugin Boilerplate](https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate)
-
 ## License
 
 This plugin is free software; you can redistribute it and/or modify it under the terms of either:
