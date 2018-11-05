@@ -5,20 +5,20 @@
  * Custom post types and taxonomies for artists.
  *
  * @package   ArtGallery
- * @author    K.Adam White <adam@kadamwhite.com>
+ * @author    K Adam White
  * @license   GPL-2.0+
  * @link      http://example.com
- * @copyright 2013 K.Adam White
+ * @copyright 2013-2018 K Adam White and Contributors
  *
  * @wordpress-plugin
  * Plugin Name: ArtGallery
- * Plugin URI:  TODO
- * Description: Custom post types and taxonomies for the working artist
- * Version:     0.0.2
- * Author:      K.Adam White <adam@kadamwhite.com>
+ * Plugin URI:  https://github.com/kadamwhite/artgallery
+ * Description: Custom post types, taxonomies and editor blocks for the working artist.
+ * Version:     0.1.0
+ * Author:      K Adam White
  * Author URI:  http://kadamwhite.com
- * License:     GPL-2.0+
- * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
+ * License:     GPL-2.0+ or Artistic License 2.0
+ * License URI: https//github.com/kadamwhite/artgallery/tree/master/LICENSE.md
  */
 
 // If this file is called directly, abort.
