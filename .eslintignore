@@ -2,3 +2,6 @@
 **/build/*
 **/*.min.js
 **/vendor/**/*.js
+
+config/*
+Gruntfile.js
