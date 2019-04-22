@@ -10,6 +10,6 @@ use ArtGallery\Taxonomies;
 function setup() {
 	Taxonomies\setup();
 	Post_Types\setup();
-	Blocks\autoregister_blocks();
+	Blocks\setup();
 	Scripts\setup();
 }

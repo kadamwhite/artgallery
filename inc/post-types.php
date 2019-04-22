@@ -4,6 +4,8 @@ namespace ArtGallery\Post_Types;
 
 use ArtGallery\Taxonomies;
 
+const ARTWORK_POST_TYPE = 'ag_artwork_item';
+
 function setup() {
 	add_action( 'init', __NAMESPACE__ . '\\register_post_types' );
 }
@@ -12,7 +14,7 @@ function setup() {
  * Register the custom post type for artworks.
  */
 function register_post_types() {
-	register_post_type( 'ag_artwork_item', [
+	register_post_type( ARTWORK_POST_TYPE, [
 		'label'               => 'Artworks',
 		'description'         => '',
 		'public'              => true,

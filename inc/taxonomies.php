@@ -16,7 +16,7 @@ const MEDIA_TAXONOMY              = 'ag_artwork_media';
  */
 function register_taxonomies() {
 
-	register_taxonomy( AVAILABILITY_TAXONOMY, null, [
+	register_taxonomy( AVAILABILITY_TAXONOMY, 'post', [
 		'hierarchical'      => false,
 		'label'             => 'Availability',
 		'show_admin_column' => true,
@@ -26,6 +26,7 @@ function register_taxonomies() {
 		'show_ui'           => false,
 		// Queryable for searching
 		'query_var'         => true,
+		'show_in_rest'      => true,
 		'rewrite'           => [ 'slug' => 'art/availability' ],
 	] );
 
@@ -36,6 +37,7 @@ function register_taxonomies() {
 		'show_ui'           => true,
 		'show_admin_column' => true,
 		'query_var'         => true,
+		'show_in_rest'      => true,
 		'rewrite'           => [ 'slug' => 'art/category' ],
 		'labels'            => [
 			'add_new_item'  => 'Add New Category',
@@ -49,6 +51,7 @@ function register_taxonomies() {
 		'show_ui'           => true,
 		'show_admin_column' => true,
 		'query_var'         => true,
+		'show_in_rest'      => true,
 		'rewrite'           => [ 'slug' => 'art/dimensions' ],
 		'labels'            => [
 			'add_new_item' => 'Add New Dimensions',
@@ -61,6 +64,7 @@ function register_taxonomies() {
 		'show_ui'           => true,
 		'show_admin_column' => true,
 		'query_var'         => true,
+		'show_in_rest'      => true,
 		'rewrite'           => [ 'slug' => 'art/media' ],
 		'labels'            => [
 			'add_new_item'  => 'Add New Medium',

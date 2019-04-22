@@ -4,6 +4,38 @@
  */
 namespace ArtGallery\Blocks;
 
+// phpcs:disable Squiz.PHP.CommentedOutCode
+// use ArtGallery\Post_Types;
+// phpcs:enable Squiz.PHP.CommentedOutCode
+use WP_Post;
+
+function setup() {
+	// Auto-load all PHP-defined blocks.
+	autoregister_blocks();
+
+	// Register actions & filters.
+	add_filter( 'block_categories', __NAMESPACE__ . '\\add_custom_block_category', 10, 2 );
+}
+
+/**
+ * Register a custom block category for this plugin.
+ */
+function add_custom_block_category( array $categories, WP_Post $post ) {
+	// phpcs:disable Squiz.PHP.CommentedOutCode
+	// if ( $post->post_type !== Post_Types\ARTWORK_POST_TYPE ) {
+	// 	return $categories;
+	// }
+	// phpcs:enable Squiz.PHP.CommentedOutCode
+
+	return array_merge( $categories, [
+		[
+			'slug'  => 'artgallery',
+			'title' => __( 'Art Gallery', 'artgallery' ),
+			'icon'  => 'art',
+		],
+	] );
+}
+
 /**
  * Extract the block name from a directory path
  *
