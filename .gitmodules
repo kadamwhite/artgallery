@@ -1,3 +1,6 @@
 [submodule "includes/lib/acf"]
 	path = includes/lib/acf
 	url = https://github.com/elliotcondon/acf.git
+[submodule "vendor/asset-loader"]
+	path = vendor/asset-loader
+	url = git@github.com:kadamwhite/asset-loader.git
