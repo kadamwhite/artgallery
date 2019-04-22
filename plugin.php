@@ -32,14 +32,20 @@ define( 'ARTGALLERY_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
 define( 'ARTGALLERY_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 // phpcs:enable PSR1.Files.SideEffects
 
-// Require plugin files and bootstrap plugin.
-require_once( ARTGALLERY_PATH . 'inc/asset-loader.php' );
 require_once( ARTGALLERY_PATH . 'inc/blocks.php' );
 require_once( ARTGALLERY_PATH . 'inc/namespace.php' );
 require_once( ARTGALLERY_PATH . 'inc/post-types.php' );
 require_once( ARTGALLERY_PATH . 'inc/scripts.php' );
 require_once( ARTGALLERY_PATH . 'inc/taxonomies.php' );
-ArtGallery\setup();
+
+// Conditionally include bundled asset-loader, then initialize plugin.
+add_action( 'plugins_loaded', function() {
+	if ( ! function_exists( 'Asset_Loader\\autoenqueue' ) ) {
+		require_once( ARTGALLERY_PATH . 'vendor/asset-loader/asset-loader.php' );
+	}
+
+	ArtGallery\setup();
+} );
 
 // phpcs:disable
 // Everything below this line is legacy code.
