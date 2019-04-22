@@ -1,4 +1,3 @@
-// Ported from eslint-config-humanmade; can update to 0.6.0 once released
 module.exports = {
 	'extends': [
 		'humanmade',
