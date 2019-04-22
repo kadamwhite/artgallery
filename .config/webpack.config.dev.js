@@ -9,7 +9,7 @@ const pluginPath = ( ...pathParts ) => resolve( __dirname, '..', ...pathParts );
 
 // Clean up manifests on exit.
 cleanOnExit( [
-	filePath( 'build/asset-manifest.json' ),
+	pluginPath( 'build/asset-manifest.json' ),
 ] );
 
 const config = {
@@ -22,12 +22,12 @@ const config = {
 	},
 };
 
-// If this is the top-level Webpack file loaded by the Webpack DevServer,
-// automatically detect & bind to an open port.
 if (
 	process.argv[1].indexOf( 'webpack-dev-server' ) !== -1
-	&& pluginPath( '.config' ) === __dirname
+	&& filePath( '.config' ) === __dirname
 ) {
+	// Webpack DevServer is being run from within this project: automatically
+	// detect & bind to an open port.
 	const cwdRelativePublicPath = ( path, port ) => `http://localhost:${ port }${ path.replace( process.cwd(), '' ) }/`;
 	module.exports = choosePort( 9090 ).then( port => presets.development( {
 		...config,
@@ -39,6 +39,10 @@ if (
 			publicPath: cwdRelativePublicPath( config.output.path, port ),
 		},
 	} ) );
-} else {
+} else if ( filePath( '.config' ) === __dirname ) {
+	// Dev-mode static file build is being run from within this project.
 	module.exports = presets.development( config );
+} else {
+	// This configuration is being injested by a parent project's build process.
+	module.exports = config;
 }
