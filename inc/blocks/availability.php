@@ -26,7 +26,7 @@ function render_availability_message( array $attributes = [] ) {
 	if ( $attributes['status'] !== 'Available' ) {
 		return null;
 	}
-	return '<p>' . esc_html( $attributes['message'] ) . '</p>';
+	return wp_kses_post( '<p>' . $attributes['message'] . '</p>' );
 }
 
 /**
