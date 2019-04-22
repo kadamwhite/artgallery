@@ -2,6 +2,7 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { Fragment } from '@wordpress/element';
 import { RadioControl } from '@wordpress/components';
+import { RichText } from '@wordpress/editor';
 import { withDispatch, withSelect } from '@wordpress/data';
 
 import { AVAILABILITY_TAXONOMY } from '../../constants';
@@ -17,9 +18,11 @@ export const name = addPluginNamespace( 'availability' );
 const block = bemBlock( 'artwork-availability' );
 
 const AvailabilityOptionsList = ( {
+	attributes,
 	availability,
 	availabilityTerms,
 	isSelected,
+	setAttributes,
 	setAvailability,
 } ) => {
 	if ( ! Array.isArray( availabilityTerms ) || ! availabilityTerms.length ) {
@@ -33,17 +36,20 @@ const AvailabilityOptionsList = ( {
 	}
 
 	const termId = Array.isArray( availability ) && availability.length ? availability[0] : null;
-	const term = termId && availabilityTerms.find( term => term.id === termId );
+	const term = termId && availabilityTerms.find( term => +term.id === +termId );
 
 	// Try to assign a default term as soon as the block's data loads.
 	if ( ! term ) {
 		const nfsTerm = availabilityTerms.find( term => term.name.match( /Not For Sale|nfs/i ) );
 		if ( nfsTerm ) {
-			setAvailability( availabilityTerms[ 0 ].id );
+			setAvailability( nfsTerm.id );
+			setAttributes( {
+				status: nfsTerm.name,
+			} );
 		}
 	}
 
-	if ( ! isSelected || ! Array.isArray( availabilityTerms ) ) {
+	if ( ! isSelected ) {
 		return (
 			<Fragment>
 				<h2>
@@ -60,7 +66,7 @@ const AvailabilityOptionsList = ( {
 				{ __( 'Manage Artwork Availability', 'artgallery' ) }
 			</h2>
 			<p className={ block.element( 'explanation' ) }>
-				{ __( 'This block controls the messaging indicating whether or not an artwork is available for purchase. Select the appropriate option in the dropdown.', 'artgallery' ) }
+				{ __( 'This block controls the messaging indicating whether or not the artwork is available for purchase.', 'artgallery' ) }
 			</p>
 			<RadioControl
 				label={ __( 'Artwork Status', 'artgallery' ) }
@@ -71,6 +77,21 @@ const AvailabilityOptionsList = ( {
 				} ) ) }
 				onChange={ setAvailability }
 			/>
+			{ term === availabilityTerms.find( term => term.name.match( /Available/i ) ) ? (
+				<Fragment>
+					<label className="components-base-control">
+						{ __( 'Enter a sales message or link to display at the bottom of the artwork page.', 'artgallery' ) }
+					</label>
+					<RichText
+						tagName="p"
+						className={ block.element( 'message' ) }
+						value={ attributes.message }
+						onChange={ message => setAttributes( { message } ) }
+						placeholder={ __( 'Enter text...', 'custom-block' ) }
+						keepPlaceholderOnFocus={ true }
+					/>
+				</Fragment>
+			) : null }
 		</Fragment>
 	);
 };
@@ -102,9 +123,7 @@ export const options = {
 		},
 		message: {
 			type: 'string',
-			source: 'html',
-			selector: `.${ block.element( 'message' ) }`,
-			default: 'Contact artist for pricing',
+			default: 'Contact artist for pricing.',
 		},
 	},
 
