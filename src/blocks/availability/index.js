@@ -75,7 +75,13 @@ const AvailabilityOptionsList = ( {
 					label: term.name,
 					value: +term.id,
 				} ) ) }
-				onChange={ setAvailability }
+				onChange={ termId => {
+					const term = availabilityTerms.find( term => +term.id === +termId );
+					setAttributes( {
+						status: term.name,
+					} );
+					setAvailability( termId );
+				} }
 			/>
 			{ term === availabilityTerms.find( term => term.name.match( /Available/i ) ) ? (
 				<Fragment>

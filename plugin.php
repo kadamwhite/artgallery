@@ -37,6 +37,7 @@ require_once( ARTGALLERY_PATH . 'inc/namespace.php' );
 require_once( ARTGALLERY_PATH . 'inc/post-types.php' );
 require_once( ARTGALLERY_PATH . 'inc/scripts.php' );
 require_once( ARTGALLERY_PATH . 'inc/taxonomies.php' );
+require_once( ARTGALLERY_PATH . 'inc/utilities.php' );
 
 // Conditionally include bundled asset-loader, then initialize plugin.
 add_action( 'plugins_loaded', function() {
