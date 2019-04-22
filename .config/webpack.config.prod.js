@@ -1,8 +1,10 @@
 /**
  * This file defines the configuration that is used for the production build.
  */
-const { externals, helpers, presets } = require( '@humanmade/webpack-helpers' );
-const { filePath } = helpers;
+const { resolve } = require( 'path' );
+const { externals, presets } = require( '@humanmade/webpack-helpers' );
+
+const pluginPath = ( ...pathParts ) => resolve( __dirname, '..', ...pathParts );
 
 /**
  * Theme production build configuration.
@@ -10,9 +12,9 @@ const { filePath } = helpers;
 module.exports = presets.production( {
 	externals,
 	entry: {
-		artgallery: filePath( 'src/index.js' ),
+		editor: pluginPath( 'src/index.js' ),
 	},
 	output: {
-		path: filePath( 'build' ),
+		path: pluginPath( 'build' ),
 	},
 } );

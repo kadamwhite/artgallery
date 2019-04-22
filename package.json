@@ -19,7 +19,7 @@
   "scripts": {
     "postinstall": "composer install",
     "build": "webpack --config=.config/webpack.config.prod.js",
-    "eslint": "eslint src .config",
+    "eslint": "eslint src .config --fix",
     "phpcs": "vendor/bin/phpcs --standard=phpcs.ruleset.xml -s .",
     "lint": "npm run eslint && npm run phpcs",
     "start": "webpack-dev-server --config .config/webpack.config.dev.js",

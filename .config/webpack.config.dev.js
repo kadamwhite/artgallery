@@ -12,7 +12,7 @@ cleanOnExit( [
 	filePath( 'build/asset-manifest.json' ),
 ] );
 
-const config = presets.development( {
+const config = {
 	externals,
 	entry: {
 		editor: pluginPath( 'src/index.js' ),
@@ -20,7 +20,7 @@ const config = presets.development( {
 	output: {
 		path: pluginPath( 'build' ),
 	},
-} );
+};
 
 // If this is the top-level Webpack file loaded by the Webpack DevServer,
 // automatically detect & bind to an open port.
