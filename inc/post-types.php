@@ -24,6 +24,8 @@ function register_post_types() {
 		'exclude_from_search' => false,
 		'show_ui'             => true,
 		'show_in_menu'        => true,
+		'show_in_rest'        => true,
+		'rest_base'           => 'artworks',
 		'menu_position'       => 5,
 		'capability_type'     => 'post',
 		'hierarchical'        => false,
