@@ -11,7 +11,6 @@ import { addPluginNamespace, bemBlock } from '../../utils';
 import Icon from './icon';
 
 import './style.scss';
-// console.log( styles );
 
 export const name = addPluginNamespace( 'availability' );
 
@@ -52,22 +51,22 @@ const AvailabilityOptionsList = ( {
 	if ( ! isSelected ) {
 		return (
 			<Fragment>
-				<h2>
+				<h2 className={ block.element( 'title' ) }>
 					{ /* Translators: %s is the selected artwork status. */ }
 					{ sprintf( __( 'Artwork is %s', 'artgallery' ), term ? term.name : '...' ) }
-					{ attributes.status === 'Available' ? (
-						<Fragment>
-							<p className={ block.element( 'explanation' ) }>
-								{ __( 'This message will be displayed on the frontend:', 'artgallery' ) }
-							</p>
-							<p>{ attributes.message }</p>
-						</Fragment>
-					) : (
-						<p className={ block.element( 'explanation' ) }>
-							{ __( '(No message or indication will be displayed)', 'artgallery' ) }
-						</p>
-					) }
 				</h2>
+				{ attributes.status === 'Available' ? (
+					<Fragment>
+						<p className={ block.element( 'explanation' ) }>
+							{ __( 'This message will be displayed on the frontend:', 'artgallery' ) }
+						</p>
+						<p>{ attributes.message }</p>
+					</Fragment>
+				) : (
+					<p className={ block.element( 'explanation' ) }>
+						{ __( '(No message or indication will be displayed)', 'artgallery' ) }
+					</p>
+				) }
 			</Fragment>
 		);
 	}
