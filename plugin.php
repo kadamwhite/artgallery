@@ -88,7 +88,7 @@ ArtGallery::get_instance();
  * @param string $taxonomy_name The name of the taxonomy.
  * @return string Comma-separated, plain-text list of term names.
  */
-function ag_plain_term_list( $post_id, $taxonomy_name, $before = '', $sep = '', $after = '' ) {
+function ag_plain_term_list( $post_id, $taxonomy_name, $before = '', $sep = ', ', $after = '' ) {
   $terms = wp_get_object_terms( $post_id, $taxonomy_name, array( 'fields' => 'names' ) );
   return $before . join( $sep, $terms ) . $after;
 }
