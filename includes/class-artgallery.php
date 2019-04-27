@@ -64,9 +64,6 @@ class ArtGallery {
    */
   private function __construct() {
 
-    // Make sure taxonomy terms have been created for Available, NFS and Sold
-    add_action( 'init', array( $this, 'artgallery_set_ag_artwork_availability_options' ) );
-
     // Anything that has to happen inside Admin
     add_action( 'admin_init', array( $this, 'artgallery_admin_init' ) );
 
@@ -166,29 +163,6 @@ class ArtGallery {
     } else {
       delete_post_thumbnail();
     }
-  }
-
-  /**
-   * Populate the ag_artwork_availability terms with the three permitted options:
-   * "Available", "Sold", or "Not For Sale"
-   */
-  public function artgallery_set_ag_artwork_availability_options() {
-
-    wp_insert_term( 'Available', 'ag_artwork_availability', array(
-      'description' => 'Artwork is available for purchase',
-      'slug' => 'available'
-    ) );
-
-    wp_insert_term( 'Sold', 'ag_artwork_availability', array(
-      'description' => 'Artwork has been sold',
-      'slug' => 'sold'
-    ) );
-
-    wp_insert_term( 'Not For Sale', 'ag_artwork_availability', array(
-      'description' => 'Artwork is not for sale',
-      'slug' => 'nfs'
-    ) );
-
   }
 
   /**

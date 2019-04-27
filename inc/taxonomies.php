@@ -2,17 +2,25 @@
 
 namespace ArtGallery\Taxonomies;
 
-function setup() {
-	add_action( 'init', __NAMESPACE__ . '\\register_taxonomies' );
-}
-
 const ARTWORK_CATEGORIES_TAXONOMY = 'ag_artwork_categories';
 const AVAILABILITY_TAXONOMY       = 'ag_artwork_availability';
 const DIMENSIONS_TAXONOMY         = 'ag_artwork_dimensions';
 const MEDIA_TAXONOMY              = 'ag_artwork_media';
 
 /**
+ * Hook namespace functions into their corresponding actions or filters.
+ *
+ * @return void
+ */
+function setup() {
+	add_action( 'init', __NAMESPACE__ . '\\register_taxonomies' );
+	add_action( 'artgallery_upgrade', __NAMESPACE__ . '\\populate_default_taxonomy_terms' );
+}
+
+/**
  * Register the custom taxonomies that interface with artworks.
+ *
+ * @return void
  */
 function register_taxonomies() {
 
@@ -27,6 +35,7 @@ function register_taxonomies() {
 		// Queryable for searching
 		'query_var'         => true,
 		'show_in_rest'      => true,
+		'rest_base'         => 'artwork_availability',
 		'rewrite'           => [ 'slug' => 'art/availability' ],
 	] );
 
@@ -71,5 +80,28 @@ function register_taxonomies() {
 			'add_new_item'  => 'Add New Medium',
 			'singular_name' => 'Medium',
 		],
+	] );
+}
+
+/**
+ * Populate the Artwork Availability terms with the three permitted options:
+ * "Available", "Sold", or "Not For Sale".
+ *
+ * @return void
+ */
+function populate_default_taxonomy_terms() {
+	wp_insert_term( __( 'Available', 'artgallery' ), AVAILABILITY_TAXONOMY, [
+		'description' => __( 'Artwork is available for purchase', 'artgallery' ),
+		'slug' => 'available',
+	] );
+
+	wp_insert_term( __( 'Sold', 'artgallery' ), AVAILABILITY_TAXONOMY, [
+		'description' => __( 'Artwork has been sold', 'artgallery' ),
+		'slug' => 'sold',
+	] );
+
+	wp_insert_term( __( 'Not For Sale', 'artgallery' ), AVAILABILITY_TAXONOMY, [
+		'description' => __( 'Artwork is not for sale', 'artgallery' ),
+		'slug' => 'nfs',
 	] );
 }

@@ -28,6 +28,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Useful global constants.
+define( 'ARTGALLERY_VERSION', '0.1.0' );
 define( 'ARTGALLERY_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
 define( 'ARTGALLERY_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 // phpcs:enable PSR1.Files.SideEffects
