@@ -16,7 +16,7 @@ const MEDIA_TAXONOMY              = 'ag_artwork_media';
  */
 function register_taxonomies() {
 
-	register_taxonomy( AVAILABILITY_TAXONOMY, 'post', [
+	register_taxonomy( AVAILABILITY_TAXONOMY, null, [
 		'hierarchical'      => false,
 		'label'             => 'Availability',
 		'show_admin_column' => true,
@@ -59,12 +59,13 @@ function register_taxonomies() {
 	] );
 
 	register_taxonomy( MEDIA_TAXONOMY, null, [
-		'hierarchical'      => true,
+		'hierarchical'      => false,
 		'label'             => 'Media',
 		'show_ui'           => true,
 		'show_admin_column' => true,
 		'query_var'         => true,
 		'show_in_rest'      => true,
+		'rest_base'         => 'artwork_media',
 		'rewrite'           => [ 'slug' => 'art/media' ],
 		'labels'            => [
 			'add_new_item'  => 'Add New Medium',
