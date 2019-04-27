@@ -66,7 +66,6 @@ class Migrate_ACF_Meta {
 				if ( $this->migrate_meta_keys( $artwork, $dry_run ) ) {
 					WP_CLI::success( 'Updated meta keys' );
 				}
-
 			}
 		}
 	}
