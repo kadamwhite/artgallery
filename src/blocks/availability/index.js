@@ -35,11 +35,11 @@ const AvailabilityOptionsList = ( {
 	}
 
 	const termId = Array.isArray( availability ) && availability.length ? availability[0] : null;
-	const term = termId && availabilityTerms.find( term => +term.id === +termId );
+	const term = termId && availabilityTerms.find( term => ( +term.id === +termId ) );
 
 	// Try to assign a default term as soon as the block's data loads.
 	if ( ! term ) {
-		const nfsTerm = availabilityTerms.find( term => term.name.match( /Not For Sale|nfs/i ) );
+		const nfsTerm = availabilityTerms.find( term => ( term.slug === 'nfs' ) );
 		if ( nfsTerm ) {
 			setAvailability( nfsTerm.id );
 			setAttributes( {
