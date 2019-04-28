@@ -1,17 +1,6 @@
 import {
-	namespacedBlock,
 	bemBlock,
 } from '../';
-
-describe( 'namespacedBlock', () => {
-	it( 'returns a string', () => {
-		expect( typeof namespacedBlock( 'some-block' ) ).toBe( 'string' );
-	} );
-
-	it( 'properly namespaces a block name string', () => {
-		expect( namespacedBlock( 'some-block' ) ).toBe( 'artgallery/some-block' );
-	} );
-} );
 
 describe( 'bemBlock', () => {
 	it( 'returns an object', () => {

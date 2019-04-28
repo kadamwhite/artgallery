@@ -4,8 +4,6 @@
  */
 namespace ArtGallery\Blocks\Availability;
 
-use ArtGallery\Utilities;
-
 function setup() {
 	add_action( 'init', __NAMESPACE__ . '\\register_block' );
 }
@@ -30,7 +28,7 @@ function render_availability_message( array $attributes = [] ) {
  * Register the Featured Items List dynamic block.
  */
 function register_block() {
-	register_block_type( Utilities\namespaced_block( 'availability' ), [
+	register_block_type( 'artgallery/availability', [
 		'attributes' => [
 			'status' => [
 				'type' => 'string',

@@ -1,7 +1,3 @@
-const PLUGIN_NAMESPACE = 'artgallery';
-
-export const namespacedBlock = blockName => `${ PLUGIN_NAMESPACE }/${ blockName }`;
-
 export const bemBlock = blockName => ( {
 	element( elementName ) {
 		return `${ blockName }__${ elementName }`;

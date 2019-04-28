@@ -5,13 +5,13 @@ import { RichText } from '@wordpress/editor';
 import { withDispatch, withSelect } from '@wordpress/data';
 
 import { AVAILABILITY_TAXONOMY } from '../../constants';
-import { namespacedBlock, bemBlock } from '../../utils';
+import { bemBlock } from '../../utils';
 
 import Icon from './icon';
 
 import './style.scss';
 
-export const name = namespacedBlock( 'availability' );
+export const name = 'artgallery/availability';
 
 const block = bemBlock( 'artwork-availability' );
 

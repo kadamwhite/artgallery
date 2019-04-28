@@ -10,13 +10,13 @@ import {
 	ARTWORK_DEPTH,
 	ARTWORK_DATE,
 } from '../../constants';
-import { namespacedBlock, bemBlock } from '../../utils';
+import { bemBlock } from '../../utils';
 
 import Icon from './icon';
 
 import './style.scss';
 
-export const name = namespacedBlock( 'metadata' );
+export const name = 'artgallery/metadata';
 
 const block = bemBlock( 'artwork-metadata' );
 
