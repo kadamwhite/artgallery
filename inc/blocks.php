@@ -55,7 +55,7 @@ function get_block_handle_from_path( $block_file_path ) {
 function get_namespace_from_block_handle( $block_handle ) {
 	return sprintf(
 		'ArtGallery\\Blocks\\%s',
-		str_replace( '-', '', ucwords( $block_handle ) )
+		str_replace( ' ', '_', ucwords( implode( ' ', explode( '-', $block_handle ) ) ) )
 	);
 }
 

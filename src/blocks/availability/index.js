@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { __, sprintf } from '@wordpress/i18n';
 import { Fragment } from '@wordpress/element';
 import { RadioControl } from '@wordpress/components';
