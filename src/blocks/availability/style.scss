@@ -2,11 +2,30 @@
 	.editor-styles-wrapper &__title {
 		font-size: 1.5rem;
 		line-height: 1.2;
+		margin-bottom: 0;
+	}
+
+	p {
+		margin: 0;
 	}
 
 	.editor-styles-wrapper &__explanation {
 		font-size: 1rem;
 		font-style: italic;
+		margin: 0.25em 0;
+	}
+
+	.editor-styles-wrapper &__explanation,
+	.editor-styles-wrapper &__help-text {
+		color: #707070;
+	}
+
+	.editor-styles-wrapper &__options .components-base-control__label {
+		font-weight: bold;
+	}
+	&__options .components-radio-control__option {
+		display: inline-block;
+		margin-right: 2em;
 	}
 
 	.editor-styles-wrapper &__label {

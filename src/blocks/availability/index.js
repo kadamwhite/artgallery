@@ -80,6 +80,7 @@ const AvailabilityOptionsList = ( {
 				{ __( 'This block controls the messaging indicating whether or not the artwork is available for purchase.', 'artgallery' ) }
 			</p>
 			<RadioControl
+				className={ block.element( 'options' ) }
 				label={ __( 'Artwork Status', 'artgallery' ) }
 				selected={ availability ? +availability[ 0 ] : null }
 				options={ availabilityTerms.map( term => ( {
@@ -96,7 +97,7 @@ const AvailabilityOptionsList = ( {
 			/>
 			{ term === availabilityTerms.find( term => term.name.match( /Available/i ) ) ? (
 				<Fragment>
-					<label className="components-base-control">
+					<label className={ `${ block.element( 'help-text' ) } components-base-control` }>
 						{ __( 'Enter a sales message or link to display at the bottom of the artwork page.', 'artgallery' ) }
 					</label>
 					<RichText
