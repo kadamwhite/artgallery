@@ -4,9 +4,7 @@
  */
 namespace ArtGallery\Blocks;
 
-// phpcs:disable Squiz.PHP.CommentedOutCode
-// use ArtGallery\Post_Types;
-// phpcs:enable Squiz.PHP.CommentedOutCode
+use ArtGallery\Post_Types;
 use WP_Post;
 
 function setup() {
@@ -21,11 +19,9 @@ function setup() {
  * Register a custom block category for this plugin.
  */
 function add_custom_block_category( array $categories, WP_Post $post ) {
-	// phpcs:disable Squiz.PHP.CommentedOutCode
-	// if ( $post->post_type !== Post_Types\ARTWORK_POST_TYPE ) {
-	// 	return $categories;
-	// }
-	// phpcs:enable Squiz.PHP.CommentedOutCode
+	if ( $post->post_type !== Post_Types\ARTWORK_POST_TYPE ) {
+		return $categories;
+	}
 
 	return array_merge( $categories, [
 		[
