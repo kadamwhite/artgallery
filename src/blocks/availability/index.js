@@ -6,13 +6,13 @@ import { RichText } from '@wordpress/editor';
 import { withDispatch, withSelect } from '@wordpress/data';
 
 import { AVAILABILITY_TAXONOMY } from '../../constants';
-import { addPluginNamespace, bemBlock } from '../../utils';
+import { namespacedBlock, bemBlock } from '../../utils';
 
 import Icon from './icon';
 
 import './style.scss';
 
-export const name = addPluginNamespace( 'availability' );
+export const name = namespacedBlock( 'availability' );
 
 const block = bemBlock( 'artwork-availability' );
 

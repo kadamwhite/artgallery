@@ -1,6 +1,6 @@
 const PLUGIN_NAMESPACE = 'artgallery';
 
-export const addPluginNamespace = blockName => `${ PLUGIN_NAMESPACE }/${ blockName }`;
+export const namespacedBlock = blockName => `${ PLUGIN_NAMESPACE }/${ blockName }`;
 
 export const bemBlock = blockName => ( {
 	element( elementName ) {

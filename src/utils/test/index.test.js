@@ -1,15 +1,15 @@
 import {
-	addPluginNamespace,
+	namespacedBlock,
 	bemBlock,
 } from '../';
 
-describe( 'addPluginNamespace', () => {
+describe( 'namespacedBlock', () => {
 	it( 'returns a string', () => {
-		expect( typeof addPluginNamespace( 'some-block' ) ).toBe( 'string' );
+		expect( typeof namespacedBlock( 'some-block' ) ).toBe( 'string' );
 	} );
 
 	it( 'properly namespaces a block name string', () => {
-		expect( addPluginNamespace( 'some-block' ) ).toBe( 'artgallery/some-block' );
+		expect( namespacedBlock( 'some-block' ) ).toBe( 'artgallery/some-block' );
 	} );
 } );
 

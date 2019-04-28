@@ -1,10 +1,7 @@
 <?php
 /**
- * Server-rendered three-column Featured Posts block.
+ * Server-rendered Artwork Availability block.
  */
-// phpcs:disable WordPress.VIP.SlowDBQuery
-// phpcs:disable WordPress.DB.SlowDBQuery
-// phpcs:disable HM.Files.NamespaceDirectoryName.NameMismatch
 namespace ArtGallery\Blocks\Availability;
 
 use ArtGallery\Utilities;
