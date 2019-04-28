@@ -7,26 +7,8 @@
 namespace ArtGallery\Migrations;
 
 use ArtGallery\Meta;
-use ArtGallery\Post_Types;
 use ArtGallery\Taxonomies;
 use WP_Post;
-
-function setup() {
-	add_action( 'artgallery_upgrade', __NAMESPACE__ . '\\migrate_acf_meta' );
-}
-
-/**
- * Copy legacy ACF metadata values to new, properly-registered artwork meta keys.
- *
- * Duplicates some logic from artgallery-migrate-acf-meta command, but can be
- * used directly from PHP (for example when the plugin gets upgraded).
- */
-function migrate_acf_meta() {
-	Post_Types\for_all_artworks( function( $artwork ) {
-		convert_dimensions_taxonomy_to_meta( $artwork );
-		update_meta_keys( $artwork );
-	} );
-}
 
 /**
  * Convert a dimensions taxonomy term into metadata for a specific artwork.
