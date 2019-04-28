@@ -7,6 +7,8 @@ namespace ArtGallery\Blocks\Metadata;
 use ArtGallery\Meta;
 use ArtGallery\Taxonomies;
 
+const BLOCK_NAME = 'artgallery/metadata';
+
 function setup() {
 	add_action( 'init', __NAMESPACE__ . '\\register_block' );
 	add_filter( 'render_block', __NAMESPACE__ . '\\disable_wpautop', 10, 2 );
@@ -80,7 +82,7 @@ function render_artwork_metadata( array $attributes = [] ) {
  * Register the Featured Items List dynamic block.
  */
 function register_block() {
-	register_block_type( 'artgallery/metadata', [
+	register_block_type( BLOCK_NAME, [
 		'attributes' => [
 			'width' => [
 				'type'    => 'number',
@@ -112,7 +114,7 @@ function register_block() {
  * @param array  $block         The block.
  */
 function disable_wpautop( string $block_content, array $block ) {
-	if ( 'artgallery/metadata' === $block['blockName'] ) {
+	if ( BLOCK_NAME === $block['blockName'] ) {
 		remove_filter( 'the_content', 'wpautop' );
 		remove_filter( 'the_content', 'wptexturize' );
 	}
