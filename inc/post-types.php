@@ -3,6 +3,7 @@
 namespace ArtGallery\Post_Types;
 
 use ArtGallery\Taxonomies;
+use WP_Query;
 
 const ARTWORK_POST_TYPE = 'ag_artwork_item';
 
@@ -63,6 +64,32 @@ function register_post_types() {
 			'view_item'          => 'View Artwork',
 			'view'               => 'View Artwork',
 		],
+		'template' => [
+			[ 'core/image' ],
+			[ 'artgallery/availability' ],
+		],
 	] );
 
+}
+
+/**
+ * Utility method to retrieve all artwork items, then do something to/with each one.
+ *
+ * @param callable $callback Function that will be passed each artwork post object.
+ * @return void
+ */
+function for_all_artworks( callable $callback ) {
+	$artworks = new WP_Query( [
+		'post_type'   => [ ARTWORK_POST_TYPE ],
+		'post_status' => [ 'any' ],
+		'nopaging'    => true,
+	] );
+
+	if ( $artworks->have_posts() ) {
+		while ( $artworks->have_posts() ) {
+			$artworks->the_post();
+
+			$callback( get_post() );
+		}
+	}
 }

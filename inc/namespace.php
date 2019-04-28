@@ -18,6 +18,7 @@ function setup() {
 	Taxonomies\setup();
 	Post_Types\setup();
 	Meta\setup();
+	Migrations\setup();
 	Blocks\setup();
 	Scripts\setup();
 

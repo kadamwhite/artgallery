@@ -7,12 +7,9 @@
 
 namespace ArtGallery\WP_CLI;
 
-use ArtGallery\Meta;
+use ArtGallery\Migrations;
 use ArtGallery\Post_Types;
-use ArtGallery\Taxonomies;
 use WP_CLI;
-use WP_Post;
-use WP_Query;
 
 /**
  * Class Migrate_Metadata
@@ -45,89 +42,20 @@ class Migrate_ACF_Meta {
 		WP_CLI::line( 'Converting ACF Metadata' . ( $dry_run ? ' -- dry run ' : '' ) );
 		WP_CLI::line( "-------------------------------------\n" );
 
-		$artworks = new WP_Query( [
-			'post_type'   => [ Post_Types\ARTWORK_POST_TYPE ],
-			'post_status' => [ 'any' ],
-			'nopaging'    => true,
-		] );
+		$log = function( $message ) {
+			WP_CLI::line( $message );
+		};
 
-		if ( $artworks->have_posts() ) {
-			while ( $artworks->have_posts() ) {
-				$artworks->the_post();
+		Post_Types\for_all_artworks( function( $artwork ) use ( $dry_run, $log ) {
+			WP_CLI::line( "Processing $artwork->ID, $artwork->post_title" );
 
-				$artwork = get_post();
-
-				WP_CLI::line( sprintf( "\nProcessing %s, %s", $artwork->ID, $artwork->post_title ) );
-
-				if ( $this->migrate_dimensions( $artwork, $dry_run ) ) {
-					WP_CLI::success( 'Converted dimensions taxonomy term to meta values' );
-				}
-
-				if ( $this->migrate_meta_keys( $artwork, $dry_run ) ) {
-					WP_CLI::success( 'Updated meta keys' );
-				}
+			if ( Migrations\convert_dimensions_taxonomy_to_meta( $artwork, $dry_run, $log ) ) {
+				WP_CLI::success( 'Converted dimensions taxonomy term to meta values' );
 			}
-		}
-	}
 
-	/**
-	 * Convert a dimensions taxonomy term into metadata for a specific artwork.
-	 *
-	 * @param WP_Post $artwork Artwork post object.
-	 * @return bool False if failure or noop, True if successfully updated.
-	 */
-	private function migrate_dimensions( WP_Post $artwork, bool $dry_run = true ) {
-		$artwork_id = $artwork->ID;
-
-		$dimensions = wp_get_post_terms( $artwork_id, Taxonomies\DIMENSIONS_TAXONOMY );
-
-		if ( ! empty( $dimensions ) ) {
-			preg_match(
-				'/([0-9]+(?:\.[0-9]*)?)" *x *([0-9]+(?:\.[0-9]*)?)"/',
-				$dimensions[0]->name,
-				$matches
-			);
-
-			if ( ! empty( $matches ) && isset( $matches[1] ) && isset( $matches[2] ) ) {
-				$width = (float) $matches[1];
-				$height = (float) $matches[2];
-
-				WP_CLI::line( "- Converting dimensions {$width}\" x {$height}\" to meta values" );
-				if ( ! $dry_run ) {
-					update_post_meta( $artwork_id, Meta\ARTWORK_WIDTH, $width );
-					update_post_meta( $artwork_id, Meta\ARTWORK_HEIGHT, $height );
-				}
-				WP_CLI::line( '- Removing legacy dimensions taxonomy term from artwork' );
-				if ( ! $dry_run ) {
-					wp_delete_object_term_relationships( $artwork_id, Taxonomies\DIMENSIONS_TAXONOMY );
-				}
-				return true;
+			if ( Migrations\update_meta_keys( $artwork, $dry_run, $log ) ) {
+				WP_CLI::success( 'Updated meta keys' );
 			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * Convert old meta keys to new values for a specific artwork.
-	 *
-	 * @param WP_Post $artwork Artwork post object.
-	 * @return bool False if failure or noop, True if successfully updated.
-	 */
-	private function migrate_meta_keys( WP_Post $artwork, bool $dry_run = true ) {
-		$artwork_id = $artwork->ID;
-		$success = false;
-
-		$legacy_date = (string) get_post_meta( $artwork_id, 'artwork_date_created', true );
-		if ( $legacy_date ) {
-			WP_CLI::line( '- Migrating legacy meta key "artwork_date_created"' );
-			if ( ! $dry_run ) {
-				update_post_meta( $artwork_id, Meta\ARTWORK_DATE, $legacy_date );
-				delete_post_meta( $artwork_id, 'artwork_date_created' );
-			}
-			$success = true;
-		}
-
-		return $success;
+		} );
 	}
 }

@@ -35,6 +35,7 @@ define( 'ARTGALLERY_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 
 require_once( ARTGALLERY_PATH . 'inc/blocks.php' );
 require_once( ARTGALLERY_PATH . 'inc/meta.php' );
+require_once( ARTGALLERY_PATH . 'inc/migrations.php' );
 require_once( ARTGALLERY_PATH . 'inc/namespace.php' );
 require_once( ARTGALLERY_PATH . 'inc/post-types.php' );
 require_once( ARTGALLERY_PATH . 'inc/scripts.php' );
