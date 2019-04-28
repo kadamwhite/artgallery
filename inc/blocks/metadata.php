@@ -2,7 +2,7 @@
 /**
  * Server-rendered Artwork Dimensions & Materials block.
  */
-namespace ArtGallery\Blocks\Dimensions_Materials;
+namespace ArtGallery\Blocks\Metadata;
 
 use ArtGallery\Meta;
 use ArtGallery\Taxonomies;
@@ -81,7 +81,7 @@ function render_artwork_metadata( array $attributes = [] ) {
  * Register the Featured Items List dynamic block.
  */
 function register_block() {
-	register_block_type( Utilities\namespaced_block( 'dimensions-materials' ), [
+	register_block_type( Utilities\namespaced_block( 'metadata' ), [
 		'attributes' => [
 			'width' => [
 				'type'    => 'number',
@@ -113,7 +113,7 @@ function register_block() {
  * @param array  $block         The block.
  */
 function disable_wpautop( string $block_content, array $block ) {
-	if ( Utilities\namespaced_block( 'dimensions-materials' ) === $block['blockName'] ) {
+	if ( Utilities\namespaced_block( 'metadata' ) === $block['blockName'] ) {
 		remove_filter( 'the_content', 'wpautop' );
 		remove_filter( 'the_content', 'wptexturize' );
 	}

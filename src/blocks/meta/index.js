@@ -16,9 +16,9 @@ import Icon from './icon';
 
 import './style.scss';
 
-export const name = namespacedBlock( 'dimensions-materials' );
+export const name = namespacedBlock( 'metadata' );
 
-const block = bemBlock( 'artwork-dimensions' );
+const block = bemBlock( 'artwork-metadata' );
 
 const EditDimensionsBlock = ( { attributes, isSelected, setAttributes, postId } ) => {
 	return isSelected ? (
@@ -68,9 +68,9 @@ const selectAssignedMedia = select => ( {
 } );
 
 export const options = {
-	title: __( 'Dimensions & Materials' ),
+	title: __( 'Artwork Metadata', 'artgallery' ),
 
-	description: __( 'List the size & materials for a given artwork.' ),
+	description: __( 'List the date, size & materials for a given artwork.', 'artgallery' ),
 
 	icon: Icon,
 
