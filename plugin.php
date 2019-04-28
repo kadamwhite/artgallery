@@ -35,7 +35,6 @@ define( 'ARTGALLERY_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 
 require_once( ARTGALLERY_PATH . 'inc/blocks.php' );
 require_once( ARTGALLERY_PATH . 'inc/meta.php' );
-require_once( ARTGALLERY_PATH . 'inc/migrations.php' );
 require_once( ARTGALLERY_PATH . 'inc/namespace.php' );
 require_once( ARTGALLERY_PATH . 'inc/post-types.php' );
 require_once( ARTGALLERY_PATH . 'inc/scripts.php' );
@@ -43,6 +42,7 @@ require_once( ARTGALLERY_PATH . 'inc/taxonomies.php' );
 require_once( ARTGALLERY_PATH . 'inc/utilities.php' );
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
+	require_once( ARTGALLERY_PATH . 'inc/migrations.php' );
 	require_once( ARTGALLERY_PATH . 'inc/wp_cli/class-migrate-acf-meta.php' );
 	WP_CLI::add_command( 'artgallery-migrate-acf-meta', 'ArtGallery\\WP_CLI\\Migrate_ACF_Meta' );
 }
