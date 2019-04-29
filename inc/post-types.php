@@ -66,6 +66,7 @@ function register_post_types() {
 		],
 		'template' => [
 			[ 'core/image' ],
+			[ 'artgallery/metadata' ],
 			[ 'artgallery/availability' ],
 		],
 	] );
