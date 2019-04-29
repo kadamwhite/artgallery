@@ -2,7 +2,8 @@ import { __ } from '@wordpress/i18n';
 import { Fragment } from '@wordpress/element';
 import { ServerSideRender } from '@wordpress/editor';
 import { TextControl } from '@wordpress/components';
-import { withSelect } from '@wordpress/data';
+import { compose } from '@wordpress/compose';
+import { withDispatch, withSelect } from '@wordpress/data';
 
 import {
 	ARTWORK_WIDTH,
@@ -20,7 +21,7 @@ export const name = 'artgallery/metadata';
 
 const block = bemBlock( 'artwork-metadata' );
 
-const EditDimensionsBlock = ( { attributes, isSelected, setAttributes, postId } ) => {
+const EditDimensionsBlock = ( { attributes, isSelected, setAttributes, openSidebar } ) => {
 	return isSelected ? (
 		<Fragment>
 			<h2 className={ block.element( 'title' ) }>
@@ -32,6 +33,9 @@ const EditDimensionsBlock = ( { attributes, isSelected, setAttributes, postId } 
 				value={ attributes.date }
 				onChange={ date => setAttributes( { date } ) }
 			/>
+			<p className={ block.element( 'message' ) }>
+				{ __( 'Specify artwork dimensions:', 'artgallery' ) }
+			</p>
 			<div className={ block.element( 'container' ) }>
 				<TextControl
 					className={ block.element( 'input' ) }
@@ -57,6 +61,15 @@ const EditDimensionsBlock = ( { attributes, isSelected, setAttributes, postId } 
 					onChange={ depth => setAttributes( { depth } ) }
 				/>
 			</div>
+			<p className={ block.element( 'message' ) }>
+				{ __( 'To modify artwork media information, add or remove terms in the Document sidebar.', 'artgallery' ) }
+				<button
+					className={ block.element( 'button' ) }
+					onClick={ openSidebar }
+				>
+					{ __( 'Open Document Sidebar', 'artgallery' ) }
+				</button>
+			</p>
 		</Fragment>
 	) : (
 		<ServerSideRender block={ name } attributes={ attributes } />
@@ -65,6 +78,12 @@ const EditDimensionsBlock = ( { attributes, isSelected, setAttributes, postId } 
 
 const selectAssignedMedia = select => ( {
 	postId: select( 'core/editor' ).getEditedPostAttribute( 'id' ),
+} );
+
+const selectOpenSidebarMethod = dispatch => ( {
+	openSidebar() {
+		dispatch( 'core/edit-post' ).openGeneralSidebar( 'edit-post/document' );
+	},
 } );
 
 export const options = {
@@ -100,7 +119,10 @@ export const options = {
 		},
 	},
 
-	edit: withSelect( selectAssignedMedia )( EditDimensionsBlock ),
+	edit: compose(
+		withSelect( selectAssignedMedia ),
+		withDispatch( selectOpenSidebarMethod ),
+	)( EditDimensionsBlock ),
 
 	save() {
 		return null;

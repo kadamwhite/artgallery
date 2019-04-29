@@ -9,6 +9,12 @@
 			padding: 0 0.5em;
 		}
 	}
+	.editor-styles-wrapper &__message {
+		font-size: 13px;
+		// See WP Core .components-base-control class.
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+		margin-bottom: 0.5em;
+	}
 	.editor-styles-wrapper &__input {
 		div,
 		label {
@@ -25,5 +31,8 @@
 			margin-right: 0.5em;
 			height: 2.25em;
 		}
+	}
+	.editor-styles-wrapper &__button {
+		cursor: pointer;
 	}
 }
