@@ -48,25 +48,25 @@ const AvailabilityOptionsList = ( {
 	}
 
 	if ( ! isSelected ) {
-		return (
+		return attributes.status === 'Available' ? (
 			<Fragment>
-				<h2 className={ block.element( 'title' ) }>
+				<p className={ block.element( 'explanation' ) }>
 					{ /* Translators: %s is the selected artwork status. */ }
-					{ sprintf( __( 'Artwork is %s', 'artgallery' ), term ? term.name : '...' ) }
-				</h2>
-				{ attributes.status === 'Available' ? (
-					<Fragment>
-						<p className={ block.element( 'explanation' ) }>
-							{ __( 'This message will be displayed on the frontend:', 'artgallery' ) }
-						</p>
-						<p>{ attributes.message }</p>
-					</Fragment>
-				) : (
-					<p className={ block.element( 'explanation' ) }>
-						{ __( '(No message or indication will be displayed)', 'artgallery' ) }
-					</p>
-				) }
+					{ sprintf( __( 'Artwork is %s.', 'artgallery' ), term ? term.name : '...' ) }
+					{ ' ' }
+					{ __( 'This message will be displayed on the frontend:', 'artgallery' ) }
+				</p>
+				<p>{ attributes.message }</p>
 			</Fragment>
+		) : (
+			<p className={ block.element( 'explanation' ) }>
+				(
+				{ /* Translators: %s is the selected artwork status. */ }
+				{ sprintf( __( 'Artwork is %s.', 'artgallery' ), term ? term.name : '...' ) }
+				{ ' ' }
+				{ __( 'No message or indication of artwork availability will be displayed.', 'artgallery' ) }
+				)
+			</p>
 		);
 	}
 

@@ -1,4 +1,8 @@
 .artwork-metadata {
+	.editor-styles-wrapper &__title {
+		line-height: 1.2;
+	}
+
 	&__container {
 		display: flex;
 		flex-direction: row;
@@ -9,12 +13,14 @@
 			padding: 0 0.5em;
 		}
 	}
+
 	.editor-styles-wrapper &__message {
 		font-size: 13px;
 		// See WP Core .components-base-control class.
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 		margin-bottom: 0.5em;
 	}
+
 	.editor-styles-wrapper &__input {
 		div,
 		label {
@@ -32,6 +38,7 @@
 			height: 2.25em;
 		}
 	}
+
 	.editor-styles-wrapper &__button {
 		cursor: pointer;
 	}
