@@ -76,16 +76,6 @@ const EditDimensionsBlock = ( { attributes, isSelected, setAttributes, openSideb
 	);
 };
 
-const selectAssignedMedia = select => ( {
-	postId: select( 'core/editor' ).getEditedPostAttribute( 'id' ),
-} );
-
-const selectOpenSidebarMethod = dispatch => ( {
-	openSidebar() {
-		dispatch( 'core/edit-post' ).openGeneralSidebar( 'edit-post/document' );
-	},
-} );
-
 export const options = {
 	title: __( 'Artwork Metadata', 'artgallery' ),
 
@@ -120,8 +110,12 @@ export const options = {
 	},
 
 	edit: compose(
-		withSelect( selectAssignedMedia ),
-		withDispatch( selectOpenSidebarMethod ),
+		withSelect( select => ( {
+			postId: select( 'core/editor' ).getEditedPostAttribute( 'id' ),
+		} ) ),
+		withDispatch( dispatch => ( {
+			openSidebar: () => dispatch( 'core/edit-post' ).openGeneralSidebar( 'edit-post/document' ),
+		} ) ),
 	)( EditDimensionsBlock ),
 
 	save() {
