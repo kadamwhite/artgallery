@@ -78,7 +78,7 @@ const FeaturedImageWarning = ( {
 };
 
 export const options = {
-	icon: 'smiley',
+	icon: 'warning',
 
 	render: compose(
 		withSelect( select => {
