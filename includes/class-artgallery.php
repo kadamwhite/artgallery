@@ -66,9 +66,6 @@ class ArtGallery {
 
     // Anything that has to happen inside Admin
     add_action( 'admin_init', array( $this, 'artgallery_admin_init' ) );
-
-    // Except for adding image sizes, which happens here
-    add_action( 'after_setup_theme', array( $this, 'artgallery_add_image_sizes' ) );
   }
 
   /**
@@ -145,20 +142,6 @@ class ArtGallery {
 
     if ( isset( $screen->post_type ) && 'ag_artwork_item' === $screen->post_type ) {
       wp_enqueue_script( 'artgallery-edit-artwork' );
-    }
-  }
-
-  public function artgallery_add_image_sizes() {
-    $dims = array(
-        'xs' => 160,
-        'sm' => 320,
-        'md' => 640,
-        'lg' => 960,
-        'xl' => 1280
-    );
-
-    foreach ( $dims as $size => $width ) {
-        add_image_size( "ag_square_$size", $width, $width, true );
     }
   }
 
