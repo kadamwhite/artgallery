@@ -124,9 +124,6 @@ class ArtGallery {
    * @since 0.0.2
    */
   public function artgallery_admin_init() {
-    // Default posts to "available" if saved without an availability state
-    add_action( 'save_post', array( $this, 'artgallery_set_default_availability_state' ), 100, 2 );
-
     // Add stylesheet to make our custom ACF stuff display correctly
     wp_register_style( 'artgallery-admin', ARTGALLERY_URL . 'assets/css/artgallery-admin.css' );
     wp_register_script(
@@ -138,47 +135,6 @@ class ArtGallery {
     );
 
     add_action( 'admin_enqueue_scripts', array( $this, 'artgallery_admin_enqueue_scripts' ) );
-  }
-
-  /**
-   * Define default terms for custom taxonomies in WordPress 3.0.1
-   * (Works the same way that a post's Category defaults to Uncategorized)
-   *
-   * @author    Michael Fields     http://wordpress.mfields.org/
-   * @props     John P. Bloch      http://www.johnpbloch.com/
-   * @props     Evan Mulins        http://circlecube.com/
-   *
-   * @since     2010-09-13
-   * @alter     2013-01-31
-   */
-  function artgallery_set_default_availability_state( $post_id, $post ) {
-
-    /* Default terms by taxonomy:
-     *
-     * Availability: Available
-     * Media: (none)
-     * Dimensions: (none)
-     * Category: (none)
-     */
-    $defaults = array(
-      'ag_artwork_availability' => array( 'available' )
-    );
-
-    // Verify that we're publishing an artwork item, and not something else
-    if ( 'publish' === $post->post_status && $post->post_type === 'ag_artwork_item' ) {
-      // Get the taxonomies available for this post type
-      $taxonomies = get_object_taxonomies( $post->post_type );
-
-      foreach ( (array) $taxonomies as $taxonomy ) {
-
-        $terms = wp_get_post_terms( $post_id, $taxonomy );
-        if ( empty( $terms ) && array_key_exists( $taxonomy, $defaults ) ) {
-          wp_set_object_terms( $post_id, $defaults[ $taxonomy ], $taxonomy );
-        }
-
-      };
-    }
-
   }
 
   public function artgallery_admin_enqueue_scripts() {

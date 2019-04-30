@@ -9,10 +9,15 @@ const ARTWORK_POST_TYPE = 'ag_artwork_item';
 
 function setup() {
 	add_action( 'init', __NAMESPACE__ . '\\register_post_types' );
+
+	// Default posts to "nfs" if saved without an availability state
+	add_action( 'save_post', __NAMESPACE__ . '\\set_default_terms', 20, 2 );
 }
 
 /**
  * Register the custom post type for artworks.
+ *
+ * @return void
  */
 function register_post_types() {
 	register_post_type( ARTWORK_POST_TYPE, [
@@ -74,9 +79,46 @@ function register_post_types() {
 }
 
 /**
+ * When an artwork item is saved, assign any default terms for unpopulated
+ * taxonomies supported by this post type.
+ *
+ * Based on work by Michael Fields, John P. Bloch, and Evan Mulins.
+ *
+ * @param int     $post_id The ID of the post being saved.
+ * @param WP_Post $post    The post object being saved.
+ *
+ * @return void
+ */
+function set_default_terms( int $post_id, WP_Post $post ) {
+	// Verify that we're publishing an artwork item, and not something else
+	if ( 'publish' === $post->post_status && $post->post_type === ARTWORK_POST_TYPE ) {
+		/* Default terms by taxonomy:
+		*
+		* Availability: Not For Sale
+		* Media: (none)
+		* Dimensions: (none)
+		* Category: (none)
+		*/
+		$defaults = [];
+		$defaults[ Taxonomies\AVAILABILITY_TAXONOMY ] = [ 'nfs' ];
+
+		// Get the taxonomies available for this post type
+		$taxonomies = (array) get_object_taxonomies( $post->post_type );
+
+		foreach ( $taxonomies as $taxonomy ) {
+			$terms = wp_get_post_terms( $post_id, $taxonomy );
+			if ( empty( $terms ) && array_key_exists( $taxonomy, $defaults ) ) {
+				wp_set_object_terms( $post_id, $defaults[ $taxonomy ], $taxonomy );
+			}
+		};
+	}
+}
+
+/**
  * Utility method to retrieve all artwork items, then do something to/with each one.
  *
  * @param callable $callback Function that will be passed each artwork post object.
+ *
  * @return void
  */
 function for_all_artworks( callable $callback ) {
