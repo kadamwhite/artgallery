@@ -124,9 +124,6 @@ class ArtGallery {
    * @since 0.0.2
    */
   public function artgallery_admin_init() {
-    // Persist artwork image field as the featured image
-    add_action( 'acf/save_post', array( $this, 'acf_save_featured' ), 20 );
-
     // Default posts to "available" if saved without an availability state
     add_action( 'save_post', array( $this, 'artgallery_set_default_availability_state' ), 100, 2 );
 
@@ -141,28 +138,6 @@ class ArtGallery {
     );
 
     add_action( 'admin_enqueue_scripts', array( $this, 'artgallery_admin_enqueue_scripts' ) );
-  }
-
-  /**
-   * Register a hook to synchronize the Featured Image with an Advanced Custom Fields image field
-   *
-   * Function adapted from a snippet in an Advanced Custom Fields support thread:
-   * http://support.advancedcustomfields.com/discussion/1856/set-featured-image-thumbnail-with-an-image-field/p1#Comment_18599
-   *
-   * @since    0.0.2
-   */
-  public function acf_save_featured() {
-    global $post;
-
-    $the_field = 'artwork_image';
-    $has_the_field = get_field( $the_field );
-
-    if ( $has_the_field ) {
-      $artwork_image = get_post_meta( $post->ID, $the_field, true );
-      set_post_thumbnail( $post->ID, $artwork_image );
-    } else {
-      delete_post_thumbnail();
-    }
   }
 
   /**
