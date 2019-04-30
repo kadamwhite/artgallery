@@ -62,17 +62,6 @@ add_action( 'plugins_loaded', function() {
 // phpcs:disable
 // Everything below this line is legacy code.
 
-// Class Instantiation
-// ===================
-
-require_once( plugin_dir_path( __FILE__ ) . 'includes/class-artgallery.php' );
-
-// Register hooks that are fired when the plugin is activated and deactivated, respectively.
-register_activation_hook( __FILE__, array( 'ArtGallery', 'activate' ) );
-register_deactivation_hook( __FILE__, array( 'ArtGallery', 'deactivate' ) );
-
-ArtGallery::get_instance();
-
 // Template Tags
 // =============
 
