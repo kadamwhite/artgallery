@@ -15,7 +15,7 @@ import { MediaUpload, MediaUploadCheck } from '@wordpress/editor';
 
 import { ARTWORK_POST_TYPE } from '../../constants';
 
-export const name = 'artgallery-featured-item-alert';
+export const name = 'artgallery-missing-featured-image-warning';
 
 const MissingImageWarning = () => (
 	<p style={ {
@@ -48,6 +48,7 @@ const FeaturedImageWarning = ( {
 			<PluginPostStatusInfo>
 				<MissingImageWarning />
 			</PluginPostStatusInfo>
+
 			<PluginPrePublishPanel>
 				<MissingImageWarning />
 				<p>
