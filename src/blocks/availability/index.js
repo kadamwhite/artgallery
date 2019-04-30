@@ -47,12 +47,14 @@ const AvailabilityOptionsList = ( {
 		}
 	}
 
+	/* Translators: %s is the selected artwork status. */
+	const message = sprintf( __( 'Artwork is %s.', 'artgallery' ), term ? term.name : '...' );
+
 	if ( ! isSelected ) {
-		return attributes.status === 'Available' ? (
+		return term.slug === 'available' ? (
 			<Fragment>
 				<p className={ block.element( 'explanation' ) }>
-					{ /* Translators: %s is the selected artwork status. */ }
-					{ sprintf( __( 'Artwork is %s.', 'artgallery' ), term ? term.name : '...' ) }
+					{ message }
 					{ ' ' }
 					{ __( 'This message will be displayed on the frontend:', 'artgallery' ) }
 				</p>
@@ -61,8 +63,7 @@ const AvailabilityOptionsList = ( {
 		) : (
 			<p className={ block.element( 'explanation' ) }>
 				(
-				{ /* Translators: %s is the selected artwork status. */ }
-				{ sprintf( __( 'Artwork is %s.', 'artgallery' ), term ? term.name : '...' ) }
+				{ message }
 				{ ' ' }
 				{ __( 'No message or indication of artwork availability will be displayed.', 'artgallery' ) }
 				)
@@ -86,13 +87,7 @@ const AvailabilityOptionsList = ( {
 					label: term.name,
 					value: +term.id,
 				} ) ) }
-				onChange={ termId => {
-					const term = availabilityTerms.find( term => +term.id === +termId );
-					setAttributes( {
-						status: term.name,
-					} );
-					setAvailability( termId );
-				} }
+				onChange={ termId => setAvailability( termId ) }
 			/>
 			{ term === availabilityTerms.find( term => term.name.match( /Available/i ) ) ? (
 				<Fragment>
@@ -135,9 +130,6 @@ export const options = {
 	category: 'artgallery',
 
 	attributes: {
-		status: {
-			type: 'string',
-		},
 		message: {
 			type: 'string',
 			default: 'Contact artist for pricing.',
