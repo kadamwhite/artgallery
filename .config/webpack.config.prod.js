@@ -13,7 +13,8 @@ const pluginPath = ( ...pathParts ) => resolve( __dirname, '..', ...pathParts );
 const config = {
 	externals,
 	entry: {
-		editor: pluginPath( 'src/index.js' ),
+		editor: pluginPath( 'src/editor.js' ),
+		frontend: pluginPath( 'src/frontend.js' ),
 	},
 	output: {
 		path: pluginPath( 'build' ),
