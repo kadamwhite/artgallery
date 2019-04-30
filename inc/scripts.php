@@ -25,6 +25,7 @@ function enqueue_block_editor_assets() {
 			'wp-data',
 			'wp-edit-post',
 			'wp-element',
+			'wp-hooks',
 			'wp-i18n',
 			'wp-plugins',
 		],

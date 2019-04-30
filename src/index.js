@@ -4,3 +4,4 @@
  * Entry point for the "editor.js" bundle.
  */
 import './blocks';
+import './plugins';
