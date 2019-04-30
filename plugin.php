@@ -65,17 +65,7 @@ add_action( 'plugins_loaded', function() {
 // Class Instantiation
 // ===================
 
-define( 'ACF_LITE' , true );
-
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-artgallery.php' );
-if ( ! class_exists( 'acf' ) ) {
-  require_once( plugin_dir_path( __FILE__ ) . 'includes/lib/acf/acf.php' );
-}
-
-if ( defined( 'ACF_LITE' ) && ACF_LITE == true ) {
-  // If we're in "lite mode," load the exported config file to register fields
-  require_once( plugin_dir_path( __FILE__ ) . 'config/acf-config.php' );
-}
 
 // Register hooks that are fired when the plugin is activated and deactivated, respectively.
 register_activation_hook( __FILE__, array( 'ArtGallery', 'activate' ) );
