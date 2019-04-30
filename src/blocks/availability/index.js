@@ -4,7 +4,7 @@ import { RadioControl } from '@wordpress/components';
 import { ServerSideRender, RichText } from '@wordpress/editor';
 import { withDispatch, withSelect } from '@wordpress/data';
 
-import { AVAILABILITY_TAXONOMY } from '../../constants';
+import { AVAILABILITY_TAXONOMY, ARTWORK_POST_TYPE } from '../../constants';
 import { bemBlock } from '../../utils';
 
 import Icon from './icon';
@@ -151,3 +151,6 @@ export const options = {
 		return null;
 	},
 };
+
+// Limit the post types in which this block is available.
+export const postTypes = [ ARTWORK_POST_TYPE ];

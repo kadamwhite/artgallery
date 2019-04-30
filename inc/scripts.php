@@ -23,6 +23,7 @@ function enqueue_block_editor_assets() {
 			'wp-components',
 			'wp-compose',
 			'wp-data',
+			'wp-dom-ready',
 			'wp-edit-post',
 			'wp-element',
 			'wp-hooks',
@@ -30,4 +31,9 @@ function enqueue_block_editor_assets() {
 			'wp-plugins',
 		],
 	] );
+
+	$screen = get_current_screen();
+	if ( $screen ) {
+		wp_localize_script( 'artgallery-editor', 'ARTGALLERY_CURRENT_SCREEN', (array) $screen );
+	}
 }

@@ -4,25 +4,21 @@
  */
 namespace ArtGallery\Blocks;
 
-use ArtGallery\Post_Types;
-use WP_Post;
-
 function setup() {
 	// Auto-load all PHP-defined blocks.
 	autoregister_blocks();
 
 	// Register actions & filters.
-	add_filter( 'block_categories', __NAMESPACE__ . '\\add_custom_block_category', 10, 2 );
+	add_filter( 'block_categories', __NAMESPACE__ . '\\add_artgallery_block_category', 10, 1 );
 }
 
 /**
  * Register a custom block category for this plugin.
+ *
+ * @param array $categories The list of available block categories.
+ * @return array The filtered categories list.
  */
-function add_custom_block_category( array $categories, WP_Post $post ) {
-	if ( $post->post_type !== Post_Types\ARTWORK_POST_TYPE ) {
-		return $categories;
-	}
-
+function add_artgallery_block_category( array $categories ) {
 	return array_merge( $categories, [
 		[
 			'slug'  => 'artgallery',

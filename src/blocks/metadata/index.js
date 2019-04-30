@@ -10,6 +10,7 @@ import {
 	ARTWORK_HEIGHT,
 	ARTWORK_DEPTH,
 	ARTWORK_DATE,
+	ARTWORK_POST_TYPE,
 } from '../../constants';
 import { bemBlock } from '../../utils';
 
@@ -122,3 +123,6 @@ export const options = {
 		return null;
 	},
 };
+
+// Limit the post types in which this block is available.
+export const postTypes = [ ARTWORK_POST_TYPE ];
