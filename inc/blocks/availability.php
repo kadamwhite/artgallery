@@ -28,7 +28,7 @@ function render_availability_message( array $attributes = [] ) {
 	if ( empty( $status ) ) {
 		$assigned_terms = wp_get_post_terms( $post->ID, Taxonomies\AVAILABILITY_TAXONOMY );
 		$availability = $assigned_terms[0] ?? null;
-		$status = $availability ?? $availability->slug;
+		$status = isset( $availability ) && $availability->slug;
 	}
 
 	if ( empty( $status ) || empty( $attributes['message'] ) ) {

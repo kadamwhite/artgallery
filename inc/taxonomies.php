@@ -2,6 +2,8 @@
 
 namespace ArtGallery\Taxonomies;
 
+use WP_Post;
+
 const ARTWORK_CATEGORIES_TAXONOMY = 'ag_artwork_categories';
 const AVAILABILITY_TAXONOMY       = 'ag_artwork_availability';
 const DIMENSIONS_TAXONOMY         = 'ag_artwork_dimensions';
@@ -104,4 +106,25 @@ function populate_default_taxonomy_terms() {
 		'description' => __( 'Artwork is not for sale', 'artgallery' ),
 		'slug' => 'nfs',
 	] );
+}
+
+/**
+ * Return the list of media for a given post, optionally formatted as links
+ * to the archive pages for those terms.
+ *
+ * @param int     $artwork_id An artwork post object ID.
+ * @param boolean $links      (optional) Whether to render media terms as archive links.
+ *
+ * @return string
+ */
+function get_media_list( int $artwork_id, bool $links = false ) : string {
+	$media = wp_get_post_terms( $artwork_id, MEDIA_TAXONOMY );
+	$term_links = array_map( function( $medium ) use ( $links ) {
+		if ( $links ) {
+			$href = get_term_link( $medium );
+			return "<a href=\"$href\">$medium->name</a>";
+		}
+		return $medium->name;
+	}, $media );
+	return implode( ', ', $term_links );
 }

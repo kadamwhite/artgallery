@@ -23,40 +23,11 @@ function setup() {
 function render_artwork_metadata( array $attributes = [] ) {
 	global $post;
 
-	// Helper method to get an attribute from the attributes array or meta.
-	$get_attribute = function( $property, $fallback_meta_key ) use ( $attributes, $post ) {
-		if ( isset( $attributes[ $property ] ) && ! empty( $attributes[ $property ] ) ) {
-			return $attributes[ $property ];
-		}
-		return get_post_meta( $post->ID, $fallback_meta_key, true );
-	};
+	$date = Meta\get_artwork_date( $post->ID, $attributes['date'] ?? null );
 
-	$date = $get_attribute( 'date', Meta\ARTWORK_DATE );
-	if ( ! empty( $date ) && preg_match( '/[0-9]{4}-?[0-9]{2}-?[0-9]{2}/', $date ) ) {
-		$date = date_format( date_create( $date ), 'F Y' );
-	}
+	$term_links = Taxonomies\get_media_list( $post, true );
 
-	$media = wp_get_post_terms( $post->ID, Taxonomies\MEDIA_TAXONOMY );
-	$term_links = array_map( function( $medium ) {
-		$href = get_term_link( $medium );
-		return "<a href=\"$href\">$medium->name</a>";
-	}, $media );
-
-	$dimensions = array_map(
-		function( $inches ) {
-			return $inches . '"';
-		},
-		array_filter(
-			[
-				$get_attribute( 'width', Meta\ARTWORK_WIDTH ),
-				$get_attribute( 'height', Meta\ARTWORK_HEIGHT ),
-				$get_attribute( 'depth', Meta\ARTWORK_DEPTH ),
-			],
-			function( $inches ) {
-				return ! empty( $inches );
-			}
-		)
-	);
+	$dimensions = Meta\get_artwork_dimensions( $post->ID, $attributes );
 
 	$block_output = '';
 
@@ -64,13 +35,13 @@ function render_artwork_metadata( array $attributes = [] ) {
 		$block_output .= $date . '. ';
 	}
 	if ( ! empty( $dimensions ) ) {
-		$block_output .= implode( ' x ', $dimensions );
+		$block_output .= $dimensions;
 		if ( ! empty( $term_links ) ) {
 			$block_output .= '; ';
 		}
 	}
 	if ( ! empty( $term_links ) ) {
-		$block_output .= implode( ', ', $term_links ) . '.';
+		$block_output .= $term_links . '.';
 	}
 
 	return ! empty( $block_output ) ?
