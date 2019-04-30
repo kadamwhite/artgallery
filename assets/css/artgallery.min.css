@@ -1,5 +1,0 @@
-/*! ArtGallery - v0.0.2
- * http://www.emilygarfield.com
- * Copyright (c) 2013; * Licensed GPLv2+ */
-
-.ag_gallery_widget img{-webkit-transition:opacity 300ms linear;transition:opacity 300ms linear}.ag_gallery_widget a:hover{text-decoration:none}.ag_gallery_widget a:hover img{opacity:.6;-webkit-transition:opacity 250ms linear;transition:opacity 250ms linear}

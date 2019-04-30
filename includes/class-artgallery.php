@@ -63,9 +63,6 @@ class ArtGallery {
    * @since     0.0.1
    */
   private function __construct() {
-
-    // Anything that has to happen inside Admin
-    add_action( 'admin_init', array( $this, 'artgallery_admin_init' ) );
   }
 
   /**
@@ -106,43 +103,4 @@ class ArtGallery {
   public static function deactivate( $network_wide ) {
     // TODO: Define deactivation functionality here
   }
-
-
-
-
-
-  /*****************************************
-   WELCOME TO THE WP-ADMIN SIDE OF THE WORLD
-   *****************************************/
-
-  /**
-   * Enqueue styles for use in the edit artwork screen
-   *
-   * @since 0.0.2
-   */
-  public function artgallery_admin_init() {
-    // Add stylesheet to make our custom ACF stuff display correctly
-    wp_register_style( 'artgallery-admin', ARTGALLERY_URL . 'assets/css/artgallery-admin.css' );
-    wp_register_script(
-      'artgallery-edit-artwork',
-      ARTGALLERY_URL . 'assets/js/src/edit-ag_artwork_item.js',
-      array( 'jquery' ),
-      '0.1.0',
-      true
-    );
-
-    add_action( 'admin_enqueue_scripts', array( $this, 'artgallery_admin_enqueue_scripts' ) );
-  }
-
-  public function artgallery_admin_enqueue_scripts() {
-    wp_enqueue_style( 'artgallery-admin' );
-
-    // Conditionally load extra scripts when editing an artwork item
-    $screen = get_current_screen();
-
-    if ( isset( $screen->post_type ) && 'ag_artwork_item' === $screen->post_type ) {
-      wp_enqueue_script( 'artgallery-edit-artwork' );
-    }
-  }
-
 }
