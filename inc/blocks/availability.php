@@ -4,6 +4,8 @@
  */
 namespace ArtGallery\Blocks\Availability;
 
+use ArtGallery\Taxonomies;
+
 const BLOCK_NAME = 'artgallery/availability';
 
 function setup() {
@@ -17,13 +19,27 @@ function setup() {
  * @return string The rendered block markup, as an HTML string.
  */
 function render_availability_message( array $attributes = [] ) {
-	if ( empty( $attributes['status'] ) || empty( $attributes['message'] ) ) {
+	global $post;
+
+	// Check to see whether a status was passed in.
+	$status = $attributes['status'] ?? null;
+
+	// Retrieve the status from assigned terms if not rendering via ServerSideRender.
+	if ( empty( $status ) ) {
+		$assigned_terms = wp_get_post_terms( $post->ID, Taxonomies\AVAILABILITY_TAXONOMY );
+		$availability = $assigned_terms[0] ?? null;
+		$status = $availability ?? $availability->slug;
+	}
+
+	if ( empty( $status ) || empty( $attributes['message'] ) ) {
 		return null;
 	}
-	if ( $attributes['status'] !== 'Available' ) {
+
+	if ( $status !== 'available' ) {
 		return null;
 	}
-	return wp_kses_post( '<p>' . $attributes['message'] . '</p>' );
+
+	return '<p>' . wp_kses_post( $attributes['message'] ) . '</p>';
 }
 
 /**
@@ -32,6 +48,9 @@ function render_availability_message( array $attributes = [] ) {
 function register_block() {
 	register_block_type( BLOCK_NAME, [
 		'attributes' => [
+			// Status is not registered on the frontend, and should not be saved in
+			// post content, but it is necessary to register it here so that it may
+			// be passed in to render an accurate block preview.
 			'status' => [
 				'type' => 'string',
 			],

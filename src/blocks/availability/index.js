@@ -1,7 +1,7 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { Fragment } from '@wordpress/element';
 import { RadioControl } from '@wordpress/components';
-import { RichText } from '@wordpress/editor';
+import { ServerSideRender, RichText } from '@wordpress/editor';
 import { withDispatch, withSelect } from '@wordpress/data';
 
 import { AVAILABILITY_TAXONOMY } from '../../constants';
@@ -23,42 +23,40 @@ const AvailabilityOptionsList = ( {
 	setAttributes,
 	setAvailability,
 } ) => {
-	if ( ! Array.isArray( availabilityTerms ) || ! availabilityTerms.length ) {
-		return (
-			<Fragment>
-				<h2>
-					{ __( 'Artwork availability status loading...', 'artgallery' ) }
-				</h2>
-			</Fragment>
-		);
-	}
-
-	const termId = Array.isArray( availability ) && availability.length ? availability[0] : null;
-	const term = termId && availabilityTerms.find( term => ( +term.id === +termId ) );
-
 	// Try to assign a default term as soon as the block's data loads.
-	if ( ! term ) {
-		const nfsTerm = availabilityTerms.find( term => ( term.slug === 'nfs' ) );
+	if ( availabilityTerms && ! availability ) {
+		const nfsTerm = availabilityTerms.find( availability => ( availability.slug === 'nfs' ) );
 		if ( nfsTerm ) {
 			setAvailability( nfsTerm.id );
-			setAttributes( {
-				status: nfsTerm.name,
-			} );
 		}
 	}
 
+	if ( ! availabilityTerms || ! availability ) {
+		return (
+			<h2>
+				{ __( 'Artwork availability status loading...', 'artgallery' ) }
+			</h2>
+		);
+	}
+
 	/* Translators: %s is the selected artwork status. */
-	const message = sprintf( __( 'Artwork is %s.', 'artgallery' ), term ? term.name : '...' );
+	const message = sprintf( __( 'Artwork is %s.', 'artgallery' ), availability ? availability.name : '...' );
 
 	if ( ! isSelected ) {
-		return term.slug === 'available' ? (
+		return availability.slug === 'available' ? (
 			<Fragment>
 				<p className={ block.element( 'explanation' ) }>
 					{ message }
 					{ ' ' }
 					{ __( 'This message will be displayed on the frontend:', 'artgallery' ) }
 				</p>
-				<p>{ attributes.message }</p>
+				<ServerSideRender block={ name } attributes={ {
+					// Status is not a registered attribute, but we must pass it back when
+					// rendering via ServerSideRender so the backend can be aware of
+					// pending term assignment updates and display the correct preview.
+					status: availability.slug,
+					...attributes,
+				} } />
 			</Fragment>
 		) : (
 			<p className={ block.element( 'explanation' ) }>
@@ -82,14 +80,14 @@ const AvailabilityOptionsList = ( {
 			<RadioControl
 				className={ block.element( 'options' ) }
 				label={ __( 'Artwork Status', 'artgallery' ) }
-				selected={ availability ? +availability[ 0 ] : null }
+				selected={ availability ? +availability.id : null }
 				options={ availabilityTerms.map( term => ( {
 					label: term.name,
 					value: +term.id,
 				} ) ) }
 				onChange={ termId => setAvailability( termId ) }
 			/>
-			{ term === availabilityTerms.find( term => term.name.match( /Available/i ) ) ? (
+			{ availability === availabilityTerms.find( term => term.name.match( /Available/i ) ) ? (
 				<Fragment>
 					<label className={ `${ block.element( 'help-text' ) } components-base-control` }>
 						{ __( 'Enter a sales message or link to display at the bottom of the artwork page.', 'artgallery' ) }
@@ -108,11 +106,22 @@ const AvailabilityOptionsList = ( {
 	);
 };
 
-const selectAvailabilityTerms = select => ( {
-	availability: select( 'core/editor' ).getEditedPostAttribute( AVAILABILITY_TAXONOMY ),
-	availabilityTerms: select( 'core' ).getEntityRecords( 'taxonomy', AVAILABILITY_TAXONOMY ),
-	otherProp: Math.random(),
-} );
+const selectAvailabilityTerms = select => {
+	const availabilityTerms = select( 'core' ).getEntityRecords( 'taxonomy', AVAILABILITY_TAXONOMY );
+	const assignedTerms = select( 'core/editor' ).getEditedPostAttribute( AVAILABILITY_TAXONOMY );
+
+	const assignedTermId = Array.isArray( assignedTerms ) && assignedTerms.length ?
+		assignedTerms[0] :
+		null;
+	const assignedTerm = assignedTermId && Array.isArray( availabilityTerms ) ?
+		availabilityTerms.find( term => ( +term.id === +assignedTermId ) ) :
+		null;
+
+	return {
+		availability: assignedTerm,
+		availabilityTerms: availabilityTerms,
+	};
+};
 
 const dispatchAvailabilityChanges = dispatch => ( {
 	setAvailability: termId => dispatch( 'core/editor' ).editPost( {
