@@ -93,11 +93,23 @@ function update_meta_keys( WP_Post $artwork, bool $dry_run = true, callable $log
  * @return bool False if failure or noop, True if successfully updated.
  */
 function populate_artwork_post_content( WP_Post $artwork, bool $dry_run = true, callable $log = null ) {
+	$existing_content = trim( $artwork->post_content );
+	if ( ! empty( $existing_content ) ) {
+		$log( '-- Existing content found! Check post after migration. -' );
+		$maybe_video = preg_match( '/vimeo|youtube/', $existing_content );
+	} else {
+		$maybe_video = false;
+	}
+
 	$new_post_content = '';
+
+	if ( $maybe_video ) {
+		$new_post_content .= $existing_content . "\n\n";
+	}
 
 	$featured_image_id = get_post_thumbnail_id( $artwork->ID );
 	$featured_image_url = wp_get_attachment_url( $featured_image_id );
-	if ( $featured_image_id && $featured_image_url ) {
+	if ( ! $maybe_video && $featured_image_id && $featured_image_url ) {
 		$new_post_content .= sprintf( '<!-- wp:image {"id":%s} -->', $featured_image_id );
 		$new_post_content .= "\n";
 		$new_post_content .= '<figure class="wp-block-image">';
@@ -108,17 +120,18 @@ function populate_artwork_post_content( WP_Post $artwork, bool $dry_run = true, 
 		$new_post_content .= "\n\n";
 	}
 
-	$new_post_content .= '<!-- wp:artgallery/metadata /-->';
-	$new_post_content .= "\n\n";
-	$new_post_content .= '<!-- wp:artgallery/availability /-->';
+	if ( ! empty( $existing_content ) && ! $maybe_video ) {
+		$new_post_content .= $existing_content . "\n\n";
+	}
 
-	if ( ! empty( $artwork->post_content ) ) {
-		$new_post_content .= "\n\n" . $artwork->post_content;
+	if ( ! $maybe_video ) {
+		$new_post_content .= '<!-- wp:artgallery/metadata /-->';
+		$new_post_content .= "\n\n";
+		$new_post_content .= '<!-- wp:artgallery/availability /-->';
 	}
 
 	// Remove excessive, leading, and trailing newlines.
-	$new_post_content = preg_replace( "/(^\n+|\n+$)/", '', $new_post_content );
-	$new_post_content = preg_replace( "/\n\n+/", "\n\n", $new_post_content );
+	$new_post_content = trim( preg_replace( "/(^\n+|\n+$)/", '', $new_post_content ) );
 
 	$log( '-- Setting content to: ---------------------------------' );
 	$log( $new_post_content );
