@@ -1,5 +1,5 @@
 import { createHigherOrderComponent } from '@wordpress/compose';
-import { dispatch, select, subscribe, withSelect } from '@wordpress/data';
+import { dispatch, /* select, subscribe, */ withSelect } from '@wordpress/data';
 
 import {
 	ARTWORK_POST_TYPE,
