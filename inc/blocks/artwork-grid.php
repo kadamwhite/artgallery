@@ -47,14 +47,15 @@ function render_artwork_grid( array $attributes ) : string {
 	] );
 
 	// Define the container dimensions at which the different breakpoints kick in.
-	$breakpoints = json_encode( [
+	$breakpoints = wp_json_encode( [
 		'two-up'   => 0,
 		'three-up' => 420,
 		'four-up'  => 640,
 	] );
 
 	ob_start();
-
+	/* phpcs:disable Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace */
+	/* phpcs:disable WordPress.Arrays.ArrayIndentation */
 	?>
 	<div
 		class="artwork-grid <?php echo $align; ?>"
@@ -64,12 +65,14 @@ function render_artwork_grid( array $attributes ) : string {
 		<div class="artwork-grid__container">
 			<?php foreach ( $recent_artwork->posts as $artwork ) : ?>
 			<a class="artwork-grid__link" href="<?php echo get_permalink( $artwork->ID ); ?>">
-				<?php echo get_the_post_thumbnail( $artwork, 'ag_square_sm', [
+				<?php
+				echo get_the_post_thumbnail( $artwork, 'ag_square_sm', [
 					// Define the sizes attribute assuming the largest possible block width.
 					// The breakpoints driving the styles are determiend by the breakpoints
 					// specified above.
 					'sizes' => '(min-width: 480px) 320px, 160px',
-				] ); ?>
+				] );
+				?>
 				<div class="artwork-grid__info">
 					<p class="artwork-grid__title"><?php echo $artwork->post_title; ?></p>
 					<?php
@@ -91,6 +94,8 @@ function render_artwork_grid( array $attributes ) : string {
 		</div><!-- .artwork-grid__container -->
 	</div><!-- .artwork-grid -->
 	<?php
+	/* phpcs:enable WordPress.Arrays.ArrayIndentation */
+	/* phpcs:enable Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace */
 
 	$block_output = ob_get_contents();
 	ob_end_clean();

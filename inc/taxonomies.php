@@ -2,8 +2,6 @@
 
 namespace ArtGallery\Taxonomies;
 
-use WP_Post;
-
 const ARTWORK_CATEGORIES_TAXONOMY = 'ag_artwork_categories';
 const AVAILABILITY_TAXONOMY       = 'ag_artwork_availability';
 const DIMENSIONS_TAXONOMY         = 'ag_artwork_dimensions';
