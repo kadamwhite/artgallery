@@ -1,4 +1,9 @@
 /**
  * Entrypoint for "frontend.js" scripts & styles bundle.
  */
-import './blocks/artwork-grid/style.scss';
+
+// Styles
+import './frontend.scss';
+
+// Site-wide JS logic
+import './responsive-container';

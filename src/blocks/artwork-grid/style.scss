@@ -1,0 +1,66 @@
+.artwork-grid {
+	&__container {
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		margin: -2px;
+	}
+
+	&__link {
+		position: relative;
+		display: block;
+		margin: 0;
+		border: 2px solid transparent;
+
+		// Do some finessing to style the blocks appropriately for a variety of
+		// assumed usage locations: narrow on large screens implies column
+		// layouts, so we cut off a few of the bottom nodes to avoid making the
+		// block too tall.
+		.two-up &,
+		.two-up-cutoff & {
+			width: 50%;
+			&:last-child {
+				display: none;
+			}
+			@include respond-above( 470px ) {
+				&:nth-of-type( 7 ),
+				&:nth-of-type( 8 ),
+				&:nth-of-type( 9 ) {
+					display: none;
+				}
+			}
+		}
+		.three-up & {
+			width: 33%;
+			&:last-child {
+				display: block;
+			}
+		}
+		.four-up & {
+			width: 25%;
+			&:last-child {
+				display: none;
+			}
+		}
+	}
+
+	&__info {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+		padding: 0 0.5em;
+		background: rgba( 255, 255, 255, 0.8 );
+
+		a:not(:focus):not(:hover):not(:active) & {
+			@include screen-reader-text;
+		}
+
+		.artwork-grid__meta {
+			position: absolute;
+			bottom: 0;
+			font-size: 0.8em;
+		}
+	}
+}

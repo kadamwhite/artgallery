@@ -20,6 +20,11 @@ function setup() {
  */
 function register_block() {
 	register_block_type( BLOCK_NAME, [
+		'attributes' => [
+			'align' => [
+				'type' => 'string',
+			],
+		],
 		'render_callback' => __NAMESPACE__ . '\\render_artwork_grid',
 	] );
 }
@@ -27,42 +32,69 @@ function register_block() {
 /**
  * Render the HTML for the artwork thumbnail grid.
  *
- * @return string
+ * @param array $attributes The block attributes.
+ * @return string The rendered block markup, as an HTML string.
  */
-function render_artwork_grid() : string {
+function render_artwork_grid( array $attributes ) : string {
+	$align = isset( $attributes['align'] ) ? (string) $attributes['align'] : '';
+	if ( ! empty( $align ) ) {
+		$align = "align$align";
+	}
+
 	$recent_artwork = new WP_Query( [
 		'post_type'      => Post_Types\ARTWORK_POST_TYPE,
-		'posts_per_page' => 8,
+		'posts_per_page' => 9, // Only 8 will display on certain screen sizes.
 	] );
 
-	$output = '<div class="artwork-grid">';
-	foreach ( $recent_artwork->posts as $artwork ) {
-		$dimensions = Meta\get_artwork_dimensions( $artwork->ID );
-		$media = Taxonomies\get_media_list( $artwork->ID );
-		$link = get_permalink( $artwork->ID );
+	// Define the container dimensions at which the different breakpoints kick in.
+	$breakpoints = json_encode( [
+		'two-up'   => 0,
+		'three-up' => 420,
+		'four-up'  => 640,
+	] );
 
-		$output .= "\n<a class=\"artwork-grid__link\" href=\"$link\">\n";
+	ob_start();
 
-		$output .= get_the_post_thumbnail( $artwork, 'ag_square_xs' ) . "\n";
-		$output .= '<p class="artwork-grid__title">' . $artwork->post_title . "</p>\n";
+	?>
+	<div
+		class="artwork-grid <?php echo $align; ?>"
+		data-breakpoints="<?php echo esc_attr( $breakpoints ); ?>"
+		data-responsive-container
+	>
+		<div class="artwork-grid__container">
+			<?php foreach ( $recent_artwork->posts as $artwork ) : ?>
+			<a class="artwork-grid__link" href="<?php echo get_permalink( $artwork->ID ); ?>">
+				<?php echo get_the_post_thumbnail( $artwork, 'ag_square_sm', [
+					// Define the sizes attribute assuming the largest possible block width.
+					// The breakpoints driving the styles are determiend by the breakpoints
+					// specified above.
+					'sizes' => '(min-width: 480px) 320px, 160px',
+				] ); ?>
+				<div class="artwork-grid__info">
+					<p class="artwork-grid__title"><?php echo $artwork->post_title; ?></p>
+					<?php
+					$dimensions = Meta\get_artwork_dimensions( $artwork->ID );
+					$media = Taxonomies\get_media_list( $artwork->ID );
+					if ( $dimensions || $media ) :
+						?>
+						<p class="artwork-grid__meta">
+							<?php if ( $dimensions ) { echo $dimensions; } ?>
+							<?php if ( $dimensions && $media ) { echo '; '; } ?>
+							<?php if ( $media ) { echo $media; } ?>
+						</p>
+						<?php
+					endif;
+					?>
+				</div><!-- .artwork-grid__info -->
+			</a><!-- .artwork-grid__link -->
+			<?php endforeach; ?>
+		</div><!-- .artwork-grid__container -->
+	</div><!-- .artwork-grid -->
+	<?php
 
-		if ( ! empty( $dimensions ) || ! empty( $media ) ) {
-			$output .= '<p class="artwork-grid__meta">';
-			if ( $dimensions ) {
-				$output .= $dimensions;
-			}
-			if ( $dimensions && $media ) {
-				$output .= '; ';
-			}
-			if ( $media ) {
-				$output .= $media;
-			}
-			$output .= "</p>\n";
-		}
+	$block_output = ob_get_contents();
+	ob_end_clean();
 
-		$output .= '</a>';
-	}
-	$output .= "\n</div>";
-
-	return $output;
+	// Strip comments, and collapse newline and tab whitespace in this output buffer.
+	return preg_replace( '/<!--.*?-->/', '', preg_replace( '/\n\t+/', ' ', $block_output ) );
 }
