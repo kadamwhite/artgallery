@@ -3,6 +3,7 @@
 namespace ArtGallery\Post_Types;
 
 use ArtGallery\Taxonomies;
+use WP_Post;
 use WP_Query;
 
 const ARTWORK_POST_TYPE = 'ag_artwork_item';

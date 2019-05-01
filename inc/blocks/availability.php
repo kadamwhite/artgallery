@@ -22,14 +22,10 @@ function render_availability_message( array $attributes = [] ) {
 	global $post;
 
 	// Check to see whether a status was passed in.
-	$status = $attributes['status'] ?? null;
-
 	// Retrieve the status from assigned terms if not rendering via ServerSideRender.
-	if ( empty( $status ) ) {
-		$assigned_terms = wp_get_post_terms( $post->ID, Taxonomies\AVAILABILITY_TAXONOMY );
-		$availability = $assigned_terms[0] ?? null;
-		$status = isset( $availability ) && $availability->slug;
-	}
+	$status = ! empty( $attributes['status'] ) ?
+		$attributes['status'] :
+		Taxonomies\get_availability_slug( $post->ID );
 
 	if ( empty( $status ) || empty( $attributes['message'] ) ) {
 		return null;

@@ -109,6 +109,22 @@ function populate_default_taxonomy_terms() {
 }
 
 /**
+ * Get the assigned availability term slug for an artwork item.
+ *
+ * @param int $artwork_id The ID of an artwork item.
+ *
+ * @return string|null The slug of the assigned availability term, or null if no term assigned.
+ */
+function get_availability_slug( int $artwork_id ) : ?string {
+	$assigned_terms = wp_get_post_terms( $artwork_id, AVAILABILITY_TAXONOMY );
+	$availability = $assigned_terms[0] ?? null;
+	if ( ! isset( $availability ) && $availability->slug ) {
+		return $availability->slug;
+	}
+	return null;
+}
+
+/**
  * Return the list of media for a given post, optionally formatted as links
  * to the archive pages for those terms.
  *

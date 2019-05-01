@@ -22,12 +22,13 @@ function setup() {
  */
 function render_artwork_metadata( array $attributes = [] ) {
 	global $post;
+	$artwork_id = $post->ID;
 
-	$date = Meta\get_artwork_date( $post->ID, $attributes['date'] ?? null );
+	$date = Meta\get_artwork_date( $artwork_id, $attributes['date'] ?? null );
 
-	$term_links = Taxonomies\get_media_list( $post, true );
+	$term_links = Taxonomies\get_media_list( $artwork_id, true );
 
-	$dimensions = Meta\get_artwork_dimensions( $post->ID, $attributes );
+	$dimensions = Meta\get_artwork_dimensions( $artwork_id, $attributes );
 
 	$block_output = '';
 
