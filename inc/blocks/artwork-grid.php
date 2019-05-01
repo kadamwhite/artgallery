@@ -30,6 +30,30 @@ function register_block() {
 }
 
 /**
+ * Filter the "sizes" attribute output as part of a responsive image tag.
+ *
+ * This method COULD use all of the specified attributes below; but it only
+ * utilizes that first $attr property, because we're hard-coding the value
+ * to return rather than deriving it from the post or sizes.
+ *
+ * @param array        $attr       Attributes for the image markup.
+ * @param WP_Post      $attachment Image attachment post.
+ * @param string|array $size       Requested size. Image size or array of width and height values
+ *                                 (in that order). Default 'thumbnail'.
+ *
+ * @return string The filtered attributes object.
+ */
+function filter_image_attributes( array $attr ) : array {
+	return array_merge( $attr, [
+		// We hard-code the "sizes" attribute for our grid's responsive markup.
+		// The dimensions are calculated assuming the largest possible block width;
+		// the breakpoints driving the styles are determiend by the breakpoints
+		// specified in the render method.
+		'sizes' => '(min-width: 480px) 320px, 160px',
+	] );
+}
+
+/**
  * Render the HTML for the artwork thumbnail grid.
  *
  * @param array $attributes The block attributes.
@@ -53,6 +77,7 @@ function render_artwork_grid( array $attributes ) : string {
 		'four-up'  => 640,
 	] );
 
+	add_filter( 'wp_get_attachment_image_attributes', __NAMESPACE__ . '\\filter_image_attributes', 10, 1 );
 	ob_start();
 	/* phpcs:disable Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace */
 	/* phpcs:disable WordPress.Arrays.ArrayIndentation */
@@ -65,14 +90,7 @@ function render_artwork_grid( array $attributes ) : string {
 		<div class="artwork-grid__container">
 			<?php foreach ( $recent_artwork->posts as $artwork ) : ?>
 			<a class="artwork-grid__link" href="<?php echo get_permalink( $artwork->ID ); ?>">
-				<?php
-				echo get_the_post_thumbnail( $artwork, 'ag_square_sm', [
-					// Define the sizes attribute assuming the largest possible block width.
-					// The breakpoints driving the styles are determiend by the breakpoints
-					// specified above.
-					'sizes' => '(min-width: 480px) 320px, 160px',
-				] );
-				?>
+				<?php echo get_the_post_thumbnail( $artwork, 'ag_square_sm' ); ?>
 				<div class="artwork-grid__info">
 					<p class="artwork-grid__title"><?php echo $artwork->post_title; ?></p>
 					<?php
@@ -99,6 +117,7 @@ function render_artwork_grid( array $attributes ) : string {
 
 	$block_output = ob_get_contents();
 	ob_end_clean();
+	remove_filter( 'wp_get_attachment_image_attributes', __NAMESPACE__ . '\\filter_image_attributes' );
 
 	// Strip comments, and collapse newline and tab whitespace in this output buffer.
 	return preg_replace( '/<!--.*?-->/', '', preg_replace( '/\n\t+/', ' ', $block_output ) );
