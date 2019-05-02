@@ -99,9 +99,11 @@ function render_artwork_grid( array $attributes ) : string {
 					if ( $dimensions || $media ) :
 						?>
 						<p class="artwork-grid__meta">
-							<?php if ( $dimensions ) { echo $dimensions; } ?>
-							<?php if ( $dimensions && $media ) { echo '; '; } ?>
-							<?php if ( $media ) { echo $media; } ?>
+							<?php
+							if ( $dimensions ) { echo $dimensions; }
+							if ( $dimensions && $media ) { echo '; '; }
+							if ( $media ) { echo $media; }
+							?>
 						</p>
 						<?php
 					endif;
