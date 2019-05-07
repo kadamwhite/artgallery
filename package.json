@@ -22,6 +22,7 @@
     "eslint": "eslint src .config --fix",
     "phpcs": "vendor/bin/phpcs --standard=phpcs.ruleset.xml -s .",
     "lint": "npm run eslint && npm run phpcs",
+    "release": "bash .bin/release",
     "start": "webpack-dev-server --config .config/webpack.config.dev.js",
     "test": "jest"
   },
