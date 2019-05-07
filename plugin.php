@@ -34,6 +34,7 @@ define( 'ARTGALLERY_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 // phpcs:enable PSR1.Files.SideEffects
 
 require_once( ARTGALLERY_PATH . 'inc/blocks.php' );
+require_once( ARTGALLERY_PATH . 'inc/markup.php' );
 require_once( ARTGALLERY_PATH . 'inc/meta.php' );
 require_once( ARTGALLERY_PATH . 'inc/namespace.php' );
 require_once( ARTGALLERY_PATH . 'inc/post-types.php' );

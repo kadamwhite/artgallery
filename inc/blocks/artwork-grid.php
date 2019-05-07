@@ -4,9 +4,8 @@
  */
 namespace ArtGallery\Blocks\Artwork_Grid;
 
-use ArtGallery\Meta;
+use ArtGallery\Markup;
 use ArtGallery\Post_Types;
-use ArtGallery\Taxonomies;
 use WP_Query;
 
 const BLOCK_NAME = 'artgallery/artwork-grid';
@@ -47,7 +46,7 @@ function filter_image_attributes( array $attr ) : array {
 	return array_merge( $attr, [
 		// We hard-code the "sizes" attribute for our grid's responsive markup.
 		// The dimensions are calculated assuming the largest possible block width;
-		// the breakpoints driving the styles are determiend by the breakpoints
+		// the breakpoints driving the styles are determined by the breakpoints
 		// specified in the render method.
 		'sizes' => '(min-width: 480px) 320px, 160px',
 	] );
@@ -71,56 +70,17 @@ function render_artwork_grid( array $attributes ) : string {
 	] );
 
 	// Define the container dimensions at which the different breakpoints kick in.
-	$breakpoints = wp_json_encode( [
+	$breakpoints = [
 		'two-up'   => 0,
 		'three-up' => 420,
 		'four-up'  => 640,
-	] );
+	];
 
 	add_filter( 'wp_get_attachment_image_attributes', __NAMESPACE__ . '\\filter_image_attributes', 10, 1 );
-	ob_start();
-	/* phpcs:disable Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace */
-	/* phpcs:disable WordPress.Arrays.ArrayIndentation */
-	?>
-	<div
-		class="artwork-grid <?php echo $align; ?>"
-		data-breakpoints="<?php echo esc_attr( $breakpoints ); ?>"
-		data-responsive-container
-	>
-		<div class="artwork-grid__container">
-			<?php foreach ( $recent_artwork->posts as $artwork ) : ?>
-			<a class="artwork-grid__link" href="<?php echo get_permalink( $artwork->ID ); ?>">
-				<?php echo get_the_post_thumbnail( $artwork, 'ag_square_sm' ); ?>
-				<div class="artwork-grid__info">
-					<p class="artwork-grid__title"><?php echo $artwork->post_title; ?></p>
-					<?php
-					$dimensions = Meta\get_artwork_dimensions( $artwork->ID );
-					$media = Taxonomies\get_media_list( $artwork->ID );
-					if ( $dimensions || $media ) :
-						?>
-						<p class="artwork-grid__meta">
-							<?php
-							if ( $dimensions ) { echo $dimensions; }
-							if ( $dimensions && $media ) { echo '; '; }
-							if ( $media ) { echo $media; }
-							?>
-						</p>
-						<?php
-					endif;
-					?>
-				</div><!-- .artwork-grid__info -->
-			</a><!-- .artwork-grid__link -->
-			<?php endforeach; ?>
-		</div><!-- .artwork-grid__container -->
-	</div><!-- .artwork-grid -->
-	<?php
-	/* phpcs:enable WordPress.Arrays.ArrayIndentation */
-	/* phpcs:enable Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace */
 
-	$block_output = ob_get_contents();
-	ob_end_clean();
+	$block_output = Markup\artwork_thumbnail_grid( $recent_artwork->posts, $breakpoints, $align, 'artwork-grid' );
+
 	remove_filter( 'wp_get_attachment_image_attributes', __NAMESPACE__ . '\\filter_image_attributes' );
 
-	// Strip comments, and collapse newline and tab whitespace in this output buffer.
-	return preg_replace( '/<!--.*?-->/', '', preg_replace( '/\n\t+/', ' ', $block_output ) );
+	return $block_output;
 }
