@@ -213,14 +213,13 @@ function locate_image_tags( string $content ) : array {
 function update_image_sizes( WP_Post $post, bool $dry_run = true, callable $log = null ) {
 	$content = trim( $post->post_content );
 
-	$log( "\nProcessing $post->ID, $post->post_title" );
-	$log( '--------------------------------------------------------' );
-
 	$images = locate_image_tags( $content );
 	if ( empty( $images ) ) {
-		$log( '- No images, moving on.' );
 		return false;
 	}
+
+	$log( "\nProcessing $post->ID, $post->post_title" );
+	$log( '--------------------------------------------------------' );
 
 	$updated = false;
 	$updated_content = $content;
@@ -258,7 +257,7 @@ function update_image_sizes( WP_Post $post, bool $dry_run = true, callable $log 
 		] );
 		$updated = true;
 	} else {
-		$log( '- All image tags are well-formed.' );
+		$log( '- No change' );
 	}
 
 	return $updated;
