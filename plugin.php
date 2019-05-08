@@ -49,6 +49,9 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 
 	require_once( ARTGALLERY_PATH . 'inc/wp_cli/class-populate-artwork-post-content.php' );
 	WP_CLI::add_command( 'artgallery-populate-artwork-post-content', 'ArtGallery\\WP_CLI\\Populate_Artwork_Post_Content' );
+
+	require_once( ARTGALLERY_PATH . 'inc/wp_cli/class-migrate-image-sizes.php' );
+	WP_CLI::add_command( 'artgallery-migrate-image-sizes', 'ArtGallery\\WP_CLI\\Migrate_Image_Sizes' );
 }
 
 // // Conditionally include bundled asset-loader, then initialize plugin.

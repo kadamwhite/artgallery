@@ -16,7 +16,7 @@ function register_image_sizes() {
 		'xs' => 160,
 		'sm' => 320,
 		'md' => 480,
-		'lg' => 720
+		'lg' => 720,
 	] as $name => $size ) {
 		add_image_size( "ag_square_$name", $size, $size, true );
 	}
@@ -60,8 +60,12 @@ function get_registered_image_sizes() : array {
  * @return string|bool The name of the matched image size, or false if no match.
  */
 function get_next_largest_image_size( array $size ) {
-	$width     = $size[0];
-	$height    = $size[1];
+	$width  = $size[0];
+	$height = $size[1];
+	if ( empty( $width ) || empty( $height ) ) {
+		return false;
+	}
+
 	$is_square = $width === $height;
 	$sizes     = get_registered_image_sizes();
 
@@ -70,6 +74,13 @@ function get_next_largest_image_size( array $size ) {
 		$area_b = $b['width'] * $b['height'];
 		return $area_a - $area_b;
 	} );
+
+	// First, check to see if the provided size is bigger than any size in our
+	// array. If so, default to the largest _specified_ size.
+	$largest_size = end( $sizes );
+	if ( $largest_size['width'] > $width ) {
+		return $largest_size['name'];
+	}
 
 	foreach ( $sizes as $size ) {
 		if ( $size['width'] < $width && $size['height'] < $height ) {
