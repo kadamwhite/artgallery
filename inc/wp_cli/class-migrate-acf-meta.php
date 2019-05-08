@@ -12,7 +12,7 @@ use ArtGallery\Post_Types;
 use WP_CLI;
 
 /**
- * Class Migrate_Metadata
+ * Class Migrate_ACF_Meta
  * Copy ACF meta values into their new, proper metadata fields.
  */
 class Migrate_ACF_Meta {
