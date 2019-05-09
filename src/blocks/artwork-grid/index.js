@@ -12,7 +12,7 @@ const maybeRecomputeResponsiveContainers = () => {
 
 export const name = 'artgallery/artwork-grid';
 
-export const options = {
+export const settings = {
 	title: __( 'Artwork Grid', 'artgallery' ),
 
 	description: __( 'Display a grid of recent artwork.', 'artgallery' ),

@@ -2,11 +2,9 @@
  * Dynamically locate, load & register all Gutenberg blocks.
  */
 import {
-	autoload,
+	autoloadBlocks,
 	registerBlock,
 	unregisterBlock,
-	beforeUpdateBlocks,
-	afterUpdateBlocks,
 } from 'block-editor-hmr';
 
 const currentScreen = window.ARTGALLERY_CURRENT_SCREEN;
@@ -34,7 +32,7 @@ const runIfSupportedPostType = callback => ( { postTypes, ...module } ) => {
 };
 
 // Load all block index files.
-autoload(
+autoloadBlocks(
 	{
 		/**
 		 * Return a project-specific require.context.
@@ -43,8 +41,6 @@ autoload(
 
 		register: runIfSupportedPostType( registerBlock ),
 		unregister: runIfSupportedPostType( unregisterBlock ),
-		before: beforeUpdateBlocks,
-		after: afterUpdateBlocks,
 	},
 	( context, loadModules ) => {
 		if ( module.hot ) {
