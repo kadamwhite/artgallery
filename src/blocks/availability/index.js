@@ -129,7 +129,7 @@ const dispatchAvailabilityChanges = dispatch => ( {
 	} ),
 } );
 
-export const options = {
+export const settings = {
 	title: __( 'Artwork Availability' ),
 
 	description: __( 'Mark an artwork as sold, not for sale, or available (with contact link).' ),

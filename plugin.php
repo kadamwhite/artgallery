@@ -14,7 +14,7 @@
  * Plugin Name: ArtGallery
  * Plugin URI:  https://github.com/kadamwhite/artgallery
  * Description: Custom post types, taxonomies and editor blocks for the working artist.
- * Version:     0.2.0
+ * Version:     0.3.0
  * Author:      K Adam White
  * Author URI:  http://kadamwhite.com
  * License:     GPL-2.0+ or Artistic License 2.0
@@ -54,60 +54,21 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	WP_CLI::add_command( 'artgallery-migrate-image-sizes', 'ArtGallery\\WP_CLI\\Migrate_Image_Sizes' );
 }
 
-// // Conditionally include bundled asset-loader, then initialize plugin.
-// if ( ! function_exists( 'Asset_Loader\\autoenqueue' ) ) {
-// 	require_once( ARTGALLERY_PATH . 'vendor/asset-loader/asset-loader.php' );
-// }
-require_once( ARTGALLERY_PATH . 'inc/scripts.php' );
-ArtGallery\setup();
-
-// phpcs:disable
-// Everything below this line is legacy code.
-
-// Template Tags
-// =============
-
-/**
- * Retrieve a list of taxonomy terms for the provided post ID
- *
- * @param int $post_id The ID of the post for which to fetch those taxonomy terms.
- * @param string $taxonomy_name The name of the taxonomy.
- * @return string Comma-separated, plain-text list of term names.
- */
-function ag_plain_term_list( $post_id, $taxonomy_name, $before = '', $sep = ', ', $after = '' ) {
-  $terms = wp_get_object_terms( $post_id, $taxonomy_name, array( 'fields' => 'names' ) );
-  return $before . join( $sep, $terms ) . $after;
-}
-/**
- * Print out in plain text the title attribute used in artwork permalinks
- *
- * @param int $post_id The ID of the post for which to fetch the link title text.
- * @return string Plain-text string containing the title of an artork item, its size, and the media used.
- */
-function ag_artwork_title_attribute( $post_id ) {
-  return sprintf(
-    __( '%s, %s (%s)', 'artgallery' ),
-    the_title_attribute( array(
-      'echo' => 0,
-      'post' => $post_id,
-    ) ),
-    ag_plain_term_list( $post_id, 'ag_artwork_dimensions' ),
-    ag_plain_term_list( $post_id, 'ag_artwork_media' )
-  );
-}
-
-// Widget Stuff
-// ============
-
-require_once( plugin_dir_path( __FILE__ ) . 'includes/widget-sidebar-gallery.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/widget-media.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/widget-categories.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/widget-dimensions.php' );
-
-function ag_register_widgets() {
-  register_widget( 'ArtGallery_Sidebar_Gallery_Widget' );
-  register_widget( 'ArtGallery_Widget_Media' );
-  register_widget( 'ArtGallery_Widget_Categories' );
-  register_widget( 'ArtGallery_Widget_Dimensions' );
-}
-add_action( 'widgets_init', 'ag_register_widgets' );
+// Conditionally enqueue editor UI scripts & styles.
+add_action( 'plugins_loaded', function() {
+	if ( function_exists( 'Asset_Loader\\autoenqueue' ) ) {
+		require_once( ARTGALLERY_PATH . 'inc/scripts.php' );
+		ArtGallery\setup();
+	} else {
+		add_action( 'admin_notices', function() {
+			// Deliberately omit .is-dismissible from these classes.
+			echo '<div class="notice notice-error">';
+			echo '<p>';
+			echo 'The ArtGallery plugin will not work properly unless the ';
+			echo '<a href="https://github.com/humanmade/asset-loader">Asset Loader plugin</a>';
+			echo ' is installed &amp; active!';
+			echo '</p>';
+			echo '</div>';
+		} );
+	}
+} );

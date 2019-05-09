@@ -77,7 +77,7 @@ const EditDimensionsBlock = ( { attributes, isSelected, setAttributes, openSideb
 	);
 };
 
-export const options = {
+export const settings = {
 	title: __( 'Artwork Metadata', 'artgallery' ),
 
 	description: __( 'List the date, size & materials for a given artwork.', 'artgallery' ),
