@@ -1,5 +1,10 @@
 {
+  "name": "kadamwhite/artgallery",
+  "description": "A WordPress plugin providing useful data structures & blocks for displaying artwork online",
   "require": {
+    "humanmade/asset-loader" : "dev-master"
+  },
+  "require-dev": {
     "humanmade/coding-standards" : "dev-master"
   },
   "minimum-stability": "dev"

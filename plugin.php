@@ -14,7 +14,7 @@
  * Plugin Name: ArtGallery
  * Plugin URI:  https://github.com/kadamwhite/artgallery
  * Description: Custom post types, taxonomies and editor blocks for the working artist.
- * Version:     0.1.0
+ * Version:     0.2.0
  * Author:      K Adam White
  * Author URI:  http://kadamwhite.com
  * License:     GPL-2.0+ or Artistic License 2.0
@@ -34,11 +34,11 @@ define( 'ARTGALLERY_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 // phpcs:enable PSR1.Files.SideEffects
 
 require_once( ARTGALLERY_PATH . 'inc/blocks.php' );
+require_once( ARTGALLERY_PATH . 'inc/image-sizes.php' );
 require_once( ARTGALLERY_PATH . 'inc/markup.php' );
 require_once( ARTGALLERY_PATH . 'inc/meta.php' );
 require_once( ARTGALLERY_PATH . 'inc/namespace.php' );
 require_once( ARTGALLERY_PATH . 'inc/post-types.php' );
-require_once( ARTGALLERY_PATH . 'inc/scripts.php' );
 require_once( ARTGALLERY_PATH . 'inc/taxonomies.php' );
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
@@ -49,16 +49,17 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 
 	require_once( ARTGALLERY_PATH . 'inc/wp_cli/class-populate-artwork-post-content.php' );
 	WP_CLI::add_command( 'artgallery-populate-artwork-post-content', 'ArtGallery\\WP_CLI\\Populate_Artwork_Post_Content' );
+
+	require_once( ARTGALLERY_PATH . 'inc/wp_cli/class-migrate-image-sizes.php' );
+	WP_CLI::add_command( 'artgallery-migrate-image-sizes', 'ArtGallery\\WP_CLI\\Migrate_Image_Sizes' );
 }
 
-// Conditionally include bundled asset-loader, then initialize plugin.
-add_action( 'plugins_loaded', function() {
-	if ( ! function_exists( 'Asset_Loader\\autoenqueue' ) ) {
-		require_once( ARTGALLERY_PATH . 'vendor/asset-loader/asset-loader.php' );
-	}
-
-	ArtGallery\setup();
-} );
+// // Conditionally include bundled asset-loader, then initialize plugin.
+// if ( ! function_exists( 'Asset_Loader\\autoenqueue' ) ) {
+// 	require_once( ARTGALLERY_PATH . 'vendor/asset-loader/asset-loader.php' );
+// }
+require_once( ARTGALLERY_PATH . 'inc/scripts.php' );
+ArtGallery\setup();
 
 // phpcs:disable
 // Everything below this line is legacy code.

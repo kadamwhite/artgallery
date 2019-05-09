@@ -10,12 +10,13 @@ namespace ArtGallery\WP_CLI;
 use ArtGallery\Migrations;
 use ArtGallery\Post_Types;
 use WP_CLI;
+use WP_Query;
 
 /**
- * Class Migrate_ACF_Meta
- * Copy ACF meta values into their new, proper metadata fields.
+ * Class Migrate_Image_Sizes
+ * Replace defunct image sizes in post content with a supported size.
  */
-class Migrate_ACF_Meta {
+class Migrate_Image_Sizes {
 	/**
 	 * Copy legacy ACF metadata values to new, properly-registered artwork meta keys.
 	 *
@@ -26,9 +27,9 @@ class Migrate_ACF_Meta {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp artgallery-migrate-acf-meta
+	 *     wp artgallery-migrate-image-sizes
 	 *
-	 *     wp artgallery-migrate-acf-meta --dry-run
+	 *     wp artgallery-migrate-image-sizes --dry-run
 	 *
 	 * @param array $args       List of arguments passed to the commands.
 	 * @param array $assoc_args Arguments passed to the command parsed into key/value pairs.
@@ -39,23 +40,27 @@ class Migrate_ACF_Meta {
 			? (bool) $assoc_args['dry-run']
 			: false;
 
-		WP_CLI::line( 'Converting ACF Metadata' . ( $dry_run ? ' -- dry run ' : '' ) );
+		WP_CLI::line( 'Updating Image Tags' . ( $dry_run ? ' -- dry run ' : '' ) );
 		WP_CLI::line( "-------------------------------------\n" );
 
 		$log = function( $message ) {
 			WP_CLI::line( $message );
 		};
 
-		Post_Types\for_all_artworks( function( $artwork ) use ( $dry_run, $log ) {
-			WP_CLI::line( "Processing $artwork->ID, $artwork->post_title" );
+		$query = new WP_Query( [
+			'post_type'   => [ 'post', Post_Types\ARTWORK_POST_TYPE ],
+			'post_status' => [ 'any' ],
+			'nopaging'    => true,
+		] );
 
-			if ( Migrations\convert_dimensions_taxonomy_to_meta( $artwork, $dry_run, $log ) ) {
-				WP_CLI::success( 'Converted dimensions taxonomy term to meta values' );
-			}
+		if ( $query->have_posts() ) {
+			while ( $query->have_posts() ) {
+				$query->the_post();
 
-			if ( Migrations\update_meta_keys( $artwork, $dry_run, $log ) ) {
-				WP_CLI::success( 'Updated meta keys' );
+				if ( Migrations\update_image_sizes( get_post(), $dry_run, $log ) ) {
+					WP_CLI::success( 'Image tags updated.' );
+				}
 			}
-		} );
+		}
 	}
 }
