@@ -1,15 +1,12 @@
 ArtGallery
 ========
 
-ArtGallery is a artist's portfolio management plugin, providing tools for artists to catalog their works using the WordPress backend.
-
-It is also a work-in-progress.
+ArtGallery is a artist's portfolio management plugin, providing tools for artists to catalog their works using the WordPress backend and editor blocks to configure and display that artwork on the frontend.
 
 * **Contributors:** kadamwhite
 * **Tags:** art, media, portfolio, archive
-* **Requires at least:** 4.9.8
-* **Tested up to:** 5.0
-* **Stable tag:** TBD
+* **Requires at least:** 5.0
+* **Tested up to:** 5.2
 * **License:** GPLv2 or later or Artistic License 2.0
 * **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
