@@ -5,6 +5,7 @@
  * https://philipwalton.com/articles/responsive-components-a-solution-to-the-container-queries-problem/
  */
 import debounce from 'lodash.debounce';
+import ResizeObserver from 'resize-observer-polyfill';
 
 // Default breakpoints that should apply to all observed
 // elements that don't define their own custom breakpoints.
@@ -73,43 +74,41 @@ const updateContainerClasses = ( node, width ) => {
 	}
 };
 
-// Only run if ResizeObserver is supported. Debounce to one change every 100ms.
-if ( 'ResizeObserver' in window ) {
-	// Create a single ResizeObserver instance to handle all
-	// container elements. The instance is created with a callback,
-	// which is invoked as soon as an element is observed as well
-	// as any time that element's size changes.
-	const ro = new ResizeObserver( debounce( entries => {
-		entries.forEach( entry => {
-			updateContainerClasses( entry.target, entry.contentRect.width );
-		} );
-	}, 100 ) );
+// Create a single ResizeObserver instance to handle all
+// container elements. The instance is created with a callback,
+// which is invoked as soon as an element is observed as well
+// as any time that element's size changes.
+// Debounce to one change every 100ms.
+const ro = new ResizeObserver( debounce( entries => {
+	entries.forEach( entry => {
+		updateContainerClasses( entry.target, entry.contentRect.width );
+	} );
+}, 100 ) );
 
-	/**
-	 * Find all responsive container elements on the page and begin observing
-	 * them for width changes.
-	 */
-	const updateResponsiveContainers = () => {
-		// Unbind any previously-registered containers,
-		containers.forEach( element => {
-			ro.unobserve( element );
-		} );
-		// then empty out the list.
-		containers.length = 0;
+/**
+ * Find all responsive container elements on the page and begin observing
+ * them for width changes.
+ */
+const updateResponsiveContainers = () => {
+	// Unbind any previously-registered containers,
+	containers.forEach( element => {
+		ro.unobserve( element );
+	} );
+	// then empty out the list.
+	containers.length = 0;
 
-		// Re-populatethe list with the new containers as we register them.
-		// Run the update method manually for each item as a safeguard.
-		getContainers().forEach( container => {
-			ro.observe( container );
-			updateContainerClasses( container );
-			containers.push( container );
-		} );
-	};
+	// Re-populatethe list with the new containers as we register them.
+	// Run the update method manually for each item as a safeguard.
+	getContainers().forEach( container => {
+		ro.observe( container );
+		updateContainerClasses( container );
+		containers.push( container );
+	} );
+};
 
-	// Run the discovery method once on initial load.
-	document.addEventListener( 'DOMContentLoaded', updateResponsiveContainers );
+// Run the discovery method once on initial load.
+document.addEventListener( 'DOMContentLoaded', updateResponsiveContainers );
 
-	// Expose the update method so a recompute may be triggered should another
-	// module modify the document structure and add or remove a container.
-	window.agUpdateResponsiveContainers = updateResponsiveContainers;
-}
+// Expose the update method so a recompute may be triggered should another
+// module modify the document structure and add or remove a container.
+window.agUpdateResponsiveContainers = updateResponsiveContainers;

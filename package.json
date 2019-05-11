@@ -2,7 +2,7 @@
   "name": "artgallery",
   "title": "ArtGallery",
   "description": "Custom post types and editor blocks for the working artist",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "homepage": "https://github.com/kadamwhite/artgallery",
   "keywords": [
     "wordpress",
@@ -44,6 +44,7 @@
     "eslint-plugin-react": "^7.12.4",
     "jest": "^24.7.1",
     "node-sass": "^4.11.0",
+    "resize-observer-polyfill": "^1.5.1",
     "rimraf": "^2.6.2",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.0",
