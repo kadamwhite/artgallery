@@ -2,7 +2,7 @@
   "name": "artgallery",
   "title": "ArtGallery",
   "description": "Custom post types and editor blocks for the working artist",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "homepage": "https://github.com/kadamwhite/artgallery",
   "keywords": [
     "wordpress",
