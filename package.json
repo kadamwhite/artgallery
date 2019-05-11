@@ -18,6 +18,7 @@
   ],
   "scripts": {
     "postinstall": "composer install",
+    "prebuild": "rm build/*",
     "build": "webpack --config=.config/webpack.config.prod.js",
     "eslint": "eslint src .config --fix",
     "phpcs": "vendor/bin/phpcs --standard=phpcs.ruleset.xml -s .",
