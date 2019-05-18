@@ -61,7 +61,7 @@ function get_namespace_from_block_handle( $block_handle ) {
 function autoregister_blocks() {
 	// Each block registered must have an entrypoint in /blocks/{blockname}.php.
 	foreach ( glob( __DIR__ . '/blocks/*.php' ) as $file ) {
-		require_once( $file );
+		require_once $file;
 		$block_handle = get_block_handle_from_path( $file );
 		$setup = get_namespace_from_block_handle( $block_handle ) . '\\setup';
 
