@@ -92,26 +92,29 @@ function register_post_types() {
  */
 function set_default_terms( int $post_id, WP_Post $post ) {
 	// Verify that we're publishing an artwork item, and not something else
-	if ( 'publish' === $post->post_status && $post->post_type === ARTWORK_POST_TYPE ) {
-		/* Default terms by taxonomy:
-		*
-		* Availability: Not For Sale
-		* Media: (none)
-		* Dimensions: (none)
-		* Category: (none)
-		*/
-		$defaults = [];
-		$defaults[ Taxonomies\AVAILABILITY_TAXONOMY ] = [ 'nfs' ];
+	if ( 'publish' !== $post->post_status || $post->post_type !== ARTWORK_POST_TYPE ) {
+		return;
+	}
 
-		// Get the taxonomies available for this post type
-		$taxonomies = (array) get_object_taxonomies( $post->post_type );
+	/*
+	Default terms by taxonomy:
 
-		foreach ( $taxonomies as $taxonomy ) {
-			$terms = wp_get_post_terms( $post_id, $taxonomy );
-			if ( empty( $terms ) && array_key_exists( $taxonomy, $defaults ) ) {
-				wp_set_object_terms( $post_id, $defaults[ $taxonomy ], $taxonomy );
-			}
-		};
+	Availability: Not For Sale
+	Media: (none)
+	Dimensions: (none)
+	Category: (none)
+	*/
+	$defaults = [];
+	$defaults[ Taxonomies\AVAILABILITY_TAXONOMY ] = [ 'nfs' ];
+
+	// Get the taxonomies available for this post type
+	$taxonomies = (array) get_object_taxonomies( $post->post_type );
+
+	foreach ( $taxonomies as $taxonomy ) {
+		$terms = wp_get_post_terms( $post_id, $taxonomy );
+		if ( empty( $terms ) && array_key_exists( $taxonomy, $defaults ) ) {
+			wp_set_object_terms( $post_id, $defaults[ $taxonomy ], $taxonomy );
+		}
 	}
 }
 
