@@ -69,9 +69,9 @@ function get_next_largest_image_size( array $size ) {
 	$is_square = $width === $height;
 	$sizes     = get_registered_image_sizes();
 
-	usort( $sizes, function( $a, $b ) {
-		$area_a = $a['width'] * $a['height'];
-		$area_b = $b['width'] * $b['height'];
+	usort( $sizes, function( $size_a, $size_b ) {
+		$area_a = $size_a['width'] * $size_a['height'];
+		$area_b = $size_b['width'] * $size_b['height'];
 		return $area_a - $area_b;
 	} );
 
