@@ -2,7 +2,8 @@
   "name": "kadamwhite/artgallery",
   "description": "A WordPress plugin providing useful data structures & blocks for displaying artwork online",
   "require-dev": {
-    "humanmade/coding-standards" : "dev-master"
+    "humanmade/coding-standards" : "dev-master",
+    "nunomaduro/phpinsights": "dev-master"
   },
   "minimum-stability": "dev"
 }
