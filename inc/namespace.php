@@ -2,12 +2,6 @@
 
 namespace ArtGallery;
 
-use ArtGallery\Blocks;
-use ArtGallery\Meta;
-use ArtGallery\Post_Types;
-use ArtGallery\Scripts;
-use ArtGallery\Taxonomies;
-
 /**
  * Initialize plugin behavior. Runs on `plugins_loaded` action.
  *
