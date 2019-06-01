@@ -4,7 +4,6 @@
  * to simulate container queries. See the blog post below for more info.
  * https://philipwalton.com/articles/responsive-components-a-solution-to-the-container-queries-problem/
  */
-import debounce from 'lodash.debounce';
 import ResizeObserver from 'resize-observer-polyfill';
 
 // Default breakpoints that should apply to all observed
@@ -79,11 +78,11 @@ const updateContainerClasses = ( node, width ) => {
 // which is invoked as soon as an element is observed as well
 // as any time that element's size changes.
 // Debounce to one change every 100ms.
-const ro = new ResizeObserver( debounce( entries => {
+const ro = new ResizeObserver( entries => {
 	entries.forEach( entry => {
 		updateContainerClasses( entry.target, entry.contentRect.width );
 	} );
-}, 100 ) );
+} );
 
 /**
  * Find all responsive container elements on the page and begin observing
