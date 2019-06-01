@@ -14,7 +14,7 @@
  * Plugin Name: ArtGallery
  * Plugin URI:  https://github.com/kadamwhite/artgallery
  * Description: Custom post types, taxonomies and editor blocks for the working artist.
- * Version:     0.3.1
+ * Version:     0.3.2
  * Author:      K Adam White
  * Author URI:  http://kadamwhite.com
  * License:     GPL-2.0+ or Artistic License 2.0
@@ -28,7 +28,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Useful global constants.
-define( 'ARTGALLERY_VERSION', '0.1.0' );
+define( 'ARTGALLERY_VERSION', '0.3.2' );
 define( 'ARTGALLERY_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
 define( 'ARTGALLERY_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 // phpcs:enable PSR1.Files.SideEffects
