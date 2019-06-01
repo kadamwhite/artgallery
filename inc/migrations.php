@@ -28,31 +28,33 @@ function convert_dimensions_taxonomy_to_meta( WP_Post $artwork, bool $dry_run = 
 
 	$dimensions = wp_get_post_terms( $artwork_id, Taxonomies\DIMENSIONS_TAXONOMY );
 
-	if ( ! empty( $dimensions ) ) {
-		preg_match(
-			'/([0-9]+(?:\.[0-9]*)?)" *x *([0-9]+(?:\.[0-9]*)?)"/',
-			$dimensions[0]->name,
-			$matches
-		);
-
-		if ( ! empty( $matches ) && isset( $matches[1] ) && isset( $matches[2] ) ) {
-			$width = (float) $matches[1];
-			$height = (float) $matches[2];
-
-			$log( "- Converting dimensions {$width}\" x {$height}\" to meta values" );
-			if ( ! $dry_run ) {
-				update_post_meta( $artwork_id, Meta\ARTWORK_WIDTH, $width );
-				update_post_meta( $artwork_id, Meta\ARTWORK_HEIGHT, $height );
-			}
-			$log( '- Removing legacy dimensions taxonomy term from artwork' );
-			if ( ! $dry_run ) {
-				wp_delete_object_term_relationships( $artwork_id, Taxonomies\DIMENSIONS_TAXONOMY );
-			}
-			return true;
-		}
+	if ( empty( $dimensions ) ) {
+		return false;
 	}
 
-	return false;
+	preg_match(
+		'/([0-9]+(?:\.[0-9]*)?)" *x *([0-9]+(?:\.[0-9]*)?)"/',
+		$dimensions[0]->name,
+		$matches
+	);
+
+	if ( empty( $matches ) || ! ( isset( $matches[1] ) && isset( $matches[2] ) ) ) {
+		return false;
+	}
+
+	$width = (float) $matches[1];
+	$height = (float) $matches[2];
+
+	$log( "- Converting dimensions {$width}\" x {$height}\" to meta values" );
+	if ( ! $dry_run ) {
+		update_post_meta( $artwork_id, Meta\ARTWORK_WIDTH, $width );
+		update_post_meta( $artwork_id, Meta\ARTWORK_HEIGHT, $height );
+	}
+	$log( '- Removing legacy dimensions taxonomy term from artwork' );
+	if ( ! $dry_run ) {
+		wp_delete_object_term_relationships( $artwork_id, Taxonomies\DIMENSIONS_TAXONOMY );
+	}
+	return true;
 }
 
 /**
@@ -232,22 +234,24 @@ function update_image_sizes( WP_Post $post, bool $dry_run = true, callable $log 
 		$new_size = wp_get_attachment_image_src( $id, $matched_size );
 		$new_src = $new_size[0];
 
-		if ( ! empty( $new_src ) && $src !== $new_src ) {
-			$new_tag = str_replace( $src, $new_src, $image['tag'] );
-			if ( $image['tag_width'] && $new_size[1] ) {
-				$new_tag = str_replace( "width=\"{$image['tag_width']}\"", "width=\"{$new_size[1]}\"", $new_tag );
-			}
-			if ( $image['tag_height'] && $new_size[2] ) {
-				$new_tag = str_replace( "height=\"{$image['tag_height']}\"", "height=\"{$new_size[2]}\"", $new_tag );
-			}
-
-			$log( '-- Updating tag: ---------------------------------------' );
-			$log( $image['tag'] );
-			$log( $new_tag );
-			$log( '--------------------------------------------------------' );
-
-			$updated_content = str_replace( $image['tag'], $new_tag, $updated_content );
+		if ( empty( $new_src ) || $src === $new_src ) {
+			continue;
 		}
+
+		$new_tag = str_replace( $src, $new_src, $image['tag'] );
+		if ( $image['tag_width'] && $new_size[1] ) {
+			$new_tag = str_replace( "width=\"{$image['tag_width']}\"", "width=\"{$new_size[1]}\"", $new_tag );
+		}
+		if ( $image['tag_height'] && $new_size[2] ) {
+			$new_tag = str_replace( "height=\"{$image['tag_height']}\"", "height=\"{$new_size[2]}\"", $new_tag );
+		}
+
+		$log( '-- Updating tag: ---------------------------------------' );
+		$log( $image['tag'] );
+		$log( $new_tag );
+		$log( '--------------------------------------------------------' );
+
+		$updated_content = str_replace( $image['tag'], $new_tag, $updated_content );
 	}
 
 	if ( ! $dry_run && $updated_content !== $content ) {
