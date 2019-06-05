@@ -1,6 +1,8 @@
 {
   "name": "kadamwhite/artgallery",
   "description": "A WordPress plugin providing useful data structures & blocks for displaying artwork online",
+  "type": "wordpress-plugin",
+  "license": "(Artistic-2.0 OR GPL-2.0-or-later)",
   "require-dev": {
     "humanmade/coding-standards" : "dev-master"
   },
