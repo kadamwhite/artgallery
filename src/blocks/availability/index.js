@@ -1,4 +1,5 @@
 import { __, sprintf } from '@wordpress/i18n';
+import { createBlock } from '@wordpress/blocks';
 import { Fragment } from '@wordpress/element';
 import { RadioControl } from '@wordpress/components';
 import { ServerSideRender, RichText } from '@wordpress/editor';
@@ -19,6 +20,7 @@ const AvailabilityOptionsList = ( {
 	attributes,
 	availability,
 	availabilityTerms,
+	insertBlocksAfter,
 	isSelected,
 	setAttributes,
 	setAvailability,
@@ -28,6 +30,7 @@ const AvailabilityOptionsList = ( {
 		const nfsTerm = availabilityTerms.find( availability => ( availability.slug === 'nfs' ) );
 		if ( nfsTerm ) {
 			setAvailability( nfsTerm.id );
+			return null;
 		}
 	}
 
@@ -74,7 +77,7 @@ const AvailabilityOptionsList = ( {
 			<h2 className={ block.element( 'title' ) }>
 				{ __( 'Manage Artwork Availability', 'artgallery' ) }
 			</h2>
-			<p className={ block.element( 'explanation' ) }>
+			<p className={ block.element( 'message' ) }>
 				{ __( 'This block controls the messaging indicating whether or not the artwork is available for purchase.', 'artgallery' ) }
 			</p>
 			<RadioControl
@@ -102,6 +105,15 @@ const AvailabilityOptionsList = ( {
 					/>
 				</Fragment>
 			) : null }
+			<p className={ block.element( 'message' ) }>
+				{ __( 'Insert a paragraph after this block to add links to reproductions or derivative products.', 'artgallery' ) }
+			</p>
+			<button
+				className="components-button is-button is-default"
+				onClick={ () => insertBlocksAfter( createBlock( 'core/paragraph' ) ) }
+			>
+				{ __( 'Add paragraph', 'artgallery' ) }
+			</button>
 		</Fragment>
 	);
 };
@@ -123,10 +135,12 @@ const selectAvailabilityTerms = select => {
 	};
 };
 
-const dispatchAvailabilityChanges = dispatch => ( {
-	setAvailability: termId => dispatch( 'core/editor' ).editPost( {
-		[ AVAILABILITY_TAXONOMY ]: [ termId ],
-	} ),
+const dispatchAvailabilityChanges = ( dispatch, ownProps, { select } ) => ( {
+	setAvailability( termId ) {
+		dispatch( 'core/editor' ).editPost( {
+			[ AVAILABILITY_TAXONOMY ]: [ termId ],
+		} );
+	},
 } );
 
 export const settings = {
