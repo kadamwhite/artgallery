@@ -11,6 +11,7 @@ import {
 	ARTWORK_DEPTH,
 	ARTWORK_DATE,
 	ARTWORK_POST_TYPE,
+	MEDIA_TAXONOMY,
 } from '../../constants';
 import { bemBlock } from '../../utils';
 
@@ -23,7 +24,10 @@ export const name = 'artgallery/metadata';
 const block = bemBlock( 'artwork-metadata' );
 
 const EditDimensionsBlock = ( { attributes, isSelected, setAttributes, openSidebar } ) => {
-	return isSelected ? (
+	const hasAttributeValues = (
+		attributes.width || attributes.height || attributes.depth || attributes.date
+	);
+	return isSelected || ! hasAttributeValues ? (
 		<Fragment>
 			<h2 className={ block.element( 'title' ) }>
 				{ __( 'Edit Artwork Metadata', 'artgallery' ) }
@@ -65,7 +69,7 @@ const EditDimensionsBlock = ( { attributes, isSelected, setAttributes, openSideb
 			<p className={ block.element( 'message' ) }>
 				{ __( 'To modify artwork media information, add or remove terms in the Document sidebar.', 'artgallery' ) }
 				<button
-					className={ block.element( 'button' ) }
+					className={ `components-button is-button is-default ${ block.element( 'button' ) }` }
 					onClick={ openSidebar }
 				>
 					{ __( 'Open Document Sidebar', 'artgallery' ) }
@@ -114,8 +118,15 @@ export const settings = {
 		withSelect( select => ( {
 			postId: select( 'core/editor' ).getEditedPostAttribute( 'id' ),
 		} ) ),
-		withDispatch( dispatch => ( {
-			openSidebar: () => dispatch( 'core/edit-post' ).openGeneralSidebar( 'edit-post/document' ),
+		withDispatch( ( dispatch, ownProps, { select } ) => ( {
+			openSidebar: () => {
+				dispatch( 'core/edit-post' ).openGeneralSidebar( 'edit-post/document' );
+
+				const mediaPanel = `taxonomy-panel-${ MEDIA_TAXONOMY }`;
+				if ( ! select( 'core/edit-post' ).isEditorPanelOpened( mediaPanel ) ) {
+					dispatch( 'core/edit-post' ).toggleEditorPanelOpened( mediaPanel );
+				}
+			},
 		} ) ),
 	)( EditDimensionsBlock ),
 

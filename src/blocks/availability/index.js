@@ -1,4 +1,5 @@
 import { __, sprintf } from '@wordpress/i18n';
+import { createBlock } from '@wordpress/blocks';
 import { Fragment } from '@wordpress/element';
 import { RadioControl } from '@wordpress/components';
 import { ServerSideRender, RichText } from '@wordpress/editor';
@@ -19,28 +20,38 @@ const AvailabilityOptionsList = ( {
 	attributes,
 	availability,
 	availabilityTerms,
+	insertBlocksAfter,
 	isSelected,
 	setAttributes,
 	setAvailability,
 } ) => {
+	if ( ! availabilityTerms || ! availabilityTerms.length ) {
+		return (
+			<p className={ block.element( 'explanation' ) }>
+				{ __( 'Artwork availability status loading...', 'artgallery' ) }
+			</p>
+		);
+	}
+
 	// Try to assign a default term as soon as the block's data loads.
-	if ( availabilityTerms && ! availability ) {
+	if ( ! availability ) {
 		const nfsTerm = availabilityTerms.find( availability => ( availability.slug === 'nfs' ) );
 		if ( nfsTerm ) {
 			setAvailability( nfsTerm.id );
+			availability = nfsTerm;
 		}
 	}
 
-	if ( ! availabilityTerms || ! availability ) {
+	if ( ! availability ) {
 		return (
-			<h2>
-				{ __( 'Artwork availability status loading...', 'artgallery' ) }
-			</h2>
+			<p className={ block.element( 'explanation' ) }>
+				{ __( 'Click to configure whether the original for this artwork is available for purchase.', 'artgallery' ) }
+			</p>
 		);
 	}
 
 	/* Translators: %s is the selected artwork status. */
-	const message = sprintf( __( 'Artwork is %s.', 'artgallery' ), availability ? availability.name : '...' );
+	const message = sprintf( __( 'Artwork is marked %s.', 'artgallery' ), availability ? availability.name : '...' );
 
 	if ( ! isSelected ) {
 		return availability.slug === 'available' ? (
@@ -60,11 +71,9 @@ const AvailabilityOptionsList = ( {
 			</Fragment>
 		) : (
 			<p className={ block.element( 'explanation' ) }>
-				(
 				{ message }
 				{ ' ' }
 				{ __( 'No message or indication of artwork availability will be displayed.', 'artgallery' ) }
-				)
 			</p>
 		);
 	}
@@ -74,7 +83,7 @@ const AvailabilityOptionsList = ( {
 			<h2 className={ block.element( 'title' ) }>
 				{ __( 'Manage Artwork Availability', 'artgallery' ) }
 			</h2>
-			<p className={ block.element( 'explanation' ) }>
+			<p className={ block.element( 'message' ) }>
 				{ __( 'This block controls the messaging indicating whether or not the artwork is available for purchase.', 'artgallery' ) }
 			</p>
 			<RadioControl
@@ -102,6 +111,15 @@ const AvailabilityOptionsList = ( {
 					/>
 				</Fragment>
 			) : null }
+			<p className={ block.element( 'message' ) }>
+				{ __( 'Insert a paragraph after this block to add links to reproductions or derivative products.', 'artgallery' ) }
+			</p>
+			<button
+				className="components-button is-button is-default"
+				onClick={ () => insertBlocksAfter( createBlock( 'core/paragraph' ) ) }
+			>
+				{ __( 'Add paragraph', 'artgallery' ) }
+			</button>
 		</Fragment>
 	);
 };
@@ -116,17 +134,18 @@ const selectAvailabilityTerms = select => {
 	const assignedTerm = assignedTermId && Array.isArray( availabilityTerms ) ?
 		availabilityTerms.find( term => ( +term.id === +assignedTermId ) ) :
 		null;
-
 	return {
 		availability: assignedTerm,
 		availabilityTerms: availabilityTerms,
 	};
 };
 
-const dispatchAvailabilityChanges = dispatch => ( {
-	setAvailability: termId => dispatch( 'core/editor' ).editPost( {
-		[ AVAILABILITY_TAXONOMY ]: [ termId ],
-	} ),
+const dispatchAvailabilityChanges = ( dispatch, ownProps, { select } ) => ( {
+	setAvailability( termId ) {
+		dispatch( 'core/editor' ).editPost( {
+			[ AVAILABILITY_TAXONOMY ]: [ termId ],
+		} );
+	},
 } );
 
 export const settings = {

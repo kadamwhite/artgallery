@@ -57,8 +57,8 @@ function register_taxonomies() {
 	register_taxonomy( DIMENSIONS_TAXONOMY, null, [
 		'hierarchical'      => true,
 		'label'             => 'Dimensions',
-		'show_ui'           => true,
-		'show_admin_column' => true,
+		'show_ui'           => false,
+		'show_admin_column' => false,
 		'query_var'         => true,
 		'show_in_rest'      => true,
 		'rewrite'           => [ 'slug' => 'art/dimensions' ],
@@ -116,7 +116,7 @@ function populate_default_taxonomy_terms() {
 function get_availability_slug( int $artwork_id ) : ?string {
 	$assigned_terms = wp_get_post_terms( $artwork_id, AVAILABILITY_TAXONOMY );
 	$availability = $assigned_terms[0] ?? null;
-	if ( ! isset( $availability ) && $availability->slug ) {
+	if ( isset( $availability ) && $availability->slug ) {
 		return $availability->slug;
 	}
 	return null;
