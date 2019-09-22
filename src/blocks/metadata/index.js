@@ -11,6 +11,7 @@ import {
 	ARTWORK_DEPTH,
 	ARTWORK_DATE,
 	ARTWORK_POST_TYPE,
+	MEDIA_TAXONOMY,
 } from '../../constants';
 import { bemBlock } from '../../utils';
 
@@ -121,7 +122,7 @@ export const settings = {
 			openSidebar: () => {
 				dispatch( 'core/edit-post' ).openGeneralSidebar( 'edit-post/document' );
 
-				const mediaPanel = 'taxonomy-panel-ag_artwork_media';
+				const mediaPanel = `taxonomy-panel-${ MEDIA_TAXONOMY }`;
 				if ( ! select( 'core/edit-post' ).isEditorPanelOpened( mediaPanel ) ) {
 					dispatch( 'core/edit-post' ).toggleEditorPanelOpened( mediaPanel );
 				}

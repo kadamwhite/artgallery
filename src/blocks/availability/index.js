@@ -25,25 +25,33 @@ const AvailabilityOptionsList = ( {
 	setAttributes,
 	setAvailability,
 } ) => {
+	if ( ! availabilityTerms || ! availabilityTerms.length ) {
+		return (
+			<p className={ block.element( 'explanation' ) }>
+				{ __( 'Artwork availability status loading...', 'artgallery' ) }
+			</p>
+		);
+	}
+
 	// Try to assign a default term as soon as the block's data loads.
-	if ( availabilityTerms && ! availability ) {
+	if ( ! availability ) {
 		const nfsTerm = availabilityTerms.find( availability => ( availability.slug === 'nfs' ) );
 		if ( nfsTerm ) {
 			setAvailability( nfsTerm.id );
-			return null;
+			availability = nfsTerm;
 		}
 	}
 
-	if ( ! availabilityTerms || ! availability ) {
+	if ( ! availability ) {
 		return (
-			<h2>
-				{ __( 'Artwork availability status loading...', 'artgallery' ) }
-			</h2>
+			<p className={ block.element( 'explanation' ) }>
+				{ __( 'Click to configure whether the original for this artwork is available for purchase.', 'artgallery' ) }
+			</p>
 		);
 	}
 
 	/* Translators: %s is the selected artwork status. */
-	const message = sprintf( __( 'Artwork is %s.', 'artgallery' ), availability ? availability.name : '...' );
+	const message = sprintf( __( 'Artwork is marked %s.', 'artgallery' ), availability ? availability.name : '...' );
 
 	if ( ! isSelected ) {
 		return availability.slug === 'available' ? (
@@ -63,11 +71,9 @@ const AvailabilityOptionsList = ( {
 			</Fragment>
 		) : (
 			<p className={ block.element( 'explanation' ) }>
-				(
 				{ message }
 				{ ' ' }
 				{ __( 'No message or indication of artwork availability will be displayed.', 'artgallery' ) }
-				)
 			</p>
 		);
 	}
@@ -128,7 +134,6 @@ const selectAvailabilityTerms = select => {
 	const assignedTerm = assignedTermId && Array.isArray( availabilityTerms ) ?
 		availabilityTerms.find( term => ( +term.id === +assignedTermId ) ) :
 		null;
-
 	return {
 		availability: assignedTerm,
 		availabilityTerms: availabilityTerms,
