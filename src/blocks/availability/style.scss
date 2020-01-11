@@ -20,6 +20,10 @@
 		margin-bottom: 0.5em;
 	}
 
+	.editor-styles-wrapper &__custom-message {
+		margin: 0.5em 0 1em 1em;
+	}
+
 	.editor-styles-wrapper &__explanation,
 	.editor-styles-wrapper &__help-text {
 		color: #707070;
@@ -27,10 +31,6 @@
 
 	.editor-styles-wrapper &__options .components-base-control__label {
 		font-weight: bold;
-	}
-	&__options .components-radio-control__option {
-		display: inline-block;
-		margin-right: 2em;
 	}
 
 	.editor-styles-wrapper &__label {
