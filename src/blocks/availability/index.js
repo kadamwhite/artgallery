@@ -5,7 +5,11 @@ import { RadioControl } from '@wordpress/components';
 import { ServerSideRender, RichText } from '@wordpress/editor';
 import { withDispatch, withSelect } from '@wordpress/data';
 
-import { AVAILABILITY_TAXONOMY, ARTWORK_POST_TYPE } from '../../constants';
+import {
+	AVAILABILITY_TAXONOMY,
+	AVAILABILITY_TAXONOMY_BASE,
+	ARTWORK_POST_TYPE,
+} from '../../constants';
 import { bemBlock } from '../../utils';
 
 import Icon from './icon';
@@ -15,6 +19,10 @@ import './style.scss';
 export const name = 'artgallery/availability';
 
 const block = bemBlock( 'artwork-availability' );
+
+const isAvailable = term => (
+	term && term.slug === 'available' ? true : false
+);
 
 const AvailabilityOptionsList = ( {
 	attributes,
@@ -33,16 +41,10 @@ const AvailabilityOptionsList = ( {
 		);
 	}
 
-	// Try to assign a default term as soon as the block's data loads.
-	if ( ! availability ) {
-		const nfsTerm = availabilityTerms.find( availability => ( availability.slug === 'nfs' ) );
-		if ( nfsTerm ) {
-			setAvailability( nfsTerm.id );
-			availability = nfsTerm;
-		}
-	}
+	// Retrieve the assigned term, if present.
+	const availabilityTerm = availabilityTerms.find( term => ( +term.id === +availability ) );
 
-	if ( ! availability ) {
+	if ( ! isSelected && ! availabilityTerm ) {
 		return (
 			<p className={ block.element( 'explanation' ) }>
 				{ __( 'Click to configure whether the original for this artwork is available for purchase.', 'artgallery' ) }
@@ -50,14 +52,17 @@ const AvailabilityOptionsList = ( {
 		);
 	}
 
-	/* Translators: %s is the selected artwork status. */
-	const message = sprintf( __( 'Artwork is marked %s.', 'artgallery' ), availability ? availability.name : '...' );
-
 	if ( ! isSelected ) {
-		return availability.slug === 'available' ? (
+		const statusMessage = sprintf(
+			/* Translators: %s is the selected artwork status. */
+			__( 'Artwork is marked %s.', 'artgallery' ),
+			availabilityTerm.name
+		);
+
+		return isAvailable( availabilityTerm ) ? (
 			<Fragment>
 				<p className={ block.element( 'explanation' ) }>
-					{ message }
+					{ statusMessage }
 					{ ' ' }
 					{ __( 'This message will be displayed on the frontend:', 'artgallery' ) }
 				</p>
@@ -65,13 +70,13 @@ const AvailabilityOptionsList = ( {
 					// Status is not a registered attribute, but we must pass it back when
 					// rendering via ServerSideRender so the backend can be aware of
 					// pending term assignment updates and display the correct preview.
-					status: availability.slug,
+					status: availabilityTerm.slug,
 					...attributes,
 				} } />
 			</Fragment>
 		) : (
 			<p className={ block.element( 'explanation' ) }>
-				{ message }
+				{ statusMessage }
 				{ ' ' }
 				{ __( 'No message or indication of artwork availability will be displayed.', 'artgallery' ) }
 			</p>
@@ -85,25 +90,27 @@ const AvailabilityOptionsList = ( {
 			</h2>
 			<p className={ block.element( 'message' ) }>
 				{ __( 'This block controls the messaging indicating whether or not the artwork is available for purchase.', 'artgallery' ) }
+				{ ' ' }
+				{ __( '(Defaults to "not for sale" on publish if no option is selected.)', 'artgallery' ) }
 			</p>
 			<RadioControl
 				className={ block.element( 'options' ) }
 				label={ __( 'Artwork Status', 'artgallery' ) }
-				selected={ availability ? +availability.id : null }
+				selected={ `${ availability }` }
 				options={ availabilityTerms.map( term => ( {
 					label: term.name,
-					value: +term.id,
+					value: `${ term.id }`,
 				} ) ) }
-				onChange={ termId => setAvailability( termId ) }
+				onChange={ setAvailability }
 			/>
-			{ availability === availabilityTerms.find( term => term.name.match( /Available/i ) ) ? (
+			{ isAvailable( availabilityTerm ) ? (
 				<Fragment>
 					<label className={ `${ block.element( 'help-text' ) } components-base-control` }>
 						{ __( 'Enter a sales message or link to display at the bottom of the artwork page.', 'artgallery' ) }
 					</label>
 					<RichText
 						tagName="p"
-						className={ block.element( 'message' ) }
+						className={ block.element( 'custom-message' ) }
 						value={ attributes.message }
 						onChange={ message => setAttributes( { message } ) }
 						placeholder={ __( 'Enter text...', 'custom-block' ) }
@@ -126,16 +133,14 @@ const AvailabilityOptionsList = ( {
 
 const selectAvailabilityTerms = select => {
 	const availabilityTerms = select( 'core' ).getEntityRecords( 'taxonomy', AVAILABILITY_TAXONOMY );
-	const assignedTerms = select( 'core/editor' ).getEditedPostAttribute( AVAILABILITY_TAXONOMY );
+	const assignedTerms = select( 'core/editor' ).getEditedPostAttribute( AVAILABILITY_TAXONOMY_BASE );
 
 	const assignedTermId = Array.isArray( assignedTerms ) && assignedTerms.length ?
 		assignedTerms[0] :
 		null;
-	const assignedTerm = assignedTermId && Array.isArray( availabilityTerms ) ?
-		availabilityTerms.find( term => ( +term.id === +assignedTermId ) ) :
-		null;
+
 	return {
-		availability: assignedTerm,
+		availability: +assignedTermId,
 		availabilityTerms: availabilityTerms,
 	};
 };
@@ -143,7 +148,7 @@ const selectAvailabilityTerms = select => {
 const dispatchAvailabilityChanges = ( dispatch, ownProps, { select } ) => ( {
 	setAvailability( termId ) {
 		dispatch( 'core/editor' ).editPost( {
-			[ AVAILABILITY_TAXONOMY ]: [ termId ],
+			[ AVAILABILITY_TAXONOMY_BASE ]: [ +termId ],
 		} );
 	},
 } );
@@ -160,7 +165,7 @@ export const settings = {
 	attributes: {
 		message: {
 			type: 'string',
-			default: 'Contact artist for pricing.',
+			default: __( 'Contact artist for pricing.', 'artgallery' ),
 		},
 	},
 
