@@ -2,7 +2,7 @@
   "name": "artgallery",
   "title": "ArtGallery",
   "description": "Custom post types and editor blocks for the working artist",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "homepage": "https://github.com/kadamwhite/artgallery",
   "keywords": [
     "wordpress",
@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
-    "@humanmade/webpack-helpers": "^0.4.0",
+    "@humanmade/webpack-helpers": "^0.6.1",
     "@wordpress/babel-preset-default": "^4.1.0",
     "acorn": "^6.1.1",
     "ajv": "^6.9.2",
