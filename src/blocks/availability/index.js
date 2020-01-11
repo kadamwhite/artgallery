@@ -2,7 +2,8 @@ import { __, sprintf } from '@wordpress/i18n';
 import { createBlock } from '@wordpress/blocks';
 import { Fragment } from '@wordpress/element';
 import { RadioControl } from '@wordpress/components';
-import { ServerSideRender, RichText } from '@wordpress/editor';
+import ServerSideRender from '@wordpress/server-side-render';
+import { RichText } from '@wordpress/block-editor';
 import { withDispatch, withSelect } from '@wordpress/data';
 
 import {
