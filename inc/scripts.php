@@ -17,9 +17,9 @@ function setup() {
 function enqueue_block_editor_assets() {
 	$manifest_path = ARTGALLERY_PATH . 'build/asset-manifest.json';
 
-	Asset_Loader\autoenqueue( $manifest_path, 'editor.js', [
+	Asset_Loader\enqueue_asset( $manifest_path, 'editor.js', [
 		'handle'  => 'artgallery-editor',
-		'scripts' => [
+		'dependencies' => [
 			'wp-blocks',
 			'wp-components',
 			'wp-compose',
@@ -46,7 +46,7 @@ function enqueue_block_editor_assets() {
 function enqueue_block_assets() {
 	$manifest_path = ARTGALLERY_PATH . 'build/asset-manifest.json';
 
-	Asset_Loader\autoenqueue( $manifest_path, 'frontend.js', [
+	Asset_Loader\enqueue_asset( $manifest_path, 'frontend.js', [
 		'handle' => 'artgallery-frontend',
 	] );
 }

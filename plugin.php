@@ -56,7 +56,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 
 // Conditionally enqueue editor UI scripts & styles.
 add_action( 'plugins_loaded', function() {
-	if ( function_exists( 'Asset_Loader\\autoenqueue' ) ) {
+	if ( function_exists( 'Asset_Loader\\enqueue_asset' ) ) {
 		require_once ARTGALLERY_PATH . 'inc/scripts.php';
 		ArtGallery\setup();
 	} else {
