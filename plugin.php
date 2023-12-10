@@ -14,7 +14,7 @@
  * Plugin Name: ArtGallery
  * Plugin URI:  https://github.com/kadamwhite/artgallery
  * Description: Custom post types, taxonomies and editor blocks for the working artist.
- * Version:     0.4.2
+ * Version:     0.4.3
  * Author:      K Adam White
  * Author URI:  http://kadamwhite.com
  * License:     GPL-2.0+ or Artistic License 2.0
