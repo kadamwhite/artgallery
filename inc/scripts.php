@@ -15,7 +15,7 @@ function setup() {
  * Enqueue editor assets based on the generated `asset-manifest.json` file.
  */
 function enqueue_block_editor_assets() {
-	$manifest_path = ARTGALLERY_PATH . 'build/asset-manifest.json';
+	$manifest_path = ARTGALLERY_PATH . 'build/production-asset-manifest.json';
 
 	Asset_Loader\enqueue_asset( $manifest_path, 'editor.js', [
 		'handle'  => 'artgallery-editor',
@@ -44,7 +44,7 @@ function enqueue_block_editor_assets() {
  * (Runs on both frontend and backend.)
  */
 function enqueue_block_assets() {
-	$manifest_path = ARTGALLERY_PATH . 'build/asset-manifest.json';
+	$manifest_path = ARTGALLERY_PATH . 'build/production-asset-manifest.json';
 
 	Asset_Loader\enqueue_asset( $manifest_path, 'frontend.js', [
 		'handle' => 'artgallery-frontend',
