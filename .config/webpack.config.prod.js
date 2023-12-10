@@ -2,7 +2,7 @@
  * This file defines the configuration that is used for the production build.
  */
 const { resolve } = require( 'path' );
-const { helpers, externals, presets } = require( '@humanmade/webpack-helpers' );
+const { helpers, externals, plugins, presets } = require( '@humanmade/webpack-helpers' );
 const { filePath } = helpers;
 
 const pluginPath = ( ...pathParts ) => resolve( __dirname, '..', ...pathParts );
@@ -19,6 +19,11 @@ const config = {
 	output: {
 		path: pluginPath( 'build' ),
 	},
+	plugins: [
+		plugins.manifest( {
+			fileName: 'production-asset-manifest.json',
+		} ),
+	],
 };
 
 if ( filePath( '.config' ) === __dirname ) {
