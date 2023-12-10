@@ -40,7 +40,7 @@ then
 fi
 
 # Only proceed if no untracked files are present.
-if [[ $( git status --porcelain 2>/dev/null | grep "^??" | wc -l ) != 0 ]]
+if [[ $( git status --porcelain 2>/dev/null | grep "^??" | wc -l | tr -d '[:space:]' ) != 0 ]]
 then
   echo "Error! Untracked files detected. Commit or remove these files before release."
   echo ""; exit 1
