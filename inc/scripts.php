@@ -33,6 +33,8 @@ function enqueue_block_editor_assets() {
 		],
 	] );
 
+	Asset_Loader\enqueue_asset( $manifest_path, 'editor.css' );
+
 	$screen = get_current_screen();
 	if ( $screen ) {
 		wp_localize_script( 'artgallery-editor', 'ARTGALLERY_CURRENT_SCREEN', (array) $screen );
@@ -49,4 +51,6 @@ function enqueue_block_assets() {
 	Asset_Loader\enqueue_asset( $manifest_path, 'frontend.js', [
 		'handle' => 'artgallery-frontend',
 	] );
+
+	Asset_Loader\enqueue_asset( $manifest_path, 'frontend.css' );
 }
