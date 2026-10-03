@@ -16,7 +16,7 @@ use WP_Post;
  *
  * @return string The thumbnail HTML markup string.
  */
-function artwork_thumbnail( WP_Post $artwork, string $block = 'artwork-grid' ) : string {
+function artwork_thumbnail( WP_Post $artwork, string $block = 'artwork-grid' ): string {
 	ob_start();
 
 	/* phpcs:disable Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace */
@@ -60,7 +60,7 @@ function artwork_thumbnail( WP_Post $artwork, string $block = 'artwork-grid' ) :
  *
  * @return string The rendered thumbnail grid output markup.
  */
-function artwork_thumbnail_grid( array $artworks, array $breakpoints, string $align = '', string $block = 'artwork-grid' ) : string {
+function artwork_thumbnail_grid( array $artworks, array $breakpoints, string $align = '', string $block = 'artwork-grid' ): string {
 	// Define the container dimensions at which the different breakpoints kick in,
 	// and encode as JSON for output in an attribute.
 	if ( empty( $breakpoints ) ) {
@@ -121,7 +121,7 @@ function clean_whitespace( string $markup ) {
 		 *
 		 * @return string The transformed markup.
 		 */
-		function( $carry, $replacement ) {
+		function ( $carry, $replacement ) {
 			return preg_replace( $replacement[0], $replacement[1], $carry );
 		},
 		$markup

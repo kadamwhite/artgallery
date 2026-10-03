@@ -113,7 +113,7 @@ function populate_default_taxonomy_terms() {
  *
  * @return string|null The slug of the assigned availability term, or null if no term assigned.
  */
-function get_availability_slug( int $artwork_id ) : ?string {
+function get_availability_slug( int $artwork_id ): ?string {
 	$assigned_terms = wp_get_post_terms( $artwork_id, AVAILABILITY_TAXONOMY );
 	$availability = $assigned_terms[0] ?? null;
 	if ( isset( $availability ) && $availability->slug ) {
@@ -131,9 +131,9 @@ function get_availability_slug( int $artwork_id ) : ?string {
  *
  * @return string
  */
-function get_media_list( int $artwork_id, bool $links = false ) : string {
+function get_media_list( int $artwork_id, bool $links = false ): string {
 	$media = wp_get_post_terms( $artwork_id, MEDIA_TAXONOMY );
-	$term_links = array_map( function( $medium ) use ( $links ) {
+	$term_links = array_map( function ( $medium ) use ( $links ) {
 		if ( $links ) {
 			$href = get_term_link( $medium );
 			return "<a href=\"$href\">$medium->name</a>";

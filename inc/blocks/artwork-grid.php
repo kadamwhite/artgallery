@@ -42,7 +42,7 @@ function register_block() {
  *
  * @return string The filtered attributes object.
  */
-function filter_image_attributes( array $attr ) : array {
+function filter_image_attributes( array $attr ): array {
 	return array_merge( $attr, [
 		// We hard-code the "sizes" attribute for our grid's responsive markup.
 		// The dimensions are calculated assuming the largest possible block width;
@@ -58,7 +58,7 @@ function filter_image_attributes( array $attr ) : array {
  * @param array $attributes The block attributes.
  * @return string The rendered block markup, as an HTML string.
  */
-function render_artwork_grid( array $attributes ) : string {
+function render_artwork_grid( array $attributes ): string {
 	$align = isset( $attributes['align'] ) ? (string) $attributes['align'] : '';
 	if ( ! empty( $align ) ) {
 		$align = "align$align";

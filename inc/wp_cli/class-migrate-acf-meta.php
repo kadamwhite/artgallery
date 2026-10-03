@@ -42,11 +42,11 @@ class Migrate_ACF_Meta {
 		WP_CLI::line( 'Converting ACF Metadata' . ( $dry_run ? ' -- dry run ' : '' ) );
 		WP_CLI::line( "-------------------------------------\n" );
 
-		$log = function( $message ) {
+		$log = function ( $message ) {
 			WP_CLI::line( $message );
 		};
 
-		Post_Types\for_all_artworks( function( $artwork ) use ( $dry_run, $log ) {
+		Post_Types\for_all_artworks( function ( $artwork ) use ( $dry_run, $log ) {
 			WP_CLI::line( "Processing $artwork->ID, $artwork->post_title" );
 
 			if ( Migrations\convert_dimensions_taxonomy_to_meta( $artwork, $dry_run, $log ) ) {

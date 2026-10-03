@@ -47,7 +47,7 @@ function register_meta() {
  *
  * @return string The artwork date string.
  */
-function get_artwork_date( int $artwork_id, ?string $override = null ) : string {
+function get_artwork_date( int $artwork_id, ?string $override = null ): string {
 	if ( ! empty( $override ) ) {
 		$date = $override;
 	} else {
@@ -72,13 +72,13 @@ function get_artwork_date( int $artwork_id, ?string $override = null ) : string 
  *
  * @return string The rendered artwork dimensions string.
  */
-function get_artwork_dimensions( int $artwork_id, array $overrides = [] ) : string {
+function get_artwork_dimensions( int $artwork_id, array $overrides = [] ): string {
 	$width = ! empty( $overrides['width'] ) ? $overrides['width'] : null;
 	$height = ! empty( $overrides['height'] ) ? $overrides['height'] : null;
 	$depth = ! empty( $overrides['depth'] ) ? $overrides['depth'] : null;
 
 	$dimensions = array_map(
-		function( $inches ) {
+		function ( $inches ) {
 			return $inches . '"';
 		},
 		array_filter(
@@ -87,7 +87,7 @@ function get_artwork_dimensions( int $artwork_id, array $overrides = [] ) : stri
 				$height ?? get_post_meta( $artwork_id, ARTWORK_HEIGHT, true ),
 				$depth ?? get_post_meta( $artwork_id, ARTWORK_DEPTH, true ),
 			],
-			function( $inches ) {
+			function ( $inches ) {
 				return ! empty( $inches );
 			}
 		)
