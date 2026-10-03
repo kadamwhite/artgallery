@@ -2,7 +2,6 @@
 	"name": "artgallery",
 	"title": "ArtGallery",
 	"description": "Custom post types and editor blocks for the working artist",
-	"version": "0.5.0",
 	"private": true,
 	"homepage": "https://github.com/kadamwhite/artgallery",
 	"author": "K Adam White",

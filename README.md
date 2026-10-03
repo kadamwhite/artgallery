@@ -30,9 +30,9 @@ The build uses `@wordpress/scripts` with a small `webpack.config.js` extension t
 
 ## Release process
 
-1. Bump the version in `plugin.php` (both the `Version:` header and `ARTGALLERY_VERSION`) and `package.json`, add a changelog entry below, and merge to `main`.
+1. Bump the version in `plugin.php` (both the `Version:` header and `ARTGALLERY_VERSION`), add a changelog entry below, and merge to `main`.
 2. Every merge to `main` runs the "Build to release branch" workflow, which merges `main` into `release`, runs the build, and commits `build/` there. A project may track `dev-release` to always get the latest built code.
-3. To cut a versioned release, run the "Tag and Release" workflow from the Actions tab with the version (e.g. `v0.5.0`). It checks that the tag does not already exist and that the version matches `plugin.php` and `package.json`, tags the `release` branch, and creates a GitHub release with generated notes.
+3. To cut a versioned release, run the "Tag and Release" workflow from the Actions tab with the version (e.g. `v0.5.0`). It checks that the tag does not already exist and that the version matches `plugin.php`, tags the `release` branch, and creates a GitHub release with generated notes.
 
 Composer consumers pin to the tag: `"kadamwhite/artgallery": "^0.5"`.
 

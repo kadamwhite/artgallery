@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: Version tag (e.g. v0.5.0). Must match the version in plugin.php and package.json.
+        description: Version tag (e.g. v0.5.0). Must match the version in plugin.php.
         required: true
       target_branch:
         description: Branch to tag
@@ -32,12 +32,11 @@ jobs:
             exit 1
           fi
 
-      - name: Verify version matches plugin.php and package.json
+      - name: Verify version matches plugin.php
         run: |
           V="${{ github.event.inputs.version }}"
           V="${V#v}"
           grep -q "Version:     $V" plugin.php || { echo "plugin.php is not at $V"; exit 1; }
-          grep -q "\"version\": \"$V\"" package.json || { echo "package.json is not at $V"; exit 1; }
 
       - name: Create and push tag
         run: |
