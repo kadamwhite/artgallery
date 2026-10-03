@@ -43,7 +43,7 @@ class Migrate_Image_Sizes {
 		WP_CLI::line( 'Updating Image Tags' . ( $dry_run ? ' -- dry run ' : '' ) );
 		WP_CLI::line( "-------------------------------------\n" );
 
-		$log = function( $message ) {
+		$log = function ( $message ) {
 			WP_CLI::line( $message );
 		};
 

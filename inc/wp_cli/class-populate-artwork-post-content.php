@@ -42,11 +42,11 @@ class Populate_Artwork_Post_Content {
 			WP_CLI::line( 'Populating artwork post content' . ( $dry_run ? ' -- dry run ' : '' ) );
 			WP_CLI::line( "-------------------------------------\n" );
 
-		$log = function( $message ) {
+		$log = function ( $message ) {
 			WP_CLI::line( $message );
 		};
 
-		Post_Types\for_all_artworks( function( $artwork ) use ( $dry_run, $log ) {
+		Post_Types\for_all_artworks( function ( $artwork ) use ( $dry_run, $log ) {
 			WP_CLI::line( "Processing $artwork->ID, $artwork->post_title" );
 
 			if ( Migrations\populate_artwork_post_content( $artwork, $dry_run, $log ) ) {

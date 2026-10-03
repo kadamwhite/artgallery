@@ -76,7 +76,6 @@ function register_post_types() {
 			[ 'artgallery/availability' ],
 		],
 	] );
-
 }
 
 /**
@@ -93,7 +92,8 @@ function register_post_types() {
 function set_default_terms( int $post_id, WP_Post $post ) {
 	// Verify that we're publishing an artwork item, and not something else
 	if ( 'publish' === $post->post_status && $post->post_type === ARTWORK_POST_TYPE ) {
-		/* Default terms by taxonomy:
+		/*
+		Default terms by taxonomy:
 		*
 		* Availability: Not For Sale
 		* Media: (none)
@@ -111,7 +111,7 @@ function set_default_terms( int $post_id, WP_Post $post ) {
 			if ( empty( $terms ) && array_key_exists( $taxonomy, $defaults ) ) {
 				wp_set_object_terms( $post_id, $defaults[ $taxonomy ], $taxonomy );
 			}
-		};
+		}
 	}
 }
 

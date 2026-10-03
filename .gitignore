@@ -2,7 +2,7 @@ node_modules/
 vendor/
 *.log
 
+# Built on the release branch by CI; never committed to main.
 build/
 
-package-lock.json
 composer.lock

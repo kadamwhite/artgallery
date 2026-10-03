@@ -27,13 +27,13 @@ function register_image_sizes() {
  *
  * @return array
  */
-function get_registered_image_sizes() : array {
+function get_registered_image_sizes(): array {
 	global $_wp_additional_image_sizes;
 
 	$image_sizes = [];
 
 	foreach ( get_intermediate_image_sizes() as $size ) {
-		if ( in_array( $size, [ 'thumbnail', 'medium', 'medium_large', 'large' ] ) ) {
+		if ( in_array( $size, [ 'thumbnail', 'medium', 'medium_large', 'large' ], true ) ) {
 			$image_sizes[] = [
 				'name'   => $size,
 				'width'  => (int) get_option( "{$size}_size_w" ),
@@ -69,7 +69,7 @@ function get_next_largest_image_size( array $size ) {
 	$is_square = $width === $height;
 	$sizes     = get_registered_image_sizes();
 
-	usort( $sizes, function( $a, $b ) {
+	usort( $sizes, function ( $a, $b ) {
 		$area_a = $a['width'] * $a['height'];
 		$area_b = $b['width'] * $b['height'];
 		return $area_a - $area_b;

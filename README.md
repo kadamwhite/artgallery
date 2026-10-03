@@ -5,10 +5,51 @@ ArtGallery is a artist's portfolio management plugin, providing tools for artist
 
 * **Contributors:** kadamwhite
 * **Tags:** art, media, portfolio, archive
-* **Requires at least:** 5.0
-* **Tested up to:** 5.2
+* **Requires at least:** 6.0
+* **Requires PHP:** 8.2
 * **License:** GPLv2 or later or Artistic License 2.0
 * **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
+
+## Requirements
+
+Scripts and styles are enqueued through [humanmade/asset-loader](https://github.com/humanmade/asset-loader), which must be loaded before this plugin. Both the 0.x (`enqueue_asset`) and 1.x (`enqueue_manifest_asset`) APIs are supported.
+
+## Development
+
+```
+npm install
+npm run build        # production build to build/
+npm start            # watch mode
+npm test             # Vitest unit tests
+npm run lint:js
+composer install
+composer phpcs
+```
+
+The build uses `@wordpress/scripts` with a small `webpack.config.js` extension that keeps two entries (`editor`, `frontend`) and writes `build/production-asset-manifest.json` for asset-loader. Built files are not committed to `main`.
+
+## Release process
+
+1. Bump the version in `plugin.php` (both the `Version:` header and `ARTGALLERY_VERSION`), add a changelog entry below, and merge to `main`.
+2. Every merge to `main` runs the "Build to release branch" workflow, which merges `main` into `release`, runs the build, and commits `build/` there. A project may track `dev-release` to always get the latest built code.
+3. To cut a versioned release, run the "Tag and Release" workflow from the Actions tab with the version (e.g. `v0.5.0`). It checks that the tag does not already exist and that the version matches `plugin.php`, tags the `release` branch, and creates a GitHub release with generated notes.
+
+Composer consumers pin to the tag: `"kadamwhite/artgallery": "^0.5"`.
+
+## Changelog
+
+### 0.5.0
+
+- Build with `@wordpress/scripts` (webpack 5, Dart Sass, Vitest) replacing the webpack 4 / node-sass toolchain.
+- Built assets move to the `release` branch via CI; tags are cut from that branch.
+- Script dependencies and versions come from the generated `.asset.php` files.
+- Support asset-loader 1.x without deprecation notices, falling back to the 0.x API when needed.
+- PHP 8.4 compatibility: explicit nullable parameter types.
+- Require PHP 8.2.
+
+### 0.4.5
+
+- Properly enqueue CSS assets and fix error where manifest not generated.
 
 ## License
 
