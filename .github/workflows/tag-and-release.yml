@@ -1,0 +1,54 @@
+name: Tag and Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version tag (e.g. v0.5.0). Must match the version in plugin.php.
+        required: true
+      target_branch:
+        description: Branch to tag
+        default: release
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  tag_and_release:
+    name: Tag and Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.inputs.target_branch }}
+          fetch-depth: 0
+
+      - name: Abort if tag exists
+        run: |
+          if git rev-parse "refs/tags/${{ github.event.inputs.version }}" >/dev/null 2>&1; then
+            echo "Tag ${{ github.event.inputs.version }} already exists"
+            exit 1
+          fi
+
+      - name: Verify version matches plugin.php
+        run: |
+          V="${{ github.event.inputs.version }}"
+          V="${V#v}"
+          grep -q "Version:     $V" plugin.php || { echo "plugin.php is not at $V"; exit 1; }
+
+      - name: Create and push tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag ${{ github.event.inputs.version }}
+          git push origin ${{ github.event.inputs.version }}
+
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ github.event.inputs.version }}
+          name: ${{ github.event.inputs.version }}
+          generateReleaseNotes: true
+          token: ${{ secrets.GITHUB_TOKEN }}

@@ -19,10 +19,10 @@ use WP_Post;
  * @param callable [$log]     A function to call to log changes.
  * @return bool False if failure or noop, True if successfully updated.
  */
-function convert_dimensions_taxonomy_to_meta( WP_Post $artwork, bool $dry_run = true, callable $log = null ) {
+function convert_dimensions_taxonomy_to_meta( WP_Post $artwork, bool $dry_run = true, ?callable $log = null ) {
 	if ( ! $log ) {
 		// Stub as noop if no log method provided.
-		$log = function() {};
+		$log = function () {};
 	}
 	$artwork_id = $artwork->ID;
 
@@ -63,10 +63,10 @@ function convert_dimensions_taxonomy_to_meta( WP_Post $artwork, bool $dry_run = 
  * @param callable [$log]     A function to call to log changes.
  * @return bool False if failure or noop, True if successfully updated.
  */
-function update_meta_keys( WP_Post $artwork, bool $dry_run = true, callable $log = null ) {
+function update_meta_keys( WP_Post $artwork, bool $dry_run = true, ?callable $log = null ) {
 	if ( ! $log ) {
 		// Stub as noop if no log method provided.
-		$log = function() {};
+		$log = function () {};
 	}
 	$artwork_id = $artwork->ID;
 	$success = false;
@@ -93,7 +93,7 @@ function update_meta_keys( WP_Post $artwork, bool $dry_run = true, callable $log
  * @param callable [$log]     A function to call to log changes.
  * @return bool False if failure or noop, True if successfully updated.
  */
-function populate_artwork_post_content( WP_Post $artwork, bool $dry_run = true, callable $log = null ) {
+function populate_artwork_post_content( WP_Post $artwork, bool $dry_run = true, ?callable $log = null ) {
 	$existing_content = trim( $artwork->post_content );
 	if ( ! empty( $existing_content ) ) {
 		$log( '-- Existing content found! Check post after migration. -' );
@@ -153,11 +153,11 @@ function populate_artwork_post_content( WP_Post $artwork, bool $dry_run = true, 
  * string and return the matched group, if found, or null.
  *
  * @param string $pattern A regex capture group string.
- * @param string $string  The string content to match with the $pattern.
+ * @param string $subject The string content to match with the $pattern.
  * @return string|null The captured group, or null if no match.
  */
-function match_group( string $pattern, string $string ) : ?string {
-	preg_match( $pattern, $string, $match );
+function match_group( string $pattern, string $subject ): ?string {
+	preg_match( $pattern, $subject, $match );
 	if ( empty( $match ) ) {
 		return null;
 	}
@@ -171,7 +171,7 @@ function match_group( string $pattern, string $string ) : ?string {
  * @param string $content A post_content string.
  * @return array An array of matched image tags.
  */
-function locate_image_tags( string $content ) : array {
+function locate_image_tags( string $content ): array {
 	preg_match_all( '/<img[^>]+>/', $content, $matches );
 
 	// If the match array or its sub-array is empty, we have no valid images.
@@ -180,7 +180,7 @@ function locate_image_tags( string $content ) : array {
 	}
 	$image_tags = $matches[0];
 
-	return array_filter( array_map( function( $img_tag ) {
+	return array_filter( array_map( function ( $img_tag ) {
 		$id  = (int) match_group( '/wp-image-([0-9]+)/', $img_tag );
 		$src = match_group( '/src="([^"]+)"/', $img_tag );
 
@@ -210,7 +210,7 @@ function locate_image_tags( string $content ) : array {
  * @param callable [$log]     A function to call to log changes.
  * @return bool False if failure or noop, True if successfully updated.
  */
-function update_image_sizes( WP_Post $post, bool $dry_run = true, callable $log = null ) {
+function update_image_sizes( WP_Post $post, bool $dry_run = true, ?callable $log = null ) {
 	$content = trim( $post->post_content );
 
 	$images = locate_image_tags( $content );
