@@ -7,14 +7,18 @@
 
 use ArtGallery\Taxonomies;
 
-global $post;
+$post_id = $block->context['postId'] ?? get_the_ID();
+
+if ( ! $post_id ) {
+	return;
+}
 
 // Status is not saved in post content, but ServerSideRender passes it in so
 // that the editor preview reflects a pending term assignment. Otherwise,
 // retrieve the status from the assigned terms.
 $status = ! empty( $attributes['status'] ) ?
 	$attributes['status'] :
-	Taxonomies\get_availability_slug( $post->ID );
+	Taxonomies\get_availability_slug( $post_id );
 
 if ( 'available' !== $status || empty( $attributes['message'] ) ) {
 	return;

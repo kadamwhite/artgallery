@@ -9,28 +9,21 @@
 	"attributes": {
 		"width": {
 			"type": "number",
-			"default": 0,
-			"source": "meta",
-			"meta": "width"
+			"default": 0
 		},
 		"height": {
 			"type": "number",
-			"default": 0,
-			"source": "meta",
-			"meta": "height"
+			"default": 0
 		},
 		"depth": {
 			"type": "number",
-			"default": 0,
-			"source": "meta",
-			"meta": "depth"
+			"default": 0
 		},
 		"date": {
-			"type": "string",
-			"source": "meta",
-			"meta": "creation_date"
+			"type": "string"
 		}
 	},
+	"usesContext": [ "postId", "postType", "queryId" ],
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"render": "file:./render.php"

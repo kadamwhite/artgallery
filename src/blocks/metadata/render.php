@@ -8,8 +8,11 @@
 use ArtGallery\Meta;
 use ArtGallery\Taxonomies;
 
-global $post;
-$artwork_id = $post->ID;
+$artwork_id = $block->context['postId'] ?? get_the_ID();
+
+if ( ! $artwork_id ) {
+	return;
+}
 
 $date = Meta\get_artwork_date( $artwork_id, $attributes['date'] ?? null );
 
