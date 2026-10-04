@@ -69,16 +69,9 @@ function render_artwork_grid( array $attributes ): string {
 		'posts_per_page' => 9, // Only 8 will display on certain screen sizes.
 	] );
 
-	// Define the container dimensions at which the different breakpoints kick in.
-	$breakpoints = [
-		'two-up'   => 0,
-		'three-up' => 420,
-		'four-up'  => 640,
-	];
-
 	add_filter( 'wp_get_attachment_image_attributes', __NAMESPACE__ . '\\filter_image_attributes', 10, 1 );
 
-	$block_output = Markup\artwork_thumbnail_grid( $recent_artwork->posts, $breakpoints, $align, 'artwork-grid' );
+	$block_output = Markup\artwork_thumbnail_grid( $recent_artwork->posts, [], $align, 'artwork-grid' );
 
 	remove_filter( 'wp_get_attachment_image_attributes', __NAMESPACE__ . '\\filter_image_attributes' );
 

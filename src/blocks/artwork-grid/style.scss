@@ -1,4 +1,6 @@
 .artwork-grid {
+	container-type: inline-size;
+
 	&__container {
 		position: relative;
 		display: flex;
@@ -17,8 +19,7 @@
 		// assumed usage locations: narrow on large screens implies column
 		// layouts, so we cut off a few of the bottom nodes to avoid making the
 		// block too tall.
-		.two-up &,
-		.two-up-cutoff & {
+		@container ( width < 420px ) {
 			width: 50%;
 			&:last-child {
 				display: none;
@@ -31,13 +32,13 @@
 				}
 			}
 		}
-		.three-up & {
+		@container ( 420px <= width < 640px ) {
 			width: 33%;
 			&:last-child {
 				display: block;
 			}
 		}
-		.four-up & {
+		@container ( width >= 640px ) {
 			width: 25%;
 			&:last-child {
 				display: none;

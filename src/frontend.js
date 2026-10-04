@@ -4,6 +4,3 @@
 
 // Styles
 import './frontend.scss';
-
-// Site-wide JS logic
-import './responsive-container';

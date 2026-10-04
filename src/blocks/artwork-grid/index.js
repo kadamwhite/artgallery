@@ -1,14 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import ServerSideRender from '@wordpress/server-side-render';
 
-import ChildMonitor from '../../components/child-monitor';
 import Icon from './icon';
-
-const maybeRecomputeResponsiveContainers = () => {
-	if ( window.agUpdateResponsiveContainers ) {
-		window.agUpdateResponsiveContainers();
-	}
-};
 
 export const name = 'artgallery/artwork-grid';
 
@@ -32,20 +25,7 @@ export const settings = {
 		},
 	},
 
-	edit: () => {
-		// Duplicate the responsive container div so that if the callback fires
-		// before the ServerSideRender is done, it is still wrapped in those classes.
-
-		return (
-			<ChildMonitor
-				onChange={ maybeRecomputeResponsiveContainers  }
-				check={ container => container.querySelector( '[data-responsive-container]' ) }
-				once
-			>
-				<ServerSideRender block={ name } />
-			</ChildMonitor>
-		);
-	},
+	edit: () => <ServerSideRender block={ name } />,
 
 	save() {
 		return null;

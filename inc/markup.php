@@ -61,28 +61,10 @@ function artwork_thumbnail( WP_Post $artwork, string $block = 'artwork-grid' ): 
  * @return string The rendered thumbnail grid output markup.
  */
 function artwork_thumbnail_grid( array $artworks, array $breakpoints, string $align = '', string $block = 'artwork-grid' ): string {
-	// Define the container dimensions at which the different breakpoints kick in,
-	// and encode as JSON for output in an attribute.
-	if ( empty( $breakpoints ) ) {
-		$breakpoints = wp_json_encode( [
-			'two-up'   => 0,
-			'three-up' => 420,
-			'four-up'  => 640,
-		] );
-	} else {
-		$breakpoints = wp_json_encode( $breakpoints );
-	}
-
 	ob_start();
 
 	?>
-	<div
-		class="<?php echo trim( $block . ' ' . $align ); ?>"
-		<?php if ( ! empty( $breakpoints ) ) : ?>
-		data-breakpoints="<?php echo esc_attr( $breakpoints ); ?>"
-		data-responsive-container
-		<?php endif; ?>
-	>
+	<div class="<?php echo trim( $block . ' ' . $align ); ?>">
 		<div class="<?php echo $block; ?>__container">
 			<?php
 			foreach ( $artworks as $artwork ) {
