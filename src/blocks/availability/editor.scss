@@ -1,0 +1,44 @@
+.artwork-availability {
+	.editor-styles-wrapper &__title {
+		line-height: 1.2;
+	}
+
+	p {
+		margin: 0;
+	}
+
+	.editor-styles-wrapper &__explanation {
+		font-size: 0.9rem;
+		font-style: italic;
+		margin: 0.25em 0;
+	}
+
+	.editor-styles-wrapper &__message {
+		font-size: 13px;
+		// See WP Core .components-base-control class.
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+		margin-bottom: 0.5em;
+	}
+
+	.editor-styles-wrapper &__custom-message {
+		margin: 0.5em 0 1em 1em;
+	}
+
+	.editor-styles-wrapper &__explanation,
+	.editor-styles-wrapper &__help-text {
+		color: #707070;
+	}
+
+	// Core's .components-base-control font size does not reach the editor iframe.
+	.editor-styles-wrapper &__help-text {
+		font-size: 13px;
+	}
+
+	.editor-styles-wrapper &__options .components-base-control__label {
+		font-weight: bold;
+	}
+
+	.editor-styles-wrapper &__label {
+		font-size: 1rem;
+	}
+}
