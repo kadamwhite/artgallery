@@ -1,23 +1,23 @@
 import { __, sprintf } from '@wordpress/i18n';
-import { createBlock } from '@wordpress/blocks';
+import { createBlock, registerBlockType } from '@wordpress/blocks';
 import { Fragment } from '@wordpress/element';
 import { RadioControl } from '@wordpress/components';
 import ServerSideRender from '@wordpress/server-side-render';
-import { RichText } from '@wordpress/block-editor';
-import { withDispatch, withSelect } from '@wordpress/data';
+import { RichText, useBlockProps } from '@wordpress/block-editor';
+import { useSelect } from '@wordpress/data';
+import { useEntityProp } from '@wordpress/core-data';
 
 import {
+	ARTWORK_POST_TYPE,
 	AVAILABILITY_TAXONOMY,
 	AVAILABILITY_TAXONOMY_BASE,
-	ARTWORK_POST_TYPE,
 } from '../../constants';
 import { bemBlock } from '../../utils';
 
+import metadata from './block.json';
 import Icon from './icon';
 
-import './style.scss';
-
-export const name = 'artgallery/availability';
+import './editor.scss';
 
 const block = bemBlock( 'artwork-availability' );
 
@@ -27,13 +27,28 @@ const isAvailable = term => (
 
 const AvailabilityOptionsList = ( {
 	attributes,
-	availability,
-	availabilityTerms,
 	insertBlocksAfter,
 	isSelected,
+	postId,
+	postType,
 	setAttributes,
-	setAvailability,
 } ) => {
+	const [ assignedTerms, setAssignedTerms ] = useEntityProp(
+		'postType',
+		postType,
+		AVAILABILITY_TAXONOMY_BASE,
+		postId
+	);
+	const availabilityTerms = useSelect(
+		select => select( 'core' ).getEntityRecords( 'taxonomy', AVAILABILITY_TAXONOMY ),
+		[]
+	);
+
+	const availability = Array.isArray( assignedTerms ) && assignedTerms.length ?
+		+assignedTerms[0] :
+		0;
+	const setAvailability = termId => setAssignedTerms( [ +termId ] );
+
 	if ( ! availabilityTerms || ! availabilityTerms.length ) {
 		return (
 			<p className={ block.element( 'explanation' ) }>
@@ -67,7 +82,7 @@ const AvailabilityOptionsList = ( {
 					{ ' ' }
 					{ __( 'This message will be displayed on the frontend:', 'artgallery' ) }
 				</p>
-				<ServerSideRender block={ name } attributes={ {
+				<ServerSideRender block={ metadata.name } urlQueryArgs={ { post_id: postId } } attributes={ {
 					// Status is not a registered attribute, but we must pass it back when
 					// rendering via ServerSideRender so the backend can be aware of
 					// pending term assignment updates and display the correct preview.
@@ -115,7 +130,6 @@ const AvailabilityOptionsList = ( {
 						value={ attributes.message }
 						onChange={ message => setAttributes( { message } ) }
 						placeholder={ __( 'Enter text...', 'custom-block' ) }
-						keepPlaceholderOnFocus={ true }
 					/>
 				</Fragment>
 			) : null }
@@ -132,50 +146,34 @@ const AvailabilityOptionsList = ( {
 	);
 };
 
-const selectAvailabilityTerms = select => {
-	const availabilityTerms = select( 'core' ).getEntityRecords( 'taxonomy', AVAILABILITY_TAXONOMY );
-	const assignedTerms = select( 'core/editor' ).getEditedPostAttribute( AVAILABILITY_TAXONOMY_BASE );
+const AvailabilityEdit = props => {
+	const { context: { postId, postType, queryId } } = props;
+	const isEditable = postId && postType === ARTWORK_POST_TYPE && ! Number.isFinite( queryId );
 
-	const assignedTermId = Array.isArray( assignedTerms ) && assignedTerms.length ?
-		assignedTerms[0] :
-		null;
+	let content;
+	if ( ! postId ) {
+		content = (
+			<p className={ block.element( 'explanation' ) }>
+				{ __( 'Displays the current artwork\'s availability message.', 'artgallery' ) }
+			</p>
+		);
+	} else if ( isEditable ) {
+		content = <AvailabilityOptionsList { ...props } postId={ postId } postType={ postType } />;
+	} else {
+		content = (
+			<ServerSideRender
+				block={ metadata.name }
+				attributes={ props.attributes }
+				urlQueryArgs={ { post_id: postId } }
+			/>
+		);
+	}
 
-	return {
-		availability: +assignedTermId,
-		availabilityTerms: availabilityTerms,
-	};
+	return <div { ...useBlockProps() }>{ content }</div>;
 };
 
-const dispatchAvailabilityChanges = ( dispatch, ownProps, { select } ) => ( {
-	setAvailability( termId ) {
-		dispatch( 'core/editor' ).editPost( {
-			[ AVAILABILITY_TAXONOMY_BASE ]: [ +termId ],
-		} );
-	},
-} );
-
-export const settings = {
-	title: __( 'Artwork Availability' ),
-
-	description: __( 'Mark an artwork as sold, not for sale, or available (with contact link).' ),
-
+registerBlockType( metadata.name, {
 	icon: Icon,
-
-	category: 'artgallery',
-
-	attributes: {
-		message: {
-			type: 'string',
-			default: __( 'Contact artist for pricing.', 'artgallery' ),
-		},
-	},
-
-	edit: withDispatch( dispatchAvailabilityChanges )( withSelect( selectAvailabilityTerms )( AvailabilityOptionsList ) ),
-
-	save() {
-		return null;
-	},
-};
-
-// Limit the post types in which this block is available.
-export const postTypes = [ ARTWORK_POST_TYPE ];
+	edit: AvailabilityEdit,
+	save: () => null,
+} );

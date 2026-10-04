@@ -4,12 +4,62 @@
  */
 namespace ArtGallery\Blocks;
 
+use ArtGallery\Post_Types;
+
+/**
+ * Blocks which are only available when editing artwork items.
+ */
+const ARTWORK_ONLY_BLOCKS = [
+	'artgallery/availability',
+	'artgallery/metadata',
+];
+
 function setup() {
-	// Auto-load all PHP-defined blocks.
+	// Load block-specific hooks.
 	autoregister_blocks();
 
 	// Register actions & filters.
-	add_filter( 'block_categories', __NAMESPACE__ . '\\add_artgallery_block_category', 10, 1 );
+	add_action( 'init', __NAMESPACE__ . '\\register_blocks' );
+	add_filter( 'block_categories_all', __NAMESPACE__ . '\\add_artgallery_block_category', 10, 1 );
+	add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\\hide_artwork_only_blocks' );
+}
+
+/**
+ * Register every block built from a src/blocks/{name}/block.json file.
+ */
+function register_blocks() {
+	foreach ( glob( ARTGALLERY_PATH . 'build/blocks/*/block.json' ) as $file ) {
+		register_block_type_from_metadata( dirname( $file ) );
+	}
+}
+
+/**
+ * Hide the artwork-specific blocks from the inserter outside the artwork post type.
+ *
+ * The blocks.registerBlockType filter is attached directly after wp-blocks so it
+ * is in place before any block registers. Existing instances keep working, and
+ * other block types are untouched.
+ */
+function hide_artwork_only_blocks() {
+	$screen = get_current_screen();
+
+	// Leave the site editor and other post-less contexts alone.
+	if ( empty( $screen->post_type ) || Post_Types\ARTWORK_POST_TYPE === $screen->post_type ) {
+		return;
+	}
+
+	$script = <<<'JS'
+wp.hooks.addFilter( 'blocks.registerBlockType', 'artgallery/hide-artwork-only-blocks', function ( settings, name ) {
+	if ( %s.indexOf( name ) === -1 ) {
+		return settings;
+	}
+	return Object.assign( {}, settings, {
+		supports: Object.assign( {}, settings.supports, { inserter: false } ),
+	} );
+} );
+JS;
+
+	wp_add_inline_script( 'wp-blocks', sprintf( $script, wp_json_encode( ARTWORK_ONLY_BLOCKS ) ) );
 }
 
 /**
@@ -56,10 +106,10 @@ function get_namespace_from_block_handle( $block_handle ) {
 }
 
 /**
- * Dynamically register blocks if a registration file exists.
+ * Load block-specific hooks if a setup file exists.
  */
 function autoregister_blocks() {
-	// Each block registered must have an entrypoint in /blocks/{blockname}.php.
+	// Each block with PHP hooks must have an entrypoint in /blocks/{blockname}.php.
 	foreach ( glob( __DIR__ . '/blocks/*.php' ) as $file ) {
 		require_once $file;
 		$block_handle = get_block_handle_from_path( $file );

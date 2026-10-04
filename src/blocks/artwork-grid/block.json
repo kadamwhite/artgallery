@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "artgallery/artwork-grid",
+	"title": "Artwork Grid",
+	"description": "Display a grid of recent artwork.",
+	"category": "artgallery",
+	"textdomain": "artgallery",
+	"supports": {
+		"align": [ "full", "wide" ]
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

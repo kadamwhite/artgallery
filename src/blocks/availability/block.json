@@ -1,0 +1,22 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "artgallery/availability",
+	"title": "Artwork Availability",
+	"description": "Mark an artwork as sold, not for sale, or available (with contact link).",
+	"category": "artgallery",
+	"textdomain": "artgallery",
+	"attributes": {
+		"status": {
+			"type": "string"
+		},
+		"message": {
+			"type": "string",
+			"default": "Contact artist for pricing."
+		}
+	},
+	"usesContext": [ "postId", "postType", "queryId" ],
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"render": "file:./render.php"
+}

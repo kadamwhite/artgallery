@@ -8,15 +8,16 @@
 	"license": "(Artistic-2.0 OR GPL-2.0-or-later)",
 	"scripts": {
 		"build": "wp-scripts build",
+		"env:cli": "npx @wordpress/env run cli",
+		"env:db": "npx @wordpress/env run cli -- mysql -uroot -ppassword wordpress --host=mysql",
+		"env:destroy": "npx @wordpress/env destroy",
+		"env:logs": "npx @wordpress/env logs development | grep -v -E '\"(GET|OPTIONS|HEAD|POST|PUT)'",
+		"env:start": "npx @wordpress/env start",
+		"env:stop": "npx @wordpress/env stop",
 		"start": "wp-scripts start",
 		"lint:js": "wp-scripts lint-js src",
 		"lint:php": "composer phpcs",
 		"test": "wp-scripts test-unit-js"
-	},
-	"dependencies": {
-		"block-editor-hmr": "^0.6.0",
-		"lodash.debounce": "^4.0.8",
-		"resize-observer-polyfill": "^1.5.1"
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^36.0.0",

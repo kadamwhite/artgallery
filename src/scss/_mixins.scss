@@ -38,20 +38,3 @@
 		@content;
 	}
 }
-
-// Prefer pixel dimensions when using these two mixins: if we used
-// ems, there would be a 1em gap between the top of respond-below and
-// the bottom of respond-above for any em value. Using px avoids this.
-@mixin respond-below( $breakpoint ) {
-	@media screen and ( max-width: ( $breakpoint - 1 ) ) {
-		@content;
-	}
-}
-
-@mixin respond-between( $breakpoint1, $breakpoint2 ) {
-	@media screen and ( min-width: $breakpoint1 ) and ( max-width: ( $breakpoint2 - 1 ) ) {
-		@content;
-	}
-}
-
-@import './blocks/artwork-grid/style.scss';
