@@ -28,6 +28,21 @@ composer phpcs
 
 The build uses `@wordpress/scripts` with a small `webpack.config.js` extension that keeps two entries (`editor`, `frontend`) and writes `build/production-asset-manifest.json` for asset-loader. Built files are not committed to `main`.
 
+## Local Environment
+
+[wp-env](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) runs a containerized WordPress instance at [localhost:3047](http://localhost:3047) with this plugin active. Log in with `admin` / `password`. Run `npm run build` (or `npm start`) first so the plugin has assets to load.
+
+Command | Purpose
+---- | ----
+`npm run env:start` | Start the environment
+`npm run env:stop` | Stop the environment
+`npm run env:cli -- wp ...` | Run WP-CLI commands in the environment
+`npm run env:logs` | Tail the PHP error log<sup>&ddagger;</sup>
+`npm run env:db` | Open the database in the mysql command line
+`npm run env:destroy` | Destroy the environment, including its database
+
+<sup>&ddagger;</sup> GET/OPTIONS/HEAD/POST/PUT access log entries are filtered out.
+
 ## Release process
 
 1. Bump the version in `plugin.php` (both the `Version:` header and `ARTGALLERY_VERSION`), add a changelog entry below, and merge to `main`.

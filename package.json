@@ -8,6 +8,12 @@
 	"license": "(Artistic-2.0 OR GPL-2.0-or-later)",
 	"scripts": {
 		"build": "wp-scripts build",
+		"env:cli": "npx @wordpress/env run cli",
+		"env:db": "npx @wordpress/env run cli -- mysql -uroot -ppassword wordpress --host=mysql",
+		"env:destroy": "npx @wordpress/env destroy",
+		"env:logs": "npx @wordpress/env logs development | grep -v -E '\"(GET|OPTIONS|HEAD|POST|PUT)'",
+		"env:start": "npx @wordpress/env start",
+		"env:stop": "npx @wordpress/env stop",
 		"start": "wp-scripts start",
 		"lint:js": "wp-scripts lint-js src",
 		"lint:php": "composer phpcs",
