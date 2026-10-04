@@ -5,7 +5,6 @@
 namespace ArtGallery\Blocks;
 
 use ArtGallery\Post_Types;
-use WP_Block_Type_Registry;
 
 /**
  * Blocks which are only available when editing artwork items.
@@ -22,7 +21,7 @@ function setup() {
 	// Register actions & filters.
 	add_action( 'init', __NAMESPACE__ . '\\register_blocks' );
 	add_filter( 'block_categories_all', __NAMESPACE__ . '\\add_artgallery_block_category', 10, 1 );
-	add_filter( 'allowed_block_types_all', __NAMESPACE__ . '\\limit_artwork_only_blocks', 10, 2 );
+	add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\\hide_artwork_only_blocks' );
 }
 
 /**
@@ -35,27 +34,32 @@ function register_blocks() {
 }
 
 /**
- * Remove the artwork-specific blocks outside the artwork post type.
+ * Hide the artwork-specific blocks from the inserter outside the artwork post type.
  *
- * @param bool|string[]            $allowed_block_types Allowed block types, or true for all.
- * @param \WP_Block_Editor_Context $context             The current block editor context.
- * @return bool|string[] The filtered allowed block types.
+ * The blocks.registerBlockType filter is attached directly after wp-blocks so it
+ * is in place before any block registers. Existing instances keep working, and
+ * other block types are untouched.
  */
-function limit_artwork_only_blocks( $allowed_block_types, $context ) {
+function hide_artwork_only_blocks() {
+	$screen = get_current_screen();
+
 	// Leave the site editor and other post-less contexts alone.
-	if ( empty( $context->post ) || Post_Types\ARTWORK_POST_TYPE === $context->post->post_type ) {
-		return $allowed_block_types;
+	if ( empty( $screen->post_type ) || Post_Types\ARTWORK_POST_TYPE === $screen->post_type ) {
+		return;
 	}
 
-	if ( true === $allowed_block_types ) {
-		$allowed_block_types = array_keys( WP_Block_Type_Registry::get_instance()->get_all_registered() );
+	$script = <<<'JS'
+wp.hooks.addFilter( 'blocks.registerBlockType', 'artgallery/hide-artwork-only-blocks', function ( settings, name ) {
+	if ( %s.indexOf( name ) === -1 ) {
+		return settings;
 	}
+	return Object.assign( {}, settings, {
+		supports: Object.assign( {}, settings.supports, { inserter: false } ),
+	} );
+} );
+JS;
 
-	if ( ! is_array( $allowed_block_types ) ) {
-		return $allowed_block_types;
-	}
-
-	return array_values( array_diff( $allowed_block_types, ARTWORK_ONLY_BLOCKS ) );
+	wp_add_inline_script( 'wp-blocks', sprintf( $script, wp_json_encode( ARTWORK_ONLY_BLOCKS ) ) );
 }
 
 /**
