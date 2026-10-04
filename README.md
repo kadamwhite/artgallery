@@ -26,7 +26,7 @@ The build is zero-config `wp-scripts`. Each block is a `block.json` entry under 
 
 ## Local Environment
 
-[wp-env](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) runs a containerized WordPress instance at [localhost:3047](http://localhost:3047) with this plugin active. Log in with `admin` / `password`. Run `npm run build` (or `npm start`) first so the plugin has assets to load.
+[wp-env](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) runs a containerized WordPress instance at [localhost:3047](http://localhost:3047) with this plugin active. Log in with `admin` / `password`. Run `npm run build` (or `npm start`) first so the plugin has assets to load, and `npm run env:cli -- wp rewrite flush` after the first start so artwork permalinks resolve.
 
 Command | Purpose
 ---- | ----
@@ -48,6 +48,15 @@ Command | Purpose
 Composer consumers pin to the tag: `"kadamwhite/artgallery": "^0.5"`.
 
 ## Changelog
+
+### Unreleased
+
+- Blocks are defined in `block.json`, render from `render.php`, and read the post from block context, so they work in block theme templates and Query Loops.
+- Asset Loader is no longer required.
+- The artwork grid uses CSS container queries instead of the `resize-observer-polyfill` script.
+- `availability` and `metadata` are limited to artwork items server-side via `allowed_block_types_all`; they remain available in the site editor.
+- Block wrappers gain `wp-block-artgallery-*` classes.
+- Requires WordPress 6.6.
 
 ### 0.5.0
 
