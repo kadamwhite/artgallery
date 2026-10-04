@@ -49,7 +49,7 @@ Composer consumers pin to the tag: `"kadamwhite/artgallery": "^0.5"`.
 
 ## Changelog
 
-### Unreleased
+### 0.6.0
 
 - Blocks are defined in `block.json`, render from `render.php`, and read the post from block context, so they work in block theme templates and Query Loops.
 - Asset Loader is no longer required.
