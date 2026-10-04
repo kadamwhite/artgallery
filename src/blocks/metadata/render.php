@@ -39,4 +39,4 @@ if ( empty( $block_output ) ) {
 	return;
 }
 ?>
-<p <?php echo get_block_wrapper_attributes( [ 'class' => 'artwork-meta' ] ); // phpcs:ignore HM.Security.EscapeOutput.OutputNotEscaped ?>><?php echo wp_kses_post( $block_output ); ?></p>
+<p <?php echo get_block_wrapper_attributes( [ 'class' => 'artwork-meta' ] ); ?>><?php echo wp_kses_post( $block_output ); ?></p>

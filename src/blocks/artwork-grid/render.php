@@ -17,7 +17,7 @@ $filter_image_attributes = 'ArtGallery\\Blocks\\Artwork_Grid\\filter_image_attri
 
 add_filter( 'wp_get_attachment_image_attributes', $filter_image_attributes, 10, 1 );
 ?>
-<div <?php echo get_block_wrapper_attributes( [ 'class' => 'artwork-grid' ] ); // phpcs:ignore HM.Security.EscapeOutput.OutputNotEscaped ?>>
+<div <?php echo get_block_wrapper_attributes( [ 'class' => 'artwork-grid' ] ); ?>>
 	<div class="artwork-grid__container">
 		<?php
 		foreach ( $recent_artwork->posts as $artwork ) {

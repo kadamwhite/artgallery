@@ -24,4 +24,4 @@ if ( 'available' !== $status || empty( $attributes['message'] ) ) {
 	return;
 }
 ?>
-<p <?php echo get_block_wrapper_attributes(); // phpcs:ignore HM.Security.EscapeOutput.OutputNotEscaped ?>><?php echo wp_kses_post( $attributes['message'] ); ?></p>
+<p <?php echo get_block_wrapper_attributes(); ?>><?php echo wp_kses_post( $attributes['message'] ); ?></p>
