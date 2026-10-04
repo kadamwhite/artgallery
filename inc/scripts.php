@@ -19,8 +19,12 @@ function setup() {
 function enqueue_block_editor_assets() {
 	$asset_file = ARTGALLERY_PATH . 'build/editor/index.asset.php';
 
-	// Nothing to enqueue before the first build.
 	if ( ! file_exists( $asset_file ) ) {
+		wp_trigger_error(
+			__FUNCTION__,
+			'ArtGallery editor script is missing; run `npm run build`.',
+			E_USER_WARNING
+		);
 		return;
 	}
 
