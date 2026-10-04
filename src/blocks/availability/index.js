@@ -4,6 +4,7 @@ import { Fragment } from '@wordpress/element';
 import { RadioControl } from '@wordpress/components';
 import ServerSideRender from '@wordpress/server-side-render';
 import { RichText, useBlockProps } from '@wordpress/block-editor';
+import { useInstanceId } from '@wordpress/compose';
 import { useSelect } from '@wordpress/data';
 import { useEntityProp } from '@wordpress/core-data';
 
@@ -32,6 +33,10 @@ const AvailabilityOptionsList = ( {
 	postType,
 	setAttributes,
 } ) => {
+	const helpTextId = useInstanceId(
+		AvailabilityOptionsList,
+		'artwork-availability-help-text'
+	);
 	const [ assignedTerms, setAssignedTerms ] = useEntityProp(
 		'postType',
 		postType,
@@ -56,7 +61,7 @@ const AvailabilityOptionsList = ( {
 	if ( ! availabilityTerms || ! availabilityTerms.length ) {
 		return (
 			<p className={ block.element( 'explanation' ) }>
-				{ __( 'Artwork availability status loading...', 'artgallery' ) }
+				{ __( 'Artwork availability status loading…', 'artgallery' ) }
 			</p>
 		);
 	}
@@ -143,20 +148,22 @@ const AvailabilityOptionsList = ( {
 			/>
 			{ isAvailable( availabilityTerm ) ? (
 				<Fragment>
-					<label
+					<p
+						id={ helpTextId }
 						className={ `${ block.element( 'help-text' ) } components-base-control` }
 					>
 						{ __(
 							'Enter a sales message or link to display at the bottom of the artwork page.',
 							'artgallery'
 						) }
-					</label>
+					</p>
 					<RichText
 						tagName="p"
 						className={ block.element( 'custom-message' ) }
 						value={ attributes.message }
 						onChange={ ( message ) => setAttributes( { message } ) }
-						placeholder={ __( 'Enter text...', 'custom-block' ) }
+						placeholder={ __( 'Enter text…', 'artgallery' ) }
+						aria-labelledby={ helpTextId }
 					/>
 				</Fragment>
 			) : null }

@@ -3,7 +3,7 @@
  *
  * From https://thenounproject.com/term/pack-of-dollars/131792/
  *
- * @return {Object}
+ * @return {Element} Money icon.
  */
 export default () => (
 	<svg
