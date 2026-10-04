@@ -10,10 +10,6 @@ ArtGallery is a artist's portfolio management plugin, providing tools for artist
 * **License:** GPLv2 or later or Artistic License 2.0
 * **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
-## Requirements
-
-Scripts and styles are enqueued through [humanmade/asset-loader](https://github.com/humanmade/asset-loader), which must be loaded before this plugin. Both the 0.x (`enqueue_asset`) and 1.x (`enqueue_manifest_asset`) APIs are supported.
-
 ## Development
 
 ```
@@ -26,7 +22,7 @@ composer install
 composer phpcs
 ```
 
-The build uses `@wordpress/scripts` with a small `webpack.config.js` extension that keeps two entries (`editor`, `frontend`) and writes `build/production-asset-manifest.json` for asset-loader. Built files are not committed to `main`.
+The build is zero-config `wp-scripts`. Each block is a `block.json` entry under `src/blocks/`. Plugin-level editor JS (filters, plugins) is built from a dummy `block.json` in `src/editor/` and enqueued manually from its `.asset.php`. Built files are not committed to `main`.
 
 ## Local Environment
 

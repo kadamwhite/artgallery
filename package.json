@@ -19,10 +19,6 @@
 		"lint:php": "composer phpcs",
 		"test": "wp-scripts test-unit-js"
 	},
-	"dependencies": {
-		"block-editor-hmr": "^0.6.0",
-		"lodash.debounce": "^4.0.8"
-	},
 	"devDependencies": {
 		"@wordpress/scripts": "^36.0.0",
 		"vite": "^8.3.2",

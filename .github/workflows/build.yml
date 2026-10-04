@@ -22,5 +22,5 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
-      - run: test -f build/production-asset-manifest.json
+      - run: test -f build/editor/index.asset.php
       - run: test -f build/blocks/artwork-grid/render.php

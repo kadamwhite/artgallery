@@ -3,6 +3,7 @@
  * if a featured image is not set for an artwork item.
  */
 import { Fragment } from '@wordpress/element';
+import { registerPlugin } from '@wordpress/plugins';
 import {
 	PluginPostStatusInfo,
 	PluginPrePublishPanel,
@@ -13,9 +14,9 @@ import { compose } from '@wordpress/compose';
 import { withSelect, withDispatch } from '@wordpress/data';
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 
-import { ARTWORK_POST_TYPE } from '../../constants';
+import { ARTWORK_POST_TYPE } from '../constants';
 
-export const name = 'artgallery-missing-featured-image-warning';
+const name = 'artgallery-missing-featured-image-warning';
 
 const MissingImageWarning = () => (
 	<p style={ {
@@ -78,28 +79,26 @@ const FeaturedImageWarning = ( {
 	)
 };
 
-export const options = {
-	icon: 'warning',
+const render = compose(
+	withSelect( select => {
+		const { getPostType } = select( 'core' );
+		const { getEditedPostAttribute } = select( 'core/editor' );
+		const postTypeSlug = getEditedPostAttribute( 'type' );
+		const postType = getPostType( postTypeSlug );
+		const labels = ( postType && postType.labels ) || {};
 
-	render: compose(
-		withSelect( select => {
-			const { getPostType } = select( 'core' );
-			const { getEditedPostAttribute } = select( 'core/editor' );
-			const postTypeSlug = getEditedPostAttribute( 'type' );
-			const postType = getPostType( postTypeSlug );
-			const labels = ( postType && postType.labels ) || {};
+		return {
+			isArtwork: postTypeSlug === ARTWORK_POST_TYPE,
+			featuredImageId: getEditedPostAttribute( 'featured_media' ),
+			featuredImageLabel: labels.featured_image,
+			setFeaturedImageLabel: labels.set_featured_image,
+		};
+	} ),
+	withDispatch( dispatch => ( {
+		onUpdateImage( image ) {
+			dispatch( 'core/editor' ).editPost( { featured_media: image.id } );
+		},
+	} ) ),
+)( FeaturedImageWarning );
 
-			return {
-				isArtwork: postTypeSlug === ARTWORK_POST_TYPE,
-				featuredImageId: getEditedPostAttribute( 'featured_media' ),
-				featuredImageLabel: labels.featured_image,
-				setFeaturedImageLabel: labels.set_featured_image,
-			};
-		} ),
-		withDispatch( dispatch => ( {
-			onUpdateImage( image ) {
-				dispatch( 'core/editor' ).editPost( { featured_media: image.id } );
-			},
-		} ) ),
-	)( FeaturedImageWarning ),
-};
+registerPlugin( name, { render } );

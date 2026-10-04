@@ -39,6 +39,7 @@ require_once ARTGALLERY_PATH . 'inc/markup.php';
 require_once ARTGALLERY_PATH . 'inc/meta.php';
 require_once ARTGALLERY_PATH . 'inc/namespace.php';
 require_once ARTGALLERY_PATH . 'inc/post-types.php';
+require_once ARTGALLERY_PATH . 'inc/scripts.php';
 require_once ARTGALLERY_PATH . 'inc/taxonomies.php';
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
@@ -54,21 +55,4 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	WP_CLI::add_command( 'artgallery-migrate-image-sizes', 'ArtGallery\\WP_CLI\\Migrate_Image_Sizes' );
 }
 
-// Conditionally enqueue editor UI scripts & styles.
-add_action( 'plugins_loaded', function () {
-	if ( function_exists( 'Asset_Loader\\enqueue_asset' ) ) {
-		require_once ARTGALLERY_PATH . 'inc/scripts.php';
-		ArtGallery\setup();
-	} else {
-		add_action( 'admin_notices', function () {
-			// Deliberately omit .is-dismissible from these classes.
-			echo '<div class="notice notice-error">';
-			echo '<p>';
-			echo 'The ArtGallery plugin will not work properly unless the ';
-			echo '<a href="https://github.com/humanmade/asset-loader">Asset Loader plugin</a>';
-			echo ' is installed &amp; active!';
-			echo '</p>';
-			echo '</div>';
-		} );
-	}
-} );
+add_action( 'plugins_loaded', 'ArtGallery\\setup' );
