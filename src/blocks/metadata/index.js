@@ -1,4 +1,6 @@
 import { __ } from '@wordpress/i18n';
+import { registerBlockType } from '@wordpress/blocks';
+import { useBlockProps } from '@wordpress/block-editor';
 import { Fragment } from '@wordpress/element';
 import ServerSideRender from '@wordpress/server-side-render';
 import { TextControl } from '@wordpress/components';
@@ -6,20 +8,14 @@ import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
 
 import {
-	ARTWORK_WIDTH,
-	ARTWORK_HEIGHT,
-	ARTWORK_DEPTH,
-	ARTWORK_DATE,
-	ARTWORK_POST_TYPE,
 	MEDIA_TAXONOMY,
 } from '../../constants';
 import { bemBlock } from '../../utils';
 
+import metadata from './block.json';
 import Icon from './icon';
 
-import './style.scss';
-
-export const name = 'artgallery/metadata';
+import './editor.scss';
 
 const block = bemBlock( 'artwork-metadata' );
 
@@ -77,63 +73,34 @@ const EditDimensionsBlock = ( { attributes, isSelected, setAttributes, openSideb
 			</p>
 		</Fragment>
 	) : (
-		<ServerSideRender block={ name } attributes={ attributes } />
+		<ServerSideRender block={ metadata.name } attributes={ attributes } />
 	);
 };
 
-export const settings = {
-	title: __( 'Artwork Metadata', 'artgallery' ),
+const Edit = compose(
+	withSelect( select => ( {
+		postId: select( 'core/editor' ).getEditedPostAttribute( 'id' ),
+	} ) ),
+	withDispatch( ( dispatch, ownProps, { select } ) => ( {
+		openSidebar: () => {
+			dispatch( 'core/edit-post' ).openGeneralSidebar( 'edit-post/document' );
 
-	description: __( 'List the date, size & materials for a given artwork.', 'artgallery' ),
+			const mediaPanel = `taxonomy-panel-${ MEDIA_TAXONOMY }`;
+			if ( ! select( 'core/editor' ).isEditorPanelOpened( mediaPanel ) ) {
+				dispatch( 'core/editor' ).toggleEditorPanelOpened( mediaPanel );
+			}
+		},
+	} ) ),
+)( EditDimensionsBlock );
 
+const MetadataEdit = props => (
+	<div { ...useBlockProps() }>
+		<Edit { ...props } />
+	</div>
+);
+
+registerBlockType( metadata.name, {
 	icon: Icon,
-
-	category: 'artgallery',
-
-	attributes: {
-		width: {
-			type: 'number',
-			source: 'meta',
-			meta: ARTWORK_WIDTH,
-		},
-		height: {
-			type: 'number',
-			source: 'meta',
-			meta: ARTWORK_HEIGHT,
-		},
-		depth: {
-			type: 'number',
-			source: 'meta',
-			meta: ARTWORK_DEPTH,
-		},
-		date: {
-			type: 'string',
-			source: 'meta',
-			meta: ARTWORK_DATE,
-			default: null,
-		},
-	},
-
-	edit: compose(
-		withSelect( select => ( {
-			postId: select( 'core/editor' ).getEditedPostAttribute( 'id' ),
-		} ) ),
-		withDispatch( ( dispatch, ownProps, { select } ) => ( {
-			openSidebar: () => {
-				dispatch( 'core/edit-post' ).openGeneralSidebar( 'edit-post/document' );
-
-				const mediaPanel = `taxonomy-panel-${ MEDIA_TAXONOMY }`;
-				if ( ! select( 'core/editor' ).isEditorPanelOpened( mediaPanel ) ) {
-					dispatch( 'core/editor' ).toggleEditorPanelOpened( mediaPanel );
-				}
-			},
-		} ) ),
-	)( EditDimensionsBlock ),
-
-	save() {
-		return null;
-	},
-};
-
-// Limit the post types in which this block is available.
-export const postTypes = [ ARTWORK_POST_TYPE ];
+	edit: MetadataEdit,
+	save: () => null,
+} );

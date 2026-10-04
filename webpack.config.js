@@ -1,10 +1,9 @@
 /**
  * Extends the @wordpress/scripts webpack configuration.
  *
- * Two entries, editor and frontend, emitted as build/{name}.js and
- * build/{name}.css. Block style.scss files stay in the editor bundle rather
- * than being split into style-*.css, which preserves the previous output.
- * A production-asset-manifest.json is written for humanmade/asset-loader.
+ * Blocks are built from their block.json files by the default config. This
+ * adds one extra entry, editor, for plugin-level editor code, and writes a
+ * production-asset-manifest.json for humanmade/asset-loader to find it.
  */
 const path = require( 'path' );
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
@@ -36,18 +35,10 @@ class AssetManifestPlugin {
 
 module.exports = {
 	...defaultConfig,
-	entry: {
+	entry: () => ( {
+		...defaultConfig.entry(),
 		editor: path.resolve( __dirname, 'src/editor.js' ),
-		frontend: path.resolve( __dirname, 'src/frontend.js' ),
-	},
-	optimization: {
-		...defaultConfig.optimization,
-		splitChunks: {
-			cacheGroups: {
-				default: false,
-			},
-		},
-	},
+	} ),
 	plugins: [
 		...defaultConfig.plugins,
 		new AssetManifestPlugin(),

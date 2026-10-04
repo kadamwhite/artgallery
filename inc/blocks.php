@@ -4,12 +4,58 @@
  */
 namespace ArtGallery\Blocks;
 
+use ArtGallery\Post_Types;
+use WP_Block_Type_Registry;
+
+/**
+ * Blocks which are only available when editing artwork items.
+ */
+const ARTWORK_ONLY_BLOCKS = [
+	'artgallery/availability',
+	'artgallery/metadata',
+];
+
 function setup() {
-	// Auto-load all PHP-defined blocks.
+	// Load block-specific hooks.
 	autoregister_blocks();
 
 	// Register actions & filters.
+	add_action( 'init', __NAMESPACE__ . '\\register_blocks' );
 	add_filter( 'block_categories_all', __NAMESPACE__ . '\\add_artgallery_block_category', 10, 1 );
+	add_filter( 'allowed_block_types_all', __NAMESPACE__ . '\\limit_artwork_only_blocks', 10, 2 );
+}
+
+/**
+ * Register every block built from a src/blocks/{name}/block.json file.
+ */
+function register_blocks() {
+	foreach ( glob( ARTGALLERY_PATH . 'build/blocks/*/block.json' ) as $file ) {
+		register_block_type_from_metadata( dirname( $file ) );
+	}
+}
+
+/**
+ * Remove the artwork-specific blocks outside the artwork post type.
+ *
+ * @param bool|string[]            $allowed_block_types Allowed block types, or true for all.
+ * @param \WP_Block_Editor_Context $context             The current block editor context.
+ * @return bool|string[] The filtered allowed block types.
+ */
+function limit_artwork_only_blocks( $allowed_block_types, $context ) {
+	// Leave the site editor and other post-less contexts alone.
+	if ( empty( $context->post ) || Post_Types\ARTWORK_POST_TYPE === $context->post->post_type ) {
+		return $allowed_block_types;
+	}
+
+	if ( true === $allowed_block_types ) {
+		$allowed_block_types = array_keys( WP_Block_Type_Registry::get_instance()->get_all_registered() );
+	}
+
+	if ( ! is_array( $allowed_block_types ) ) {
+		return $allowed_block_types;
+	}
+
+	return array_values( array_diff( $allowed_block_types, ARTWORK_ONLY_BLOCKS ) );
 }
 
 /**
@@ -56,10 +102,10 @@ function get_namespace_from_block_handle( $block_handle ) {
 }
 
 /**
- * Dynamically register blocks if a registration file exists.
+ * Load block-specific hooks if a setup file exists.
  */
 function autoregister_blocks() {
-	// Each block registered must have an entrypoint in /blocks/{blockname}.php.
+	// Each block with PHP hooks must have an entrypoint in /blocks/{blockname}.php.
 	foreach ( glob( __DIR__ . '/blocks/*.php' ) as $file ) {
 		require_once $file;
 		$block_handle = get_block_handle_from_path( $file );

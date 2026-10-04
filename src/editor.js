@@ -1,7 +1,5 @@
 /**
- * Dynamically locate, load & register all Editor Blocks & Plugins.
- *
- * Entry point for the "editor.js" bundle.
+ * Entry point for the "editor.js" bundle: plugins and filters that are not blocks.
  */
-import './blocks';
+import './filters/core-image';
 import './plugins';

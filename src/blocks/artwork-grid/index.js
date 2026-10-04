@@ -1,33 +1,20 @@
-import { __ } from '@wordpress/i18n';
+import { registerBlockType } from '@wordpress/blocks';
+import { useBlockProps } from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
 
+import metadata from './block.json';
 import Icon from './icon';
 
-export const name = 'artgallery/artwork-grid';
+import './style.scss';
 
-export const settings = {
-	title: __( 'Artwork Grid', 'artgallery' ),
+const Edit = () => (
+	<div { ...useBlockProps() }>
+		<ServerSideRender block={ metadata.name } />
+	</div>
+);
 
-	description: __( 'Display a grid of recent artwork.', 'artgallery' ),
-
+registerBlockType( metadata.name, {
 	icon: Icon,
-
-	category: 'artgallery',
-
-	supports: {
-		align: [ 'full', 'wide' ],
-	},
-
-	attributes: {
-		message: {
-			type: 'string',
-			default: 'Contact artist for pricing.',
-		},
-	},
-
-	edit: () => <ServerSideRender block={ name } />,
-
-	save() {
-		return null;
-	},
-};
+	edit: Edit,
+	save: () => null,
+} );

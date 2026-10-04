@@ -8,7 +8,6 @@ use Asset_Loader;
 
 function setup() {
 	add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\\enqueue_block_editor_assets' );
-	add_action( 'enqueue_block_assets', __NAMESPACE__ . '\\enqueue_block_assets' );
 }
 
 /**
@@ -61,30 +60,5 @@ function enqueue_block_editor_assets() {
 	enqueue_manifest_asset( 'editor.js', [
 		'handle'       => 'artgallery-editor',
 		'dependencies' => $meta['dependencies'],
-	] );
-
-	enqueue_manifest_asset( 'editor.css', [
-		'handle' => 'artgallery-editor',
-	] );
-
-	$screen = get_current_screen();
-	if ( $screen ) {
-		wp_localize_script( 'artgallery-editor', 'ARTGALLERY_CURRENT_SCREEN', (array) $screen );
-	}
-}
-
-/**
- * Enqueue frontend assets. (Runs on both frontend and backend.)
- */
-function enqueue_block_assets() {
-	$meta = asset_meta( 'frontend' );
-
-	enqueue_manifest_asset( 'frontend.js', [
-		'handle'       => 'artgallery-frontend',
-		'dependencies' => $meta['dependencies'],
-	] );
-
-	enqueue_manifest_asset( 'frontend.css', [
-		'handle' => 'artgallery-frontend',
 	] );
 }

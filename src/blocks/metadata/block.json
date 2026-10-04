@@ -1,0 +1,37 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "artgallery/metadata",
+	"title": "Artwork Metadata",
+	"description": "List the date, size & materials for a given artwork.",
+	"category": "artgallery",
+	"textdomain": "artgallery",
+	"attributes": {
+		"width": {
+			"type": "number",
+			"default": 0,
+			"source": "meta",
+			"meta": "width"
+		},
+		"height": {
+			"type": "number",
+			"default": 0,
+			"source": "meta",
+			"meta": "height"
+		},
+		"depth": {
+			"type": "number",
+			"default": 0,
+			"source": "meta",
+			"meta": "depth"
+		},
+		"date": {
+			"type": "string",
+			"source": "meta",
+			"meta": "creation_date"
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"render": "file:./render.php"
+}
