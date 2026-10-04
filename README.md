@@ -5,7 +5,7 @@ ArtGallery is a artist's portfolio management plugin, providing tools for artist
 
 * **Contributors:** kadamwhite
 * **Tags:** art, media, portfolio, archive
-* **Requires at least:** 6.0
+* **Requires at least:** 6.6
 * **Requires PHP:** 8.2
 * **License:** GPLv2 or later or Artistic License 2.0
 * **License URI:** http://www.gnu.org/licenses/gpl-2.0.html

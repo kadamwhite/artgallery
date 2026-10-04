@@ -9,7 +9,7 @@ function setup() {
 	autoregister_blocks();
 
 	// Register actions & filters.
-	add_filter( 'block_categories', __NAMESPACE__ . '\\add_artgallery_block_category', 10, 1 );
+	add_filter( 'block_categories_all', __NAMESPACE__ . '\\add_artgallery_block_category', 10, 1 );
 }
 
 /**

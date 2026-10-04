@@ -115,7 +115,6 @@ const AvailabilityOptionsList = ( {
 						value={ attributes.message }
 						onChange={ message => setAttributes( { message } ) }
 						placeholder={ __( 'Enter text...', 'custom-block' ) }
-						keepPlaceholderOnFocus={ true }
 					/>
 				</Fragment>
 			) : null }

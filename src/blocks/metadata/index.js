@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Fragment } from '@wordpress/element';
-import { ServerSideRender } from '@wordpress/editor';
+import ServerSideRender from '@wordpress/server-side-render';
 import { TextControl } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
@@ -123,8 +123,8 @@ export const settings = {
 				dispatch( 'core/edit-post' ).openGeneralSidebar( 'edit-post/document' );
 
 				const mediaPanel = `taxonomy-panel-${ MEDIA_TAXONOMY }`;
-				if ( ! select( 'core/edit-post' ).isEditorPanelOpened( mediaPanel ) ) {
-					dispatch( 'core/edit-post' ).toggleEditorPanelOpened( mediaPanel );
+				if ( ! select( 'core/editor' ).isEditorPanelOpened( mediaPanel ) ) {
+					dispatch( 'core/editor' ).toggleEditorPanelOpened( mediaPanel );
 				}
 			},
 		} ) ),

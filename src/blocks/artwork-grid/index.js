@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ServerSideRender } from '@wordpress/editor';
+import ServerSideRender from '@wordpress/server-side-render';
 
 import ChildMonitor from '../../components/child-monitor';
 import Icon from './icon';
