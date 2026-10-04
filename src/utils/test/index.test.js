@@ -1,7 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-	bemBlock,
-} from '../';
+import { bemBlock } from '../';
 
 describe( 'bemBlock', () => {
 	it( 'returns an object', () => {
@@ -16,7 +14,9 @@ describe( 'bemBlock', () => {
 		const block = bemBlock( 'block-name' );
 		expect( block.element ).toBeDefined();
 		expect( block.element ).toBeInstanceOf( Function );
-		expect( block.element( 'element-name' ) ).toBe( 'block-name__element-name' );
+		expect( block.element( 'element-name' ) ).toBe(
+			'block-name__element-name'
+		);
 	} );
 
 	it( 'provides a .modifier() method', () => {
@@ -24,6 +24,8 @@ describe( 'bemBlock', () => {
 		expect( block.modifier ).toBeDefined();
 		expect( block.modifier ).toBeInstanceOf( Function );
 		expect( block.modifier( 'modifier' ) ).toBe( 'block-name--modifier' );
-		expect( block.modifier( 'element-name', 'modifier' ) ).toBe( 'block-name__element-name--modifier' );
+		expect( block.modifier( 'element-name', 'modifier' ) ).toBe(
+			'block-name__element-name--modifier'
+		);
 	} );
 } );
