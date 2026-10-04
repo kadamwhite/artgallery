@@ -3,13 +3,10 @@
  *
  * From https://thenounproject.com/term/pack-of-dollars/131792/
  *
- * @return {Object}
+ * @return {Element} Grid icon.
  */
 export default () => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		viewBox="0 0 20 20"
-	>
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 		<g>
 			<rect x="0" y="4" width="6" height="6" />
 			<rect x="7" y="4" width="6" height="6" />

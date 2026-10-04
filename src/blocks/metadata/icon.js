@@ -1,7 +1,7 @@
 /**
  * Render an SVG icon of a measuring triangle as JSX.
  *
- * @return {Object}
+ * @return {Element} Triangle icon.
  */
 export default () => (
 	<svg

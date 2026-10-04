@@ -1,4 +1,4 @@
-export const bemBlock = blockName => ( {
+export const bemBlock = ( blockName ) => ( {
 	element( elementName ) {
 		return `${ blockName }__${ elementName }`;
 	},

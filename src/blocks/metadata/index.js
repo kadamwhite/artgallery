@@ -25,11 +25,16 @@ import './editor.scss';
 const block = bemBlock( 'artwork-metadata' );
 
 const EditDimensionsBlock = ( { isSelected, postId, postType } ) => {
-	const [ meta = {}, setMeta ] = useEntityProp( 'postType', postType, 'meta', postId );
+	const [ meta = {}, setMeta ] = useEntityProp(
+		'postType',
+		postType,
+		'meta',
+		postId
+	);
 
 	const mediaPanel = `taxonomy-panel-${ MEDIA_TAXONOMY }`;
 	const isMediaPanelOpened = useSelect(
-		select => select( 'core/editor' ).isEditorPanelOpened( mediaPanel ),
+		( select ) => select( 'core/editor' ).isEditorPanelOpened( mediaPanel ),
 		[ mediaPanel ]
 	);
 	const { openGeneralSidebar } = useDispatch( 'core/edit-post' );
@@ -44,15 +49,16 @@ const EditDimensionsBlock = ( { isSelected, postId, postType } ) => {
 	};
 
 	// Registered number meta rejects empty strings, so store those as 0.
-	const setMetaValue = ( key, value ) => setMeta( { ...meta, [ key ]: value } );
-	const setMetaNumber = ( key, value ) => setMetaValue( key, Number( value ) );
+	const setMetaValue = ( key, value ) =>
+		setMeta( { ...meta, [ key ]: value } );
+	const setMetaNumber = ( key, value ) =>
+		setMetaValue( key, Number( value ) );
 
-	const hasAttributeValues = (
+	const hasAttributeValues =
 		meta[ ARTWORK_WIDTH ] ||
 		meta[ ARTWORK_HEIGHT ] ||
 		meta[ ARTWORK_DEPTH ] ||
-		meta[ ARTWORK_DATE ]
-	);
+		meta[ ARTWORK_DATE ];
 	return isSelected || ! hasAttributeValues ? (
 		<Fragment>
 			<h2 className={ block.element( 'title' ) }>
@@ -62,7 +68,7 @@ const EditDimensionsBlock = ( { isSelected, postId, postType } ) => {
 				className={ block.element( 'date' ) }
 				label={ __( 'When was this artwork completed?', 'artgallery' ) }
 				value={ meta[ ARTWORK_DATE ] ?? '' }
-				onChange={ date => setMetaValue( ARTWORK_DATE, date ) }
+				onChange={ ( date ) => setMetaValue( ARTWORK_DATE, date ) }
 			/>
 			<p className={ block.element( 'message' ) }>
 				{ __( 'Specify artwork dimensions:', 'artgallery' ) }
@@ -73,7 +79,9 @@ const EditDimensionsBlock = ( { isSelected, postId, postType } ) => {
 					label={ __( 'inches width', 'artgallery' ) }
 					value={ meta[ ARTWORK_WIDTH ] ?? '' }
 					type="number"
-					onChange={ width => setMetaNumber( ARTWORK_WIDTH, width ) }
+					onChange={ ( width ) =>
+						setMetaNumber( ARTWORK_WIDTH, width )
+					}
 				/>
 				<span>x</span>
 				<TextControl
@@ -81,7 +89,9 @@ const EditDimensionsBlock = ( { isSelected, postId, postType } ) => {
 					label={ __( 'inches tall', 'artgallery' ) }
 					value={ meta[ ARTWORK_HEIGHT ] ?? '' }
 					type="number"
-					onChange={ height => setMetaNumber( ARTWORK_HEIGHT, height ) }
+					onChange={ ( height ) =>
+						setMetaNumber( ARTWORK_HEIGHT, height )
+					}
 				/>
 				<span>x</span>
 				<TextControl
@@ -89,11 +99,16 @@ const EditDimensionsBlock = ( { isSelected, postId, postType } ) => {
 					label={ __( 'inches deep (optional)', 'artgallery' ) }
 					value={ meta[ ARTWORK_DEPTH ] ?? '' }
 					type="number"
-					onChange={ depth => setMetaNumber( ARTWORK_DEPTH, depth ) }
+					onChange={ ( depth ) =>
+						setMetaNumber( ARTWORK_DEPTH, depth )
+					}
 				/>
 			</div>
 			<p className={ block.element( 'message' ) }>
-				{ __( 'To modify artwork media information, add or remove terms in the Document sidebar.', 'artgallery' ) }
+				{ __(
+					'To modify artwork media information, add or remove terms in the Document sidebar.',
+					'artgallery'
+				) }
 				<button
 					className={ `components-button is-button is-default ${ block.element( 'button' ) }` }
 					onClick={ openSidebar }
@@ -117,19 +132,33 @@ const EditDimensionsBlock = ( { isSelected, postId, postType } ) => {
 	);
 };
 
-const MetadataEdit = props => {
-	const { context: { postId, postType, queryId } } = props;
-	const isEditable = postId && postType === ARTWORK_POST_TYPE && ! Number.isFinite( queryId );
+const MetadataEdit = ( props ) => {
+	const {
+		context: { postId, postType, queryId },
+	} = props;
+	const isEditable =
+		postId &&
+		postType === ARTWORK_POST_TYPE &&
+		! Number.isFinite( queryId );
 
 	let content;
 	if ( ! postId ) {
 		content = (
 			<p className={ block.element( 'message' ) }>
-				{ __( 'Displays the current artwork\'s date, dimensions and media.', 'artgallery' ) }
+				{ __(
+					"Displays the current artwork's date, dimensions and media.",
+					'artgallery'
+				) }
 			</p>
 		);
 	} else if ( isEditable ) {
-		content = <EditDimensionsBlock { ...props } postId={ postId } postType={ postType } />;
+		content = (
+			<EditDimensionsBlock
+				{ ...props }
+				postId={ postId }
+				postType={ postType }
+			/>
+		);
 	} else {
 		content = (
 			<ServerSideRender
