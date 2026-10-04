@@ -29,6 +29,11 @@
 		color: #707070;
 	}
 
+	// Core's .components-base-control font size does not reach the editor iframe.
+	.editor-styles-wrapper &__help-text {
+		font-size: 13px;
+	}
+
 	.editor-styles-wrapper &__options .components-base-control__label {
 		font-weight: bold;
 	}
