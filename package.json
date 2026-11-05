@@ -17,7 +17,8 @@
 		"start": "wp-scripts start",
 		"lint:js": "wp-scripts lint-js src",
 		"lint:php": "composer phpcs",
-		"test": "wp-scripts test-unit-js"
+		"test": "wp-scripts test-unit-js src",
+		"test:bundle": "wp-scripts test-unit-js tests/bundle"
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^36.0.0",
