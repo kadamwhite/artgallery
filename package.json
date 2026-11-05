@@ -21,7 +21,7 @@
 		"test:bundle": "wp-scripts test-unit-js tests/bundle"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^36.0.0",
+		"@wordpress/scripts": "^37.1.0",
 		"vite": "^8.3.5",
 		"vitest": "^5.0.3"
 	}
